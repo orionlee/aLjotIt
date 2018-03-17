@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="24dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="net.oldev.alsscratchpad.MainActivity"
+    tools:showIn="@layout/activity_main">
+    <EditText
+        android:id="@+id/scratch_pad_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="start|top"
+        android:fontFamily="sans-serif"
+        android:inputType="text|textAutoCorrect|textCapSentences|textMultiLine"
+        android:hint="@string/scratch_pad_content_hint"
+        android:textSize="16sp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <!-- background=@null to remove the line at the bottom aka underbar -->
+
+</android.support.constraint.ConstraintLayout>
