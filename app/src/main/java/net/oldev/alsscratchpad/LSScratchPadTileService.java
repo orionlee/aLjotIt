@@ -15,7 +15,15 @@ public class LSScratchPadTileService extends TileService {
     @Override
     public void onClick() {
         super.onClick();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        // Launch new Google Keep note on normal screen.
+        // On lock screen, launch ScratchPad as Google Keep is not available.
+        Intent intent;
+        if (isLocked()) {
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+        } else {
+            intent = new Intent();
+            intent.setClassName(MainActivity.GKEEP_PACKAGE_NAME, MainActivity.GKEEP_CLASSNAME);
+        }
         startActivityAndCollapse(intent);
     }
     

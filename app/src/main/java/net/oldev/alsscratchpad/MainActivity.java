@@ -114,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
     // Actual sendTo action implementation
     //
 
+    static final String GKEEP_PACKAGE_NAME = "com.google.android.keep";
+    static final String GKEEP_CLASSNAME = "com.google.android.keep.activities.ShareReceiverActivity";
+
     // Standard share UI
     private void sendToShareChooser() {
         sendTo(null, null);
@@ -121,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendToKeep() {
         /// Use Keep
-        sendTo("com.google.android.keep", "com.google.android.keep.activities.ShareReceiverActivity");
+        sendTo(GKEEP_CLASSNAME, GKEEP_CLASSNAME);
     }
 
     private void sendTo(@Nullable String packageName, @Nullable String className) {
