@@ -1,10 +1,7 @@
 package net.oldev.alsscratchpad;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.FloatingActionButton;
@@ -30,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mScratchPad;
 
-    private ScratchPadModel mModel; 
+    private LSScratchPadModel mModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mModel = new ScratchPadModel(getApplicationContext());
+        mModel = new LSScratchPadModel(getApplicationContext());
 
         // setting attributes on the service declaration in AndroidManifest.xml
         // does not work for some reason android:showOnLockScreen="true", android:showOnLockScreen="true"
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         String content = mScratchPad.getText().toString();
-        mModel.saveContent(content);
+        mModel.setContent(content);
     }
 
     //
@@ -180,39 +177,6 @@ public class MainActivity extends AppCompatActivity {
     }
     //
     // END theme-related generic code across the app
-
-
-    private static class ScratchPadModel {
-        private static final String PREFERENCES_KEY = "net.oldev.alsscratchpad";
-        private static final String PREFS_CONTENT = "content";
-
-        private final @NonNull Context mContext;
-
-        public ScratchPadModel(@NonNull Context context) {
-            mContext = context;
-        }
-
-        public void saveContent(String content) {
-            SharedPreferences.Editor editor  = getPrefs().edit();
-            editor.putString(PREFS_CONTENT, content);
-
-            final boolean success = editor.commit();
-            if (!success) {
-                throw new RuntimeException("Unexpected failure in committing content.");
-            }
-        }
-
-        public String getContent() {
-            return getPrefs().getString(PREFS_CONTENT, "");
-        }
-
-        private SharedPreferences getPrefs() {
-            SharedPreferences prefs =
-                    mContext.getSharedPreferences(PREFERENCES_KEY,
-                                                  Context.MODE_PRIVATE);
-            return prefs;
-        }
-    }
 
 
 }
