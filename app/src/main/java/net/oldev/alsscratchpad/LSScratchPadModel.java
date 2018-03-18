@@ -11,7 +11,8 @@ import java.lang.annotation.RetentionPolicy;
 public class LSScratchPadModel {
     private static final String PREFERENCES_KEY = "net.oldev.alsscratchpad";
     private static final String PREF_CONTENT = "content";
-    private static final String PREF_THEME = "theme";
+
+    static final String PREF_THEME = "theme"; // used by UI code
 
     public static final String THEME_LIGHT = "LIGHT";
     public static final String THEME_DARK = "DARK";

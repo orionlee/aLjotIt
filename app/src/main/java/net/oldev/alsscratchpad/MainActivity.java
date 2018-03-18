@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Log.d(TAG, "onOptionsItemSelected() - To be implemented. menuItem.id=" + id);
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
             return true;
         } else if (id == R.id.action_send_to_keep) {
             sendToKeep();

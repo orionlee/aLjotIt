@@ -11,4 +11,20 @@
     <string name="action_settings">Settings</string>
 
     <string name="hint_scratch_pad_content">Take a note...</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="pref_theme">Select Theme</string> <!-- Label text on UI -->
+    <string-array name="pref_theme_titles">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="pref_theme_values"> <!-- corresponds to LSScratchPadModel.ThemeOption -->
+        <item>LIGHT</item>
+        <item>DARK</item>
+        <item>AUTO</item>
+    </string-array>
+
 </resources>

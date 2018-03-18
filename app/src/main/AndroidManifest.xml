@@ -3,7 +3,7 @@
           package="net.oldev.alsscratchpad">
 
     <!-- For use on lock screen -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"
@@ -24,17 +24,30 @@
 
         <service
             android:name=".LSScratchPadTileService"
-            android:label="@string/tile_name"
             android:icon="@drawable/ic_tile"
+            android:label="@string/tile_name"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
-            <!-- Set it as active tile to make UI more snappy.
-                 The tile UI is static so there is no other work need to be done. -->
-            <meta-data android:name="android.service.quicksettings.ACTIVE_TILE"
-                       android:value="true" />
+            <!--
+                 Set it as active tile to make UI more snappy.
+                 The tile UI is static so there is no other work need to be done.
+            -->
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true"/>
         </service>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.oldev.alsscratchpad.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
