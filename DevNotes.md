@@ -12,7 +12,10 @@
 
 ## Additional features
 - [ ] support send action - add to scratch pad, to copy/paste multiple times from a page in forming a longer note
-- [ ] Lock screen edge case: if the app is in foreground before going to lock screen, put it back to background
+- [ ] Lock screen UI refinement case
+    - if the app is in foreground before going to lock screen, put it back to background
+    - On lock screen, once Scratch Pad is brought out, it should be hidden once it is done (while still on lock screen), 
+    e.g., upon hitting send button, the UI should be hidden.    
 - reduce apk / memory footprint (by cutting number of support libs used)
 - UI for post lock screen: somehow remind users to send to Keep
     - do we show send / share button on lock screen?
