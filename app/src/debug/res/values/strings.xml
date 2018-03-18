@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--override default name for ease of identification -->
+    <string name="app_name">LS Scratch Pad Dev</string>
+    <string name="tile_name">LS Scratch Pad Dev</string>
+</resources>

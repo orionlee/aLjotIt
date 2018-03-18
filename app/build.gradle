@@ -6,8 +6,13 @@ android {
         applicationId "net.oldev.alsscratchpad"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        def vMajor = 0
+        def vMinor = 2
+        def vPatch = 0
+        versionCode vMajor * 10000 + vMinor * 100 + vPatch
+        versionName "${vMajor}.${vMinor}.${vPatch}"
+
+        resConfigs "en"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -15,10 +20,42 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    signingConfigs {
+        releaseConfig {
+            if (project.hasProperty("releaseStoreFile")) {
+                storeFile file(releaseStoreFile)
+            } else {
+                storeFile file("keystore")
+            }
+            if (project.hasProperty("releaseStorePassword")) {
+                storePassword releaseStorePassword
+            } else {
+                storePassword "password"
+            }
+            if (project.hasProperty("releaseKeyAlias")) {
+                keyAlias releaseKeyAlias
+            } else {
+                keyAlias "alias"
+            }
+            if (project.hasProperty("releaseKeyPassword")) {
+                keyPassword releaseKeyPassword
+            } else {
+                keyPassword "password"
+            }
+        }
+    }
     buildTypes {
+        debug {
+            // allow debug / release be installed as separate apps,
+            // versionNameSuffix helps to differentiate them visually
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
         }
     }
 }
