@@ -22,7 +22,7 @@
         android:fontFamily="sans-serif"
         android:inputType="text|textAutoCorrect|textCapSentences|textMultiLine"
         android:hint="@string/hint_scratch_pad_content"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
