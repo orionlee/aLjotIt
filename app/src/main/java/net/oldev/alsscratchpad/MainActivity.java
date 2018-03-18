@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         int curHr = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         if (curHr >= nightThemeBeginHour ||
                 curHr <= nightThemeEndHour) {
-            return R.style.AppTheme_Night;
+            return R.style.AppTheme_Dark;
         } else {
             return R.style.AppTheme;
         }
