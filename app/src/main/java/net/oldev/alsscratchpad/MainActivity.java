@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
+import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -21,9 +21,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -144,6 +141,14 @@ public class MainActivity extends AppCompatActivity {
         /// Use Keep
         if (!TextUtils.isEmpty(packageName) && !TextUtils.isEmpty(className)) {
             intent.setClassName("com.google.android.keep", "com.google.android.keep.activities.ShareReceiverActivity");
+        }  else {
+            // Customized chooser label
+            String labelText = getString(R.string.label_send_to);
+            SpannableString chooserLabel = new SpannableString(labelText);
+            chooserLabel.setSpan(new TextAppearanceSpan(this,
+                                                        android.R.style.TextAppearance_Material_Medium),
+                                 0, labelText.length(), 0); // larger that default
+            intent = intent.createChooser(intent, chooserLabel);
         }
         ///Log.e(TAG, "text to send: " + textView.getText());
 
