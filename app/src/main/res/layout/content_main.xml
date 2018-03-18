@@ -21,7 +21,7 @@
         android:gravity="start|top"
         android:fontFamily="sans-serif"
         android:inputType="text|textAutoCorrect|textCapSentences|textMultiLine"
-        android:hint="@string/scratch_pad_content_hint"
+        android:hint="@string/hint_scratch_pad_content"
         android:textSize="16sp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:tooltipText="@string/send_to_keep"
+        android:tooltipText="@string/tip_send_to_keep"
         app:backgroundTint="@color/keepBackground"
         app:srcCompat="@drawable/ic_send_to_keep"/>
     <!-- app:backgroundTint="" to set background color, android:background won't work for FAB -->

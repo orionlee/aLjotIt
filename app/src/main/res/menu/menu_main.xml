@@ -7,7 +7,7 @@
         android:orderInCategory="100"
         android:title="@string/action_send_to_keep"
         android:icon="@drawable/ic_send_to_keep"
-        android:tooltipText="@string/send_to_keep"
+        android:tooltipText="@string/tip_send_to_keep"
         app:showAsAction="always|withText"/>
     
     <item
