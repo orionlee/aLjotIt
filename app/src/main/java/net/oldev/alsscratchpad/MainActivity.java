@@ -21,7 +21,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "LSSP"; // Lock Screen Scratch Pad abbreviation
+    private static final String TAG = "LSSP-Main"; // Lock Screen Scratch Pad abbreviation
 
     private static final int REQUEST_CODE_SHARE_TEXT = 987;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // does not work for some reason android:showOnLockScreen="true", android:showOnLockScreen="true"
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 
-        setTheme(); // MUST be done before setContentView, consider setting the theme
+        ThemeSwitcher.setTheme(mModel, this); // MUST be done before setContentView, consider setting the theme
         setContentView(R.layout.activity_main);
 
         mScratchPad = (EditText)findViewById(R.id.scratch_pad_content);
@@ -172,10 +172,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private @StyleRes int findThemeIdByOption(@LSScratchPadModel.ThemeOption String theme) {
+        @StyleRes int themeId;
+
+        switch (theme) {
+            case LSScratchPadModel.THEME_AUTO:
+                themeId = getThemeIdByTime();
+                break;
+            case LSScratchPadModel.THEME_DARK:
+                themeId = R.style.AppTheme_Dark;
+                break;
+            case LSScratchPadModel.THEME_LIGHT:
+                themeId = R.style.AppTheme;
+                break;
+            default:
+                Log.w(TAG, "Unexpected theme option +[" + theme + "]. Use default");
+                themeId = R.style.AppTheme;
+        }
+        return themeId;
+    }
+
     private void setTheme() {
-        // for case auto theme (by time)
-        // PENDING: select style based on preference
-        setTheme(getThemeIdByTime());
+        @LSScratchPadModel.ThemeOption String theme = mModel.getTheme();
+        @StyleRes int themeId = findThemeIdByOption(theme);
+        setTheme(themeId);
     }
     //
     // END theme-related generic code across the app

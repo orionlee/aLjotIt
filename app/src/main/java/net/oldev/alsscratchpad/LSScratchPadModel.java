@@ -9,8 +9,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class LSScratchPadModel {
-    private static final String PREFERENCES_KEY = "net.oldev.alsscratchpad";
+    // preference file name for the text
+    private static final String P_CONTENT = "net.oldev.alsscratchpad";
+
     private static final String PREF_CONTENT = "content";
+
+    // preference file name for settings (typically exposed in UI)
+    private static final String P_SETTINGS  = BuildConfig.APPLICATION_ID + "_preferences";
 
     static final String PREF_THEME = "theme"; // used by UI code
 
@@ -34,12 +39,12 @@ public class LSScratchPadModel {
     // Access Scratch Pad text
 
     public void setContent(@NonNull String content) {
-        setPref(PREF_CONTENT, content);
+        setPref(P_CONTENT, PREF_CONTENT, content);
     }
 
     public @NonNull
     String getContent() {
-        return getStringPref(PREF_CONTENT, "");
+        return getStringPref(P_CONTENT, PREF_CONTENT, "");
     }
 
     // Access Settings
@@ -47,11 +52,11 @@ public class LSScratchPadModel {
     public @NonNull
     @ThemeOption
     String getTheme() {
-        return getStringPref(PREF_THEME, THEME_LIGHT);
+        return getStringPref(P_SETTINGS, PREF_THEME, THEME_LIGHT);
     }
 
     public void setTheme(@NonNull @ThemeOption String theme) {
-        setPref(PREF_THEME, theme);
+        setPref(P_SETTINGS, PREF_THEME, theme);
     }
 
 
@@ -59,21 +64,24 @@ public class LSScratchPadModel {
     // SharedPreferences helpers
     //
 
+
     private @NonNull
-    SharedPreferences getPreferences() {
+    SharedPreferences getPreferences(@NonNull String prefName) {
         SharedPreferences prefs =
-                mContext.getSharedPreferences(PREFERENCES_KEY,
+                mContext.getSharedPreferences(prefName,
                                               Context.MODE_PRIVATE);
         return prefs;
     }
 
     private @NonNull
-    String getStringPref(@NonNull String key, @NonNull String defValue) {
-        return getPreferences().getString(key, defValue);
+    String getStringPref(@NonNull String prefName,
+                         @NonNull String key, @NonNull String defValue) {
+        return getPreferences(prefName).getString(key, defValue);
     }
 
-    private void setPref(@NonNull String key, @NonNull String value) {
-        SharedPreferences.Editor editor = getPreferences().edit();
+    private void setPref(@NonNull String prefName,
+                         @NonNull String key, @NonNull String value) {
+        SharedPreferences.Editor editor = getPreferences(prefName).edit();
         editor.putString(key, value);
 
         // use asynchronous apply. I can't handle commit() failures other than reporting it anyway.

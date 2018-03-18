@@ -19,8 +19,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Theme must be set before calling super (which does some view inflation)
+        ThemeSwitcher.setTheme(new LSScratchPadModel(getApplicationContext()), this);
+
         super.onCreate(savedInstanceState);
-        // PENDING: set theme here before setting up the UI
         setupActionBar();
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();

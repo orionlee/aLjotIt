@@ -8,7 +8,7 @@ android {
         targetSdkVersion 26
         def vMajor = 0
         def vMinor = 2
-        def vPatch = 3
+        def vPatch = 4
         versionCode vMajor * 10000 + vMinor * 100 + vPatch
         versionName "${vMajor}.${vMinor}.${vPatch}"
 
