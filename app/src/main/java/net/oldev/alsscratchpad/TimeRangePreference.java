@@ -15,6 +15,9 @@ import android.widget.TimePicker;
 
 /**
  * Generic class to represent a time range [begin,end] preference
+ *
+ * Adapted from:
+ *   https://stackoverflow.com/questions/5533078/timepicker-in-preferencescreen
  */
 public class TimeRangePreference extends DialogPreference {
     private TimeRange lastTimeRange = null;
