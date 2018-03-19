@@ -15,13 +15,9 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_theme"/>
 
-
-        <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-        <EditTextPreference
-            android:inputType="time"
-            android:key="autoThemeBegin"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:title="Dark Theme Begin Time (Placeholder)"/>
+        <net.oldev.alsscratchpad.TimeRangePreference
+            android:key="autoThemeDarkTimeRange"
+            android:defaultValue="[23:00,07:30]"
+            android:title="@string/pref_auto_theme_dark_time_range"/>
     </PreferenceCategory>
 </PreferenceScreen>

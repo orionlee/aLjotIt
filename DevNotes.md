@@ -6,7 +6,8 @@
 - [x] App Icon
 - [ ] themes
     - [x] auto theme
-    - [ ] UI to choose between light, dark, and auto
+    - [x] UI to choose between light, dark, and auto
+    - [ ] Configurable auto (rather than hardcoded time interval)
 - [x] Release build related tasks: signing, different version name/code/ app label
 
 ## Additional features

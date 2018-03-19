@@ -7,7 +7,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 
 /**
- * Generic utility methods used to implement SettingsActivity.
+ * Semi-generic utility methods used to implement SettingsActivity.
  * These generic methods are moved from Android Studio-generated SettingsActivity class
  */
 public class AppCompatPreferenceUtil {
@@ -33,6 +33,10 @@ public class AppCompatPreferenceUtil {
                                 ? listPreference.getEntries()[index]
                                 : null);
 
+            } else if (preference instanceof TimeRangePreference) {
+                // TimeRangePreference is specific to our use
+                // Convert machine-friendly string stored to human-friendly representation
+                preference.setSummary(TimeRange.parse(stringValue).toString());
             } else {
                 // For all other preferences, set the summary to the value's
                 // simple string representation.

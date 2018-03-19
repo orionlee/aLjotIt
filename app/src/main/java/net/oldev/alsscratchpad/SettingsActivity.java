@@ -11,6 +11,8 @@ import android.preference.PreferenceScreen;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import net.oldev.alsscratchpad.LSScratchPadModel.ThemeOption;
+
 import static net.oldev.alsscratchpad.AppCompatPreferenceUtil.bindPreferenceSummaryToValue;
 
 // Simplified from Android Studio-generated template, which supports
@@ -81,20 +83,40 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("autoThemeBegin")); // PLACEHOLDER for auto theme start/end
-
-            Preference prefTheme = findPreference(LSScratchPadModel.PREF_THEME);
-            bindPreferenceSummaryToValue(prefTheme);
-
-            // Refresh Settings itself upon theme change
-            // Listen to the changes on the UI level (perfTheme) is sufficient.
             //
-            // If I listen to the changes at the model level (SharedPreference itself),
-            // the result is somehow not reliable: Change listener is on fired intermittently.
-            prefTheme.setOnPreferenceChangeListener((preference, newValue) -> {
-                ThemeSwitcher.refreshActivity(getActivity());
-                return true;
-            });
+            // Each Preference has its own additional specific logic
+            //
+            { // Pref auto theme dark time range
+                Preference prefAutoThemeDarkTimeRange = findPreference("autoThemeDarkTimeRange");
+                bindPreferenceSummaryToValue(prefAutoThemeDarkTimeRange);
+
+                // data bind prefAutoThemeDarkTimeRange enabled/disabled based on current theme
+                @ThemeOption String curTheme = new LSScratchPadModel(getActivity().getApplicationContext()).getTheme();
+                updatePrefAutoThemeEnabledStatus(curTheme, prefAutoThemeDarkTimeRange);
+            }
+
+            { // Pref Theme (to use)
+                Preference prefTheme = findPreference(LSScratchPadModel.PREF_THEME);
+                bindPreferenceSummaryToValue(prefTheme);
+
+                // Refresh Settings itself upon theme change
+                // Listen to the changes on the UI level (perfTheme) is sufficient.
+                //
+                // If I listen to the changes at the model level (SharedPreference itself),
+                // the result is somehow not reliable: Change listener is on fired intermittently.
+                prefTheme.setOnPreferenceChangeListener((preference, newValue) -> {
+                    ThemeSwitcher.refreshActivity(getActivity());
+                    // the activity is restarted. no further data binding update work is needed.
+                    // Otherwise prefAutoThemeDarkTimeRange will need updates.
+                    return true;
+                });
+            }
+        }
+
+        private void updatePrefAutoThemeEnabledStatus(@ThemeOption String themeOption,
+                                           Preference prefAutoThemeDarkTimeRange) {
+            boolean enabled = (LSScratchPadModel.THEME_AUTO.equals(themeOption));
+            prefAutoThemeDarkTimeRange.setEnabled(enabled);
         }
 
         @Override
