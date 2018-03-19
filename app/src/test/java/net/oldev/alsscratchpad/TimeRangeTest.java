@@ -31,7 +31,7 @@ public class TimeRangeTest {
     @Test
     public void toString_avg() throws Exception {
         TimeRange timeRange = new TimeRange(new HhMm(20, 33),
-                                            new HhMm(07, 05));
+                                            new HhMm(7, 5));
         String timeRangeStrOut = timeRange.toString();
 
         assertEquals("average test toString()",
@@ -61,7 +61,7 @@ public class TimeRangeTest {
                     {"avg - outside range neg",
                             9, 5, timeRangeNightTime, false},
                     {"daytime - pos 1",
-                            10, 02, timeRangeDaytime, true, },
+                            10, 2, timeRangeDaytime, true, },
                     {"daytime - pos 2",
                             12, 50, timeRangeDaytime, true },
                     {"daytime - neg before",
