@@ -3,7 +3,6 @@ package net.oldev.alsscratchpad;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
@@ -16,8 +15,6 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -156,49 +153,5 @@ public class MainActivity extends AppCompatActivity {
         //        .setAction("Action", null).show();
 
     }
-
-    // BEGIN  theme-related generic code across the app
-    //
-    private @StyleRes int getThemeIdByTime() {
-        final int nightThemeBeginHour = 23; // PENDING: config from mModel
-        final int nightThemeEndHour = 7;
-
-        int curHr = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (curHr >= nightThemeBeginHour ||
-                curHr <= nightThemeEndHour) {
-            return R.style.AppTheme_Dark;
-        } else {
-            return R.style.AppTheme;
-        }
-    }
-
-    private @StyleRes int findThemeIdByOption(@LSScratchPadModel.ThemeOption String theme) {
-        @StyleRes int themeId;
-
-        switch (theme) {
-            case LSScratchPadModel.THEME_AUTO:
-                themeId = getThemeIdByTime();
-                break;
-            case LSScratchPadModel.THEME_DARK:
-                themeId = R.style.AppTheme_Dark;
-                break;
-            case LSScratchPadModel.THEME_LIGHT:
-                themeId = R.style.AppTheme;
-                break;
-            default:
-                Log.w(TAG, "Unexpected theme option +[" + theme + "]. Use default");
-                themeId = R.style.AppTheme;
-        }
-        return themeId;
-    }
-
-    private void setTheme() {
-        @LSScratchPadModel.ThemeOption String theme = mModel.getTheme();
-        @StyleRes int themeId = findThemeIdByOption(theme);
-        setTheme(themeId);
-    }
-    //
-    // END theme-related generic code across the app
-
 
 }
