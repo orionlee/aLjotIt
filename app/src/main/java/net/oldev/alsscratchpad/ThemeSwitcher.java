@@ -32,15 +32,10 @@ public class ThemeSwitcher {
     }
 
     private static @StyleRes int getThemeIdByTime(@NonNull LSScratchPadModel model) {
-
         final TimeRange darkThemeTimeRange = model.getAutoThemeDarkTimeRange();
 
-        int curHr = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        int curMin = Calendar.getInstance().get(Calendar.MINUTE);
-
-        if ( (curHr >= darkThemeTimeRange.begin.hh && curMin >= darkThemeTimeRange.begin.mm) ||
-                ( curHr < darkThemeTimeRange.end.hh ||
-                        (curHr == darkThemeTimeRange.end.hh && curMin < darkThemeTimeRange.end.mm) ) ) {
+        Calendar curTime = Calendar.getInstance();
+        if (darkThemeTimeRange.contains(curTime)) {
             return R.style.AppTheme_Dark;
         } else {
             return R.style.AppTheme;

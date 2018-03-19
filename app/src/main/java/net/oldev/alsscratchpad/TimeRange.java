@@ -1,5 +1,7 @@
 package net.oldev.alsscratchpad;
 
+import java.util.Calendar;
+
 public class TimeRange {
 
     public static class HhMm {
@@ -61,6 +63,21 @@ public class TimeRange {
     public TimeRange(HhMm begin, HhMm end) {
         this.begin = begin;
         this.end = end;
+    }
+
+    /**
+     *
+     * @return true if the supplied time (HH:MM portion) falls within this range object,
+     * false otherwise. The range includes #begin, but exclude #end
+     */
+    public boolean contains(Calendar time) {
+        int hr = time.get(Calendar.HOUR_OF_DAY);
+        int minute = time.get(Calendar.MINUTE);
+
+        return ( hr > begin.hh ||
+                    (hr == begin.hh && minute >= begin.mm) ) ||
+               ( hr < end.hh ||
+                    (hr == end.hh && minute < end.mm) );
     }
 
     /**
