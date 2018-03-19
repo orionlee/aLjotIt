@@ -2,6 +2,9 @@
 
     <PreferenceCategory
         android:title="User Interface">
+        <!-- android:key values should be consistent with
+             the PREF_ constants defined in LSScratchPadModel.java -->
+
         <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
              dismiss it. -->
         <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->

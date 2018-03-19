@@ -17,7 +17,8 @@ public class LSScratchPadModel {
     // preference file name for settings (typically exposed in UI)
     private static final String P_SETTINGS  = BuildConfig.APPLICATION_ID + "_preferences";
 
-    static final String PREF_THEME = "theme"; // used by UI code
+    // used by UI code
+    static final String PREF_THEME = "theme";
 
     public static final String THEME_LIGHT = "LIGHT";
     public static final String THEME_DARK = "DARK";
@@ -25,8 +26,11 @@ public class LSScratchPadModel {
 
     @StringDef({THEME_LIGHT, THEME_DARK, THEME_AUTO})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface ThemeOption {
-    }
+    public @interface ThemeOption {}
+
+    // used by UI code
+    static final String PREF_AUTO_THEME_DARK_TIME_RANGE = "autoThemeDarkTimeRange";
+
 
     private final @NonNull
     Context mContext;
@@ -57,6 +61,13 @@ public class LSScratchPadModel {
 
     public void setTheme(@NonNull @ThemeOption String theme) {
         setPref(P_SETTINGS, PREF_THEME, theme);
+    }
+
+    public @NonNull TimeRange getAutoThemeDarkTimeRange() {
+        String timeRangeStr = getStringPref(P_SETTINGS,
+                                            PREF_AUTO_THEME_DARK_TIME_RANGE,
+                                            "[23:00,07:00]");
+        return TimeRange.parse(timeRangeStr);
     }
 
 

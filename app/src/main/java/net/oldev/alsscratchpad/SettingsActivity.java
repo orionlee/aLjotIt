@@ -87,7 +87,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // Each Preference has its own additional specific logic
             //
             { // Pref auto theme dark time range
-                Preference prefAutoThemeDarkTimeRange = findPreference("autoThemeDarkTimeRange");
+                Preference prefAutoThemeDarkTimeRange = findPreference(LSScratchPadModel.PREF_AUTO_THEME_DARK_TIME_RANGE);
                 bindPreferenceSummaryToValue(prefAutoThemeDarkTimeRange);
 
                 // data bind prefAutoThemeDarkTimeRange enabled/disabled based on current theme

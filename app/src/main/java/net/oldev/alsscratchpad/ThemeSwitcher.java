@@ -2,6 +2,7 @@ package net.oldev.alsscratchpad;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.util.Log;
 
@@ -16,8 +17,7 @@ public class ThemeSwitcher {
      * Set the activity to the theme based on the named model
      */
     public static void setTheme(LSScratchPadModel model, Activity activity) {
-        @LSScratchPadModel.ThemeOption String theme = model.getTheme();
-        @StyleRes int themeId = findThemeIdByOption(theme);
+        @StyleRes int themeId = findThemeIdByOption(model);
         activity.setTheme(themeId);
     }
 
@@ -31,25 +31,28 @@ public class ThemeSwitcher {
         activity.startActivity(refresh);
     }
 
-    private static @StyleRes int getThemeIdByTime() {
-        final int nightThemeBeginHour = 23; // PENDING: config from mModel
-        final int nightThemeEndHour = 7;
+    private static @StyleRes int getThemeIdByTime(@NonNull LSScratchPadModel model) {
+
+        final TimeRange darkThemeTimeRange = model.getAutoThemeDarkTimeRange();
 
         int curHr = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (curHr >= nightThemeBeginHour ||
-                curHr <= nightThemeEndHour) {
+        int curMin = Calendar.getInstance().get(Calendar.MINUTE);
+
+        if ( (curHr >= darkThemeTimeRange.begin.hh && curMin >= darkThemeTimeRange.begin.mm) ||
+                (curHr <= darkThemeTimeRange.end.hh && curMin <= darkThemeTimeRange.end.mm) ) {
             return R.style.AppTheme_Dark;
         } else {
             return R.style.AppTheme;
         }
     }
 
-    private static @StyleRes int findThemeIdByOption(@LSScratchPadModel.ThemeOption String theme) {
-        @StyleRes int themeId;
+    private static @StyleRes int findThemeIdByOption(@NonNull LSScratchPadModel model) {
+        @LSScratchPadModel.ThemeOption String theme = model.getTheme();
 
+        @StyleRes int themeId;
         switch (theme) {
             case LSScratchPadModel.THEME_AUTO:
-                themeId = getThemeIdByTime();
+                themeId = getThemeIdByTime(model);
                 break;
             case LSScratchPadModel.THEME_DARK:
                 themeId = R.style.AppTheme_Dark;
