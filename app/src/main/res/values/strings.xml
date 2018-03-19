@@ -27,4 +27,7 @@
         <item>AUTO</item>
     </string-array>
 
+    <string name="label_timerange_picker_begin">From</string>
+    <string name="label_timerange_picker_end">To</string>
+
 </resources>
