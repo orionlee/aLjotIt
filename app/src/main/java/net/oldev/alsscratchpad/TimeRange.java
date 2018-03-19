@@ -74,10 +74,24 @@ public class TimeRange {
         int hr = time.get(Calendar.HOUR_OF_DAY);
         int minute = time.get(Calendar.MINUTE);
 
-        return ( hr > begin.hh ||
-                    (hr == begin.hh && minute >= begin.mm) ) ||
-               ( hr < end.hh ||
-                    (hr == end.hh && minute < end.mm) );
+        if (isAcrossMidnight()) {
+            return (hr > begin.hh ||
+                    (hr == begin.hh && minute >= begin.mm)) ||
+                    (hr < end.hh ||
+                            (hr == end.hh && minute < end.mm));
+        } else {
+            return (hr > begin.hh ||
+                    (hr == begin.hh && minute >= begin.mm)) &&
+                    (hr < end.hh ||
+                            (hr == end.hh && minute < end.mm));
+        }
+    }
+
+    // determine if the range is across midnight.
+    // Used in #contains calculation
+    private boolean isAcrossMidnight() {
+        return begin.hh > end.hh ||
+                (begin.hh == end.hh && begin.mm < end.mm);
     }
 
     /**
