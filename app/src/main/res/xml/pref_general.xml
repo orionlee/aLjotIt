@@ -20,7 +20,7 @@
 
         <net.oldev.alsscratchpad.TimeRangePreference
             android:key="autoThemeDarkTimeRange"
-            android:defaultValue="[23:00,07:30]"
+            android:defaultValue="[23:00,07:00]"
             android:title="@string/pref_auto_theme_dark_time_range"/>
     </PreferenceCategory>
 </PreferenceScreen>
