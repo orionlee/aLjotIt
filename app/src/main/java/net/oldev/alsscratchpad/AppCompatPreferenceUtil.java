@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 /**
  * Semi-generic utility methods used to implement SettingsActivity.
@@ -36,7 +37,12 @@ public class AppCompatPreferenceUtil {
             } else if (preference instanceof TimeRangePreference) {
                 // TimeRangePreference is specific to our use
                 // Convert machine-friendly string stored to human-friendly representation
-                preference.setSummary(TimeRange.parse(stringValue).toString());
+                // The value supplied here is obtained directly from SharedPreference
+                // (in #bindPreferenceSummaryToValue()), without going through the model,
+                // hence it might be missing, and defaults need to be applied.
+                String strValueToUse = !TextUtils.isEmpty(stringValue) ? stringValue :
+                        LSScratchPadModel.DEFAULT_AUTO_THEME_DARK_TIME_RANGE;
+                preference.setSummary(TimeRange.parse(strValueToUse).toString());
             } else {
                 // For all other preferences, set the summary to the value's
                 // simple string representation.

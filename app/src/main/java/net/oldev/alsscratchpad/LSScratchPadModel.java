@@ -53,6 +53,8 @@ public class LSScratchPadModel {
 
     // Access Settings
 
+    public static final String DEFAULT_AUTO_THEME_DARK_TIME_RANGE = "[23:00,07:00]";
+    
     public @NonNull
     @ThemeOption
     String getTheme() {
@@ -66,7 +68,7 @@ public class LSScratchPadModel {
     public @NonNull TimeRange getAutoThemeDarkTimeRange() {
         String timeRangeStr = getStringPref(P_SETTINGS,
                                             PREF_AUTO_THEME_DARK_TIME_RANGE,
-                                            "[23:00,07:00]");
+                                            DEFAULT_AUTO_THEME_DARK_TIME_RANGE);
         return TimeRange.parse(timeRangeStr);
     }
 
