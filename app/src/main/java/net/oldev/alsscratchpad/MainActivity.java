@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         ThemeSwitcher.setTheme(mModel, this); // MUST be done before setContentView, consider setting the theme
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mScratchPad = (EditText)findViewById(R.id.scratch_pad_content);
 
