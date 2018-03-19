@@ -2,12 +2,12 @@ package net.oldev.alsscratchpad;
 
 import android.annotation.TargetApi;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
@@ -47,15 +47,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     }
 
-    // OPEN: declaring parent activity in AndroidManifest.xml has no effect,
-    // I have to hardcode navigate up logic here
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            startActivity(new Intent(this, MainActivity.class));
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            if (!super.onMenuItemSelected(featureId, item)) {
+                NavUtils.navigateUpFromSameTask(this);
+            }
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return super.onMenuItemSelected(featureId, item);
     }
 
     /**

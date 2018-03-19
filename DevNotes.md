@@ -11,7 +11,7 @@
 - [x] Release build related tasks: signing, different version name/code/ app label
 
 ## Additional features / fixes
-- [ ] Fix navigation between Main (the note) and Settings, right time pressing back (upper left) does not pop navigation stack. 
+- [x] Fix navigation between Main (the note) and Settings, right time pressing back (upper left) does not pop navigation stack. 
 It just pushes further the stack.
     - [ ] (Probably related) Theme change doesn't happen on editor when I hit system back button at the bottom, it does happen if I press the up button on action bar.
 - [ ] Support handling text/links to be shared TO LS Scratch Pad?! (downside: might pollute the share chooser UI) 
