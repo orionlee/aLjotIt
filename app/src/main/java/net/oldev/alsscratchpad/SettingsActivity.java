@@ -20,6 +20,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Theme must be set before calling super (which does some view inflation)
+        // Note: MainActivity has similar code, but they cannot be abstracted into common
+        // superclass because they inherit from different base class.
+        // Furthermore, using common superclass to enforce the behavior might not be desirable
+        // to begin with (too rigid): Theme-aware activity is better described as an aspect / mix-in.
         ThemeSwitcher.setTheme(new LSScratchPadModel(getApplicationContext()), this);
 
         super.onCreate(savedInstanceState);
@@ -77,8 +81,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference(LSScratchPadModel.PREF_THEME));
             bindPreferenceSummaryToValue(findPreference("autoThemeBegin")); // PLACEHOLDER for auto theme start/end
+
+            Preference prefTheme = findPreference(LSScratchPadModel.PREF_THEME);
+            bindPreferenceSummaryToValue(prefTheme);
+
+            // Refresh Settings itself upon theme change
+            // Listen to the changes on the UI level (perfTheme) is sufficient.
+            //
+            // If I listen to the changes at the model level (SharedPreference itself),
+            // the result is somehow not reliable: Change listener is on fired intermittently.
+            prefTheme.setOnPreferenceChangeListener((preference, newValue) -> {
+                ThemeSwitcher.refreshActivity(getActivity());
+                return true;
+            });
         }
 
         @Override

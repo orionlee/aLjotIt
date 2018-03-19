@@ -1,6 +1,7 @@
 package net.oldev.alsscratchpad;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.StyleRes;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import java.util.Calendar;
 public class ThemeSwitcher {
 
     private static final String TAG = "LSSP-Theme";
+
     /**
      * Set the activity to the theme based on the named model
      */
@@ -19,6 +21,15 @@ public class ThemeSwitcher {
         activity.setTheme(themeId);
     }
 
+    /**
+     * Helper to refresh the named activity.
+     * Use case: refresh Settings itself upon theme change.
+     */
+    public static void refreshActivity(Activity activity) {
+        activity.finish();
+        Intent refresh = new Intent(activity.getApplicationContext(), activity.getClass());
+        activity.startActivity(refresh);
+    }
 
     private static @StyleRes int getThemeIdByTime() {
         final int nightThemeBeginHour = 23; // PENDING: config from mModel
