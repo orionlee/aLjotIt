@@ -39,7 +39,8 @@ public class ThemeSwitcher {
         int curMin = Calendar.getInstance().get(Calendar.MINUTE);
 
         if ( (curHr >= darkThemeTimeRange.begin.hh && curMin >= darkThemeTimeRange.begin.mm) ||
-                (curHr <= darkThemeTimeRange.end.hh && curMin <= darkThemeTimeRange.end.mm) ) {
+                ( curHr < darkThemeTimeRange.end.hh ||
+                        (curHr == darkThemeTimeRange.end.hh && curMin < darkThemeTimeRange.end.mm) ) ) {
             return R.style.AppTheme_Dark;
         } else {
             return R.style.AppTheme;
