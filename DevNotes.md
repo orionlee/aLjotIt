@@ -4,15 +4,17 @@
 - [x] General share
 - [x] persistence
 - [x] App Icon
-- [ ] themes
+- [x] themes
     - [x] auto theme
     - [x] UI to choose between light, dark, and auto
-    - [ ] Configurable auto (rather than hardcoded time interval)
+    - [x] Configurable auto (rather than hardcoded time interval)
 - [x] Release build related tasks: signing, different version name/code/ app label
 
-## Additional features
+## Additional features / fixes
+- [ ] Fix navigation between Main (the note) and Settings, right time pressing back (upper left) does not pop navigation stack. 
+It just pushes further the stack.
+    - [ ] (Probably related) Theme change doesn't happen on editor when I hit system back button at the bottom, it does happen if I press the up button on action bar.
 - [ ] Support handling text/links to be shared TO LS Scratch Pad?! (downside: might pollute the share chooser UI) 
-- [ ] support send action - add to scratch pad, to copy/paste multiple times from a page in forming a longer note
 - [ ] Lock screen UI refinement case
     - if the app is in foreground before going to lock screen, put it back to background
     - On lock screen, once Scratch Pad is brought out, it should be hidden once it is done (while still on lock screen), 
