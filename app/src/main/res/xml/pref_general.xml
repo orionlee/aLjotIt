@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="User Interface">
+        android:title="@string/pref_category_ui">
         <!-- android:key values should be consistent with
              the PREF_ constants defined in LSScratchPadModel.java -->
 
