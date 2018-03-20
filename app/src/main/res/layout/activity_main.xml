@@ -8,6 +8,14 @@
     android:id="@+id/activity_main"
     tools:context="net.oldev.alsscratchpad.MainActivity">
 
+    <!-- replace standard action bar
+    On newer (Lollipop+) devices, there is no difference.
+    (at least with our usage)
+    On older devices, it shows menu on the action bar, consistent
+    with the UI on newer devices. (With standard action bar, menu
+    is not shown on action bar. It is just on the device default, typically
+    at the bottom of the screen (alongside with home, back, recent apps).
+    -->
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
