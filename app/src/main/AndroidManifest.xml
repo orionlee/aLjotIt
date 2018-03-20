@@ -47,7 +47,16 @@
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.oldev.alsscratchpad.MainActivity" />
+                android:value="net.oldev.alsscratchpad.MainActivity"/>
+        </activity>
+
+        <activity android:name=".ShareReceiverActivity"
+                  android:label="@string/share_receiver_name">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
         </activity>
     </application>
 

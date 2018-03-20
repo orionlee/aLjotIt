@@ -1,6 +1,11 @@
 <resources>
+    <!-- UI Components top level name -->
+
     <string name="app_name">LS Scratch Pad</string>
     <string name="tile_name">LS Scratch Pad</string>
+    <string name="share_receiver_name">Add to LS Scratch Pad</string>
+
+    <!-- The main screen -->
 
     <string name="action_send">Send</string>
     <string name="label_send_to">Send to</string>
