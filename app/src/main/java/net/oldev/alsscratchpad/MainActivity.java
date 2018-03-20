@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,12 +62,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (REQUEST_CODE_SHARE_TEXT == requestCode) {
-            Log.d(TAG, "To be implemented: ask if the user wants to clear the text");
-            Toast toast = Toast.makeText(getApplicationContext(),
-                           "Text sent. TODO: option to clear the scratch pad.",
-                           Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+            promptUserToClearContent();
         } else {
             Log.e(TAG, "Unsupported requestCode " + requestCode);
         }
@@ -115,6 +110,32 @@ public class MainActivity extends AppCompatActivity {
         mModel.setContent(content);
     }
 
+
+    //
+    // Clear content implementation
+    //
+
+    private void promptUserToClearContent() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.prompt_clear_all_after_sent)
+               .setNegativeButton(R.string.prompt_clear_all_no, (d, w) -> {})
+               .setPositiveButton(R.string.prompt_clear_all_yes, (d, w) -> { clearContent(); })
+               .show();
+    }
+
+    private void clearContent() {
+        String oldContent = mScratchPad.getText().toString();
+        mScratchPad.setText("");
+
+        Snackbar.make(findViewById(R.id.activity_main), R.string.msg_clear_all_done,
+                      Snackbar.LENGTH_LONG)
+                .setAction(R.string.action_clear_all_undo, v -> {
+                    mScratchPad.setText(oldContent);
+                })
+                .show();
+    }
+
+
     //
     // Actual sendTo action implementation
     //
@@ -152,8 +173,6 @@ public class MainActivity extends AppCompatActivity {
         ///Log.e(TAG, "text to send: " + textView.getText());
 
         startActivityForResult(intent, REQUEST_CODE_SHARE_TEXT);
-        //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //        .setAction("Action", null).show();
 
     }
 
