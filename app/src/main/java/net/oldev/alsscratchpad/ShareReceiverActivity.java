@@ -41,8 +41,8 @@ public class ShareReceiverActivity extends Activity {
     }
 
     private void handleSendText(Intent intent) {
-        String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
-        String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String subject = getNonNullStringExtra(intent, Intent.EXTRA_SUBJECT);
+        String text = getNonNullStringExtra(intent, Intent.EXTRA_TEXT);
 
         String textToAdd = TextUtils.isEmpty(subject) ? text : subject + "\n" + text;
         new LSScratchPadModel(getApplicationContext()).appendToContent(textToAdd);
