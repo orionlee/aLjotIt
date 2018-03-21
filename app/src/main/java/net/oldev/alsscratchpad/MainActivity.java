@@ -295,21 +295,16 @@ public class MainActivity extends AppCompatActivity {
             Log.v(TAG, "HideOnLockScreenReceiver.onUnlocked()");
             if (mSendPostponed) {
                 try {
-                    // delay showing snack bar as unlocking screen takes time
+                    // delay showing snack bar, as unlocking screen takes time
                     // with no delay, the snack bar will be shown prematurely,
                     // when the user cannot fully see the screen yet.
-                    final Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-                        // OPEN: the action does not work on custom toast
-                        showSnackBarLikeToast("Note not sent yet.",
-                                              "View", (v) -> {
-                                Log.v(TAG, "  in Snackbar toast OnClickListener");
-                                Intent intent = new Intent(MainActivity.this,
-                                                           MainActivity.class);
-
-                                Log.v(TAG,"  back to MainActivity. intent:" + intent);
-                                MainActivity.this.startActivity(intent);
-                                });
+                    new Handler().postDelayed(() -> {
+                        // OPEN: custom toast's action not working yet.
+                        // Use regular toast as it appears to stay longer than the custom toast
+                        // Another alternative is to create a notification instead (or additionally).
+                        Toast.makeText(getApplicationContext(), "Note not sent yet: Open LS Scratch Pad to continue.",
+                                       Toast.LENGTH_LONG)
+                             .show();                         
                     }, 1000);
                 } finally {
                     mSendPostponed = false;
@@ -317,6 +312,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // OPEN: remove it if action cannot be made working.
         private void showSnackBarLikeToast(@NonNull String msg,
                                            @Nullable String actionText,
                                            @Nullable View.OnClickListener actionOnClickListener) {
