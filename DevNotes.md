@@ -16,7 +16,7 @@ It just pushes further the stack.
 - [x] Support handling text/links to be shared TO LS Scratch Pad?! (downside: might pollute the share chooser UI)
 - [x] Post send to Keep workflow. Implement an option to clear the text.
 - [ ] Lock screen UI refinement case
-    - if the app is in foreground before going to lock screen, put it back to background
+    - [ ] if the app is in foreground before going to lock screen, put it back to background
     - On lock screen, once Scratch Pad is brought out, it should be hidden once it is done (while still on lock screen), 
     e.g., upon hitting send button, the UI should be hidden.    
 - UI for post lock screen: somehow remind users to send to Keep
