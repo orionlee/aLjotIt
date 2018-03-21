@@ -26,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText mScratchPad;
 
     private LSScratchPadModel mModel;
+    private final LockScreenReceiver mLockScreenReceiver = new HideOnLockScreenReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mModel = new LSScratchPadModel(getApplicationContext());
+        LockScreenReceiver.registerToLockScreenChanges(this, mLockScreenReceiver);
 
         // setting attributes on the service declaration in AndroidManifest.xml
         // does not work for some reason android:showOnLockScreen="true", android:showOnLockScreen="true"
@@ -110,6 +112,18 @@ public class MainActivity extends AppCompatActivity {
         mModel.setContent(content);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Note: mLockScreenReceiver CANNOT be unregistered earlier, e.g., onStop().
+        // If doing so, when using the app and the screen is locked, (i.e., unavailable to user),
+        // onStop() will be invoked (and screen lock listening will be unregistered)
+        // At the time, the app is still at the foreground visually speaking.
+        // After that, when user clicks power, expecting to see lock screen, he/she
+        // will see the Scratch Pad instead, because it has never been moved back in the first place.
+        LockScreenReceiver.unregisterFromLockScreenChanges(this, mLockScreenReceiver);
+    }
+
 
     //
     // Clear content implementation
@@ -174,6 +188,16 @@ public class MainActivity extends AppCompatActivity {
 
         startActivityForResult(intent, REQUEST_CODE_SHARE_TEXT);
 
+    }
+
+    // Lock Screen handling logic
+    private class HideOnLockScreenReceiver extends LockScreenReceiver {
+        @Override
+        protected void onLocked() {
+            // hide the app when the screen is locked, so that it will not stay
+            // on lock screen uninvited.
+            moveTaskToBack(true);
+        }
     }
 
 }
