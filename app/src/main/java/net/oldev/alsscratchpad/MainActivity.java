@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         // @see #onStop() for when content gets persisted.
         // onStart is the correspond life cycle method, so it is used to load the content
         mScratchPad.setText(mModel.getContent());
+        int cursorIdx = mModel.getContentCursorIdx();
+        if (cursorIdx >= 0) {
+            mScratchPad.setSelection(cursorIdx);
+        }
     }
 
     @Override
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         String content = mScratchPad.getText().toString();
-        mModel.setContent(content);
+        mModel.setContentWithCursorIdx(content, mScratchPad.getSelectionStart());
     }
 
     @Override

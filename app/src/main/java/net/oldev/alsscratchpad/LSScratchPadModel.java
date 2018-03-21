@@ -13,6 +13,7 @@ public class LSScratchPadModel {
     private static final String P_CONTENT = "net.oldev.alsscratchpad";
 
     private static final String PREF_CONTENT = "content";
+    private static final String PREF_CONTENT_CURSOR_IDX = "contentCursorIdx";
 
     // preference file name for settings (typically exposed in UI)
     private static final String P_SETTINGS  = BuildConfig.APPLICATION_ID + "_preferences";
@@ -42,6 +43,11 @@ public class LSScratchPadModel {
 
     // Access Scratch Pad text
 
+    public void setContentWithCursorIdx(@NonNull String content, int cursorIdx) {
+        setContent(content);
+        setPref(P_CONTENT, PREF_CONTENT_CURSOR_IDX, cursorIdx);
+    }
+
     public void setContent(@NonNull String content) {
         setPref(P_CONTENT, PREF_CONTENT, content);
     }
@@ -49,6 +55,10 @@ public class LSScratchPadModel {
     public @NonNull
     String getContent() {
         return getStringPref(P_CONTENT, PREF_CONTENT, "");
+    }
+
+    public int getContentCursorIdx() {
+        return getIntPref(P_CONTENT, PREF_CONTENT_CURSOR_IDX, -1);
     }
 
     // Access Settings
@@ -92,10 +102,24 @@ public class LSScratchPadModel {
         return getPreferences(prefName).getString(key, defValue);
     }
 
+    private int getIntPref(@NonNull String prefName,
+                         @NonNull String key, int defValue) {
+        return getPreferences(prefName).getInt(key, defValue);
+    }
+
     private void setPref(@NonNull String prefName,
                          @NonNull String key, @NonNull String value) {
         SharedPreferences.Editor editor = getPreferences(prefName).edit();
         editor.putString(key, value);
+
+        // use asynchronous apply. I can't handle commit() failures other than reporting it anyway.
+        editor.apply();
+    }
+
+    private void setPref(@NonNull String prefName,
+                         @NonNull String key, int value) {
+        SharedPreferences.Editor editor = getPreferences(prefName).edit();
+        editor.putInt(key, value);
 
         // use asynchronous apply. I can't handle commit() failures other than reporting it anyway.
         editor.apply();
