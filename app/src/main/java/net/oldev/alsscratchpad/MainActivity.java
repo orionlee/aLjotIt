@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -298,20 +297,24 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onUnlocked() {
+            // TODO: this is not called when on lock screen, user presses back button to 
+            // exit Scratch Pad, rather than pressing home button
+            // By using back button, the user exits the activity (which invokes onDestroy(),
+            // killing tha activity, and hence all the listeners)
+            // Potential solutions:
+            // 1. Maybe we can have the listening to changes done on application level
+            // 2. change the UI so that it shows as a dialog / overlay, so that user
+            //   cannot press back button to exit the activity
             Log.v(TAG, "HideOnLockScreenReceiver.onUnlocked()");
             if (mModel.isSendPostponed()) {
-                mModel.setSendPostponed(false);
-                // delay showing snack bar, as unlocking screen takes time
-                // with no delay, the snack bar seems to be shown prematurely,
-                // when the user cannot fully see the screen yet.
-                new Handler().postDelayed(() -> {
-                    // OPEN: custom toast's action not working yet.
-                    // Use regular toast as it appears to stay longer than the custom toast
-                    // Another alternative is to create a notification instead (or additionally).
-                    Toast.makeText(getApplicationContext(), "Note not sent yet: Open LS Scratch Pad to continue.",
-                                   Toast.LENGTH_LONG)
-                         .show();
-                }, 1000);
+                // Start MainActivity takes some noticeable delay
+                // Show a toast to let user know what to expect.
+                Toast.makeText(getApplicationContext(), "Opening LS Scratch Pad to send the note...",
+                               Toast.LENGTH_SHORT).show();
+                
+                Intent intent = new Intent(MainActivity.this.getApplicationContext(),
+                                           MainActivity.class);
+                MainActivity.this.startActivity(intent);
             }
         }
 
