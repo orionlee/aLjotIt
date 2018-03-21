@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/snackbar_like_toast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:background="#ff323232" >
+    <TextView
+        android:id="@+id/snackbar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/snackbar_action"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:paddingBottom="18dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="18dp"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"/>
+    <Button
+        android:id="@+id/snackbar_action"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="18dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="18dp"
+        android:textColor="#ffd54f"
+        android:textSize="14sp"
+        android:textAllCaps="true"/>
+</RelativeLayout>
+

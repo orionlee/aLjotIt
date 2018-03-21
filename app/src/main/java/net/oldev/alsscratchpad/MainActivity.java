@@ -1,7 +1,14 @@
 package net.oldev.alsscratchpad;
 
+import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,10 +19,16 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,12 +37,18 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_SHARE_TEXT = 987;
 
     private EditText mScratchPad;
+    private Menu mOptionsMenu;
 
     private LSScratchPadModel mModel;
     private final LockScreenReceiver mLockScreenReceiver = new HideOnLockScreenReceiver();
 
+
+    public static final String EXTRA_START_FROM_LOCK_SCREEN =
+            MainActivity.class.getPackage().getName() + ".EXTRA_START_FROM_LOCK_SCREEN";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.v(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
         mModel = new LSScratchPadModel(getApplicationContext());
@@ -48,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener((view) -> { sendToKeep(); });
-
     }
 
     @Override
     protected void onStart() {
+        Log.v(TAG, "onStart()");
         super.onStart();
         // data binding
         // @see #onStop() for when content gets persisted.
@@ -61,6 +80,17 @@ public class MainActivity extends AppCompatActivity {
         int cursorIdx = mModel.getContentCursorIdx();
         if (cursorIdx >= 0) {
             mScratchPad.setSelection(cursorIdx);
+        }
+
+        customizeMainUiForLockScreen();
+        // Depending on activity is brought up, menu may or may not be initialized at this point
+        // Case starting from new:
+        //   onStart() [no menu yet], then onOptionsMenuCreated()
+        // Case the activity is brought back up from background
+        //   onStart() [menu is there], onOptionsMenuCreated() is NOT invoked.
+        // Therefore, menu customization needs to be done at both entry points.
+        if (mOptionsMenu != null) {
+            customizeOptionsMenuForLockScreen(mOptionsMenu);
         }
     }
 
@@ -78,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        mOptionsMenu = menu;
+        customizeOptionsMenuForLockScreen(menu);
         return true;
     }
 
@@ -172,6 +204,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendTo(@Nullable String packageName, @Nullable String className) {
+        if (isDeviceLocked()) {
+            notifyUserSentDisabledOnLockscreen();
+            return;
+        }
+        // else normal workflow
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, mScratchPad.getText().toString()); // MUST cast to string or it won't be accepted by google Keep
         intent.setType("text/plain"); // MUST be set for the system the share chooser to show up.
@@ -194,13 +231,115 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Lock Screen handling logic
+    //
+    // Lock Screen UI customization logic
+    //
+
+    private boolean mSendPostponed = false; // PENDING: might need better persistence
+
+    private void customizeMainUiForLockScreen() {
+        Log.v(TAG, "customizeMainUiForLockScreen()");
+        final boolean locked = isDeviceLocked();
+
+        // LATER: make disabled color defined in resources?
+        final @ColorInt int color = locked ? Color.LTGRAY : getResources().getColor(R.color.keepBackground);
+
+        // Make the button look disabled
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setBackgroundTintList(ColorStateList.valueOf(color));
+
+        // TODO: add a lock icon with android.R.drawable.ic_lock_lock?!
+    }
+
+    private void customizeOptionsMenuForLockScreen(@NonNull Menu optionsMenu) {
+        Log.v(TAG, "customizeOptionMenuForLockScreen()");
+
+        final boolean locked = isDeviceLocked();
+
+        final boolean visible = locked ? false : true;
+
+        // Hide all send UIs
+        // if I disable them rather than making them invisible
+        // the send menu will be grayed out correctly, however,
+        // send_to_keep, being an icon, shows no visible change, and is confusing.
+        optionsMenu.findItem(R.id.action_send_to_keep).setVisible(visible);
+        optionsMenu.findItem(R.id.action_share).setVisible(visible);
+
+    }
+
+    private boolean isDeviceLocked() {
+        KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        boolean locked = km.inKeyguardRestrictedInputMode();
+        Log.v(TAG, "isDeviceLocked()  locked :" + locked);
+        return locked;
+    }
+
+    private void notifyUserSentDisabledOnLockscreen() {
+        mSendPostponed = true;
+
+        Snackbar.make(findViewById(R.id.activity_main), "Wait until the screen is unlocked to send.",
+                      Snackbar.LENGTH_LONG)
+                .show();
+    }
+
     private class HideOnLockScreenReceiver extends LockScreenReceiver {
         @Override
         protected void onLocked() {
             // hide the app when the screen is locked, so that it will not stay
             // on lock screen uninvited.
             moveTaskToBack(true);
+        }
+
+        @Override
+        protected void onUnlocked() {
+            Log.v(TAG, "HideOnLockScreenReceiver.onUnlocked()");
+            if (mSendPostponed) {
+                try {
+                    // delay showing snack bar as unlocking screen takes time
+                    // with no delay, the snack bar will be shown prematurely,
+                    // when the user cannot fully see the screen yet.
+                    final Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        // OPEN: the action does not work on custom toast
+                        showSnackBarLikeToast("Note not sent yet.",
+                                              "View", (v) -> {
+                                Log.v(TAG, "  in Snackbar toast OnClickListener");
+                                Intent intent = new Intent(MainActivity.this,
+                                                           MainActivity.class);
+
+                                Log.v(TAG,"  back to MainActivity. intent:" + intent);
+                                MainActivity.this.startActivity(intent);
+                                });
+                    }, 1000);
+                } finally {
+                    mSendPostponed = false;
+                }
+            }
+        }
+
+        private void showSnackBarLikeToast(@NonNull String msg,
+                                           @Nullable String actionText,
+                                           @Nullable View.OnClickListener actionOnClickListener) {
+            //inflate the custom toast
+            View layout = getLayoutInflater().inflate(R.layout.snackbar_like_toast,
+                                                      (ViewGroup) findViewById(R.id.snackbar_like_toast));
+
+            // Set the Text to show in TextView
+            TextView text = (TextView)layout.findViewById(R.id.snackbar_text);
+            text.setText(msg);
+
+            if (!TextUtils.isEmpty(actionText) && actionOnClickListener != null) {
+                Button button = (Button) layout.findViewById(R.id.snackbar_action);
+                button.setText(actionText);
+                button.setOnClickListener(actionOnClickListener);
+            }
+            Toast toast = new Toast(getApplicationContext());
+
+            //Setting up toast position, similar to Snackbar
+            toast.setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.FILL_HORIZONTAL, 0, 0);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
         }
     }
 

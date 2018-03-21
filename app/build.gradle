@@ -9,8 +9,9 @@ android {
         def vMajor = 0
         def vMinor = 3
         def vPatch = 6
+        def vNameSuffix = '-lc1' // an optional, descriptive suffix on versionName used sparingly
         versionCode vMajor * 10000 + vMinor * 100 + vPatch
-        versionName "${vMajor}.${vMinor}.${vPatch}"
+        versionName "${vMajor}.${vMinor}.${vPatch}${vNameSuffix}"
 
         resConfigs "en"
         vectorDrawables.useSupportLibrary = true
