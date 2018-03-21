@@ -15,6 +15,7 @@ public class LSScratchPadModel {
 
     private static final String PREF_CONTENT = "content";
     private static final String PREF_CONTENT_CURSOR_IDX = "contentCursorIdx";
+    private static final String PREF_STATE_SEND_POSTPONED = "SendPostponed";
 
     // preference file name for settings (typically exposed in UI)
     private static final String P_SETTINGS  = BuildConfig.APPLICATION_ID + "_preferences";
@@ -79,6 +80,14 @@ public class LSScratchPadModel {
         return getIntPref(P_CONTENT, PREF_CONTENT_CURSOR_IDX, -1);
     }
 
+    public boolean isSendPostponed() {
+        return getBooleanPref(P_CONTENT, PREF_STATE_SEND_POSTPONED, false);
+    }
+
+    public void setSendPostponed(boolean isPostponed) {
+        setPref(P_CONTENT, PREF_STATE_SEND_POSTPONED, isPostponed);
+    }
+
     // Access Settings
 
     public static final String DEFAULT_AUTO_THEME_DARK_TIME_RANGE = "[23:00,07:00]";
@@ -125,6 +134,11 @@ public class LSScratchPadModel {
         return getPreferences(prefName).getInt(key, defValue);
     }
 
+    private boolean getBooleanPref(@NonNull String prefName,
+                                   @NonNull String key, boolean defValue) {
+        return getPreferences(prefName).getBoolean(key, defValue);
+    }
+
     private void setPref(@NonNull String prefName,
                          @NonNull String key, @NonNull String value) {
         SharedPreferences.Editor editor = getPreferences(prefName).edit();
@@ -138,6 +152,15 @@ public class LSScratchPadModel {
                          @NonNull String key, int value) {
         SharedPreferences.Editor editor = getPreferences(prefName).edit();
         editor.putInt(key, value);
+
+        // use asynchronous apply. I can't handle commit() failures other than reporting it anyway.
+        editor.apply();
+    }
+
+    private void setPref(@NonNull String prefName,
+                         @NonNull String key, boolean value) {
+        SharedPreferences.Editor editor = getPreferences(prefName).edit();
+        editor.putBoolean(key, value);
 
         // use asynchronous apply. I can't handle commit() failures other than reporting it anyway.
         editor.apply();

@@ -92,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         if (mOptionsMenu != null) {
             customizeOptionsMenuForLockScreen(mOptionsMenu);
         }
+
+        // For post lock screen workflow
+        if (mModel.isSendPostponed()) {
+            mModel.setSendPostponed(false);
+            sendToKeep();
+        }
     }
 
     @Override
@@ -143,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onStop() {
+        Log.v(TAG, "onStop()");
         super.onStop();
         String content = mScratchPad.getText().toString();
         mModel.setContentWithCursorIdx(content, mScratchPad.getSelectionStart());
@@ -150,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        Log.v(TAG, "onDestroy()");
         super.onDestroy();
         // Note: mLockScreenReceiver CANNOT be unregistered earlier, e.g., onStop().
         // If doing so, when using the app and the screen is locked, (i.e., unavailable to user),
@@ -235,8 +243,6 @@ public class MainActivity extends AppCompatActivity {
     // Lock Screen UI customization logic
     //
 
-    private boolean mSendPostponed = false; // PENDING: might need better persistence
-
     private void customizeMainUiForLockScreen() {
         Log.v(TAG, "customizeMainUiForLockScreen()");
         final boolean locked = isDeviceLocked();
@@ -275,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void notifyUserSentDisabledOnLockscreen() {
-        mSendPostponed = true;
+        mModel.setSendPostponed(true);
 
         Snackbar.make(findViewById(R.id.activity_main), "Wait until the screen is unlocked to send.",
                       Snackbar.LENGTH_LONG)
@@ -293,22 +299,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onUnlocked() {
             Log.v(TAG, "HideOnLockScreenReceiver.onUnlocked()");
-            if (mSendPostponed) {
-                try {
-                    // delay showing snack bar, as unlocking screen takes time
-                    // with no delay, the snack bar will be shown prematurely,
-                    // when the user cannot fully see the screen yet.
-                    new Handler().postDelayed(() -> {
-                        // OPEN: custom toast's action not working yet.
-                        // Use regular toast as it appears to stay longer than the custom toast
-                        // Another alternative is to create a notification instead (or additionally).
-                        Toast.makeText(getApplicationContext(), "Note not sent yet: Open LS Scratch Pad to continue.",
-                                       Toast.LENGTH_LONG)
-                             .show();                         
-                    }, 1000);
-                } finally {
-                    mSendPostponed = false;
-                }
+            if (mModel.isSendPostponed()) {
+                mModel.setSendPostponed(false);
+                // delay showing snack bar, as unlocking screen takes time
+                // with no delay, the snack bar seems to be shown prematurely,
+                // when the user cannot fully see the screen yet.
+                new Handler().postDelayed(() -> {
+                    // OPEN: custom toast's action not working yet.
+                    // Use regular toast as it appears to stay longer than the custom toast
+                    // Another alternative is to create a notification instead (or additionally).
+                    Toast.makeText(getApplicationContext(), "Note not sent yet: Open LS Scratch Pad to continue.",
+                                   Toast.LENGTH_LONG)
+                         .show();
+                }, 1000);
             }
         }
 
