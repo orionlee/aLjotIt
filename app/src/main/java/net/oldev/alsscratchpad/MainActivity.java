@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -253,7 +254,20 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(color));
 
-        // TODO: add a lock icon with android.R.drawable.ic_lock_lock?!
+        // Show an indicator on action bar to remind the user the Scratch Pad is on lock screen
+        ActionBar actionBar = getSupportActionBar();
+        if (locked) {
+            actionBar.setDisplayShowHomeEnabled(true);
+            // OPEN: Can't figure out how to specify the icon
+            // in main_content.xml or styles.xml so it is hardcoded here.
+            //
+            // use app:navigationIcon on <...widget.Toolbar> displays the icon,
+            // but it has a much wider horizontal space / margin
+            actionBar.setIcon(R.drawable.ic_menu_lock);
+        } else {
+            actionBar.setDisplayShowHomeEnabled(false);
+            // setDisplayShowHomeEnabled to false is sufficient actionBar.setIcon(null);
+        }
     }
 
     private void customizeOptionsMenuForLockScreen(@NonNull Menu optionsMenu) {
