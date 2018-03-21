@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
+import android.text.TextUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -45,10 +46,27 @@ public class LSScratchPadModel {
 
     public void setContentWithCursorIdx(@NonNull String content, int cursorIdx) {
         setContent(content);
+        // Validate to ensure cursorIdx is proper within content?
         setPref(P_CONTENT, PREF_CONTENT_CURSOR_IDX, cursorIdx);
     }
 
-    public void setContent(@NonNull String content) {
+    /**
+     * Append the supplied text to the existing content.
+     */
+    public void appendToContent(String textToAdd) {
+        if (!TextUtils.isEmpty(textToAdd)) {
+            final String contentCurrent = getContent();
+            // The new text starts at a new line, if there is any existing one.
+            final String contentNew = TextUtils.isEmpty(contentCurrent) ? textToAdd :
+                    contentCurrent + "\n" + textToAdd;
+            setContent(contentNew);
+        } // else nothing needs to be done.
+    }
+
+    // Note: setContent is set to private as being used by outside callers
+    // arbitrary is potentially dangerous, as the model also maintains the cursor
+    // position within the content.
+    private void setContent(@NonNull String content) {
         setPref(P_CONTENT, PREF_CONTENT, content);
     }
 

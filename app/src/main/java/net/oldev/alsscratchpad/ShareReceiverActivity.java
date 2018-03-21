@@ -45,28 +45,9 @@ public class ShareReceiverActivity extends Activity {
         String text = intent.getStringExtra(Intent.EXTRA_TEXT);
 
         String textToAdd = TextUtils.isEmpty(subject) ? text : subject + "\n" + text;
-        appendToContent(textToAdd);
+        new LSScratchPadModel(getApplicationContext()).appendToContent(textToAdd);
     }
-
-    /**
-     * Append the supplied text to the content.
-     *
-     * OPEN: Consider move this operation to the model
-     * @param textToAdd
-     */
-    private void appendToContent(String textToAdd) {
-        // OPEN: consider return existing content length so that we can
-        // set the cursor to the position of the beginning of the text just appended.
-        if (!TextUtils.isEmpty(textToAdd)) {
-            LSScratchPadModel model = new LSScratchPadModel(getApplicationContext());
-            final String contentCurrent = model.getContent();
-            // The new text starts at a new line, if there is any existing one.
-            final String contentNew = TextUtils.isEmpty(contentCurrent) ? textToAdd :
-                    contentCurrent + "\n" + textToAdd;
-            model.setContent(contentNew);
-        } // else nothing needs to be done.
-    }
-
+    
     @NonNull
     private static String getNonNullStringExtra(@NonNull Intent intent,
                                                 @NonNull String name) {
