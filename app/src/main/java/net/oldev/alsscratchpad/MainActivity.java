@@ -268,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
         // send_to_keep, being an icon, shows no visible change, and is confusing.
         optionsMenu.findItem(R.id.action_send_to_keep).setVisible(visible);
         optionsMenu.findItem(R.id.action_share).setVisible(visible);
+        optionsMenu.findItem(R.id.action_settings).setVisible(visible);
 
     }
 
