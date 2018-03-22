@@ -19,10 +19,9 @@ public class LSScratchPadApp extends Application {
 
     private static final String TAG = "LSSP-App";
     
-    private final LockScreenReceiver mLockScreenReceiver = new HideOnLockScreenReceiver();
-    private final ActivityLifeCycleTracker mActivityLifeCycleTracker = new ActivityLifeCycleTracker();
+    private final MainLockScreenReceiverManager mMainLockScreenReceiverManager =
+            new MainLockScreenReceiverManager();
 
-    private boolean mLockScreenReceiverRegistered = false;
     private LSScratchPadModel mModel;
 
 
@@ -31,18 +30,28 @@ public class LSScratchPadApp extends Application {
         Log.v(TAG, "onCreate()");
         super.onCreate();
         mModel = new LSScratchPadModel(getApplicationContext());
-        registerActivityLifecycleCallbacks(mActivityLifeCycleTracker);
+        registerActivityLifecycleCallbacks(mMainLockScreenReceiverManager);
     }
 
 
-    private class ActivityLifeCycleTracker implements ActivityLifecycleCallbacks {
+    /**
+     * Manages MainLockScreenReceiver
+     * - life cycle, and registration /un-registration (as broadcast receiver)
+     * - any necessary references (MainActivity) it needs.
+     */
+    private class MainLockScreenReceiverManager implements ActivityLifecycleCallbacks {
+
+        private final MainLockScreenReceiver mLockScreenReceiver = new MainLockScreenReceiver();
+        private boolean mLockScreenReceiverRegistered = false;
+
         /**
          * Track the last activity instance that the user sees
-         * It is used by HideOnLockScreenReceiver#onLocked() to
+         * It is used by MainLockScreenReceiver#onLocked() to
          * hide MainActivity from screen when the screen is locked.
          */
         private @Nullable Activity mLatestActivity = null;
 
+        // used by MainLockScreenReceiver
         public @Nullable Activity getLatestActivity() {
             return mLatestActivity;
         }
@@ -76,9 +85,9 @@ public class LSScratchPadApp extends Application {
             // 2. <screen is off>
             // 3. MainActivity.onStop() will be called, because it is
             // not visible anymore , triggering onActivityStopped() here
-            // 4. HideOnLockScreenReceiver.onLocked() will be called,
+            // 4. MainLockScreenReceiver.onLocked() will be called,
             //    *AFTER* MainActivity.onStop()
-            // By the time HideOnLockScreenReceiver.onLocked()
+            // By the time MainLockScreenReceiver.onLocked()
             // is called, it still needs a reference to MainActivity instance.
             // Hence, the instance cannot be cleared here.
         }
@@ -110,10 +119,14 @@ public class LSScratchPadApp extends Application {
         }
     }
 
-    private class HideOnLockScreenReceiver extends LockScreenReceiver {
+    /**
+     * Control MainActivity's UI behavior by listening to
+     * whether the screen is locked / unlocked.
+     */
+    private class MainLockScreenReceiver extends LockScreenReceiver {
 
         private @Nullable Activity getLatestActivity() {
-            return mActivityLifeCycleTracker.getLatestActivity();
+            return mMainLockScreenReceiverManager.getLatestActivity();
         }
 
         @Override
@@ -127,15 +140,7 @@ public class LSScratchPadApp extends Application {
 
         @Override
         protected void onUnlocked() {
-            // TODO: this is not called when on lock screen, user presses back button to
-            // exit Scratch Pad, rather than pressing home button
-            // By using back button, the user exits the activity (which invokes onDestroy(),
-            // killing tha activity, and hence all the listeners)
-            // Potential solutions:
-            // 1. Maybe we can have the listening to changes done on application level
-            // 2. change the UI so that it shows as a dialog / overlay, so that user
-            //   cannot press back button to exit the activity
-            Log.v(TAG, "HideOnLockScreenReceiver.onUnlocked()");
+            Log.v(TAG, "MainLockScreenReceiver.onUnlocked()");
             if (mModel.isSendPostponed()) {
                 // Start MainActivity takes some noticeable delay
                 // Show a toast to let user know what to expect.
