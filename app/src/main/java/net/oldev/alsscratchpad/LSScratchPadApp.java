@@ -38,6 +38,12 @@ public class LSScratchPadApp extends Application {
      * Manages MainLockScreenReceiver
      * - life cycle, and registration /un-registration (as broadcast receiver)
      * - any necessary references (MainActivity) it needs.
+     *
+     * OPEN: consider splitting tracking MainLockScreenReceiver and tracking MainActivity
+     * to 2 separate classes, as they are really 2 orthogonal aspects that do not necessarily
+     * tie together, other than the current usage
+     * where MainLockScreenReceiver needs to find MainActivity. As it is the codes are
+     * too inter-dependent.
      */
     private class MainLockScreenReceiverManager implements ActivityLifecycleCallbacks {
 
