@@ -135,6 +135,8 @@ public class LSScratchPadApp extends Application {
             return mMainLockScreenReceiverManager.getLatestActivity();
         }
 
+        private MainLockScreenOverlay mMainOverlay; // init once
+
         @Override
         protected void onLocked() {
             // hide the app when the screen is locked, so that it will not stay
@@ -142,6 +144,12 @@ public class LSScratchPadApp extends Application {
             if (getLatestActivity() != null) {
                 getLatestActivity().moveTaskToBack(true);
             }
+
+            if (mMainOverlay == null) { // lazy init to get proper LSScratchPadApp instance
+                mMainOverlay = new MainLockScreenOverlay(LSScratchPadApp.this);
+            }
+
+            mMainOverlay.show(); // EXPERIMENT: draw a widget on the lock screen
         }
 
         @Override
@@ -155,6 +163,7 @@ public class LSScratchPadApp extends Application {
 
                 bringActivityToFrontOrStart(MainActivity.class);
             }
+            mMainOverlay.hide(); // EXPERIMENT
         }
 
         /**
