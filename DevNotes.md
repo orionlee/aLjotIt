@@ -17,12 +17,14 @@ It just pushes further the stack.
 - [x] Post send to Keep workflow. Implement an option to clear the text.
 - [ ] Lock screen UI refinement case
     - [x] if the app is in foreground before going to lock screen, put it back to background
-    - [ ] On lock screen, once Scratch Pad is brought out, and send is pressed:
-        - The UI should give user some indication of what's happened.
+    - [x] On lock screen, once Scratch Pad is brought out, and send is pressed:
+        - The UI should give user some indication of what's happened (Snackbar indicating send is postponed till unlock).
         - If the user presses send again (still on lock screen), the app won't show up, as
-        it is currently in the shared state (cannot be seen by user)        
-- UI for post lock screen: somehow remind users to send to Keep
-    - do we show send / share button on lock screen?
+        it is currently in the shared state (cannot be seen by user)
+    - [ ] Consider to change lock screen UI from a full screen to a dialog / floating box
+        - UX: clearer to users he/she is on lock screen
+        - Code: can remove some of the (complicated) logic managing MainActivity's state, e.g., 
+         hide MainActivity upon lock screen, UI customization, etc.
 - [ ] The keep-like color scheme maybe confusing to users when both Keep and LS ScratchPad is open, say, in Recent App list
 - [ ] (Probably related) Theme change doesn't happen on editor when I hit system back button at the bottom, it does happen if I press the up button on action bar.
 - reduce apk / memory footprint (by cutting number of support libs used)
