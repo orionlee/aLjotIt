@@ -30,6 +30,7 @@ It just pushes further the stack.
 - Let user customize advanced configuration
    - allow font size / font family be adjustable
    - enable / disable "Add to LS Scratch" (aka share friendly)
+   - QS Tile: on normal screen: option to launch Scratch Pad or a new Keep note.
    - note maximum size 
 - support Pre Android 7 devices (using lockscreen drawing instead)
     - On a 4.1.2 device, the action menu (vertical triple-dot) is missing. Unclear if it is due to Android version or small screen (480x800, unlikely as rotating to landscaping doesn't fix it) .
