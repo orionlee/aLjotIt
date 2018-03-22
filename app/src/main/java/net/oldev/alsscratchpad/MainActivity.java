@@ -19,16 +19,10 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private Menu mOptionsMenu;
 
     private LSScratchPadModel mModel;
-    private final LockScreenReceiver mLockScreenReceiver = new HideOnLockScreenReceiver();
 
 
     public static final String EXTRA_START_FROM_LOCK_SCREEN =
@@ -52,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mModel = new LSScratchPadModel(getApplicationContext());
-        LockScreenReceiver.registerToLockScreenChanges(this, mLockScreenReceiver);
 
         // setting attributes on the service declaration in AndroidManifest.xml
         // does not work for some reason android:showOnLockScreen="true", android:showOnLockScreen="true"
@@ -159,13 +151,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.v(TAG, "onDestroy()");
         super.onDestroy();
-        // Note: mLockScreenReceiver CANNOT be unregistered earlier, e.g., onStop().
-        // If doing so, when using the app and the screen is locked, (i.e., unavailable to user),
-        // onStop() will be invoked (and screen lock listening will be unregistered)
-        // At the time, the app is still at the foreground visually speaking.
-        // After that, when user clicks power, expecting to see lock screen, he/she
-        // will see the Scratch Pad instead, because it has never been moved back in the first place.
-        LockScreenReceiver.unregisterFromLockScreenChanges(this, mLockScreenReceiver);
     }
 
 
@@ -286,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean isDeviceLocked() {
+    boolean isDeviceLocked() {
         KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
         boolean locked = km.inKeyguardRestrictedInputMode();
         Log.v(TAG, "isDeviceLocked()  locked :" + locked);
@@ -299,76 +284,6 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(findViewById(R.id.activity_main), "Wait until the screen is unlocked to send.",
                       Snackbar.LENGTH_LONG)
                 .show();
-    }
-
-    private class HideOnLockScreenReceiver extends LockScreenReceiver {
-        @Override
-        protected void onLocked() {
-            // hide the app when the screen is locked, so that it will not stay
-            // on lock screen uninvited.
-            moveTaskToBack(true);
-        }
-
-        @Override
-        protected void onUnlocked() {
-            // TODO: this is not called when on lock screen, user presses back button to 
-            // exit Scratch Pad, rather than pressing home button
-            // By using back button, the user exits the activity (which invokes onDestroy(),
-            // killing tha activity, and hence all the listeners)
-            // Potential solutions:
-            // 1. Maybe we can have the listening to changes done on application level
-            // 2. change the UI so that it shows as a dialog / overlay, so that user
-            //   cannot press back button to exit the activity
-            Log.v(TAG, "HideOnLockScreenReceiver.onUnlocked()");
-            if (mModel.isSendPostponed()) {
-                // Start MainActivity takes some noticeable delay
-                // Show a toast to let user know what to expect.
-                Toast.makeText(getApplicationContext(), "Opening LS Scratch Pad to send the note...",
-                               Toast.LENGTH_SHORT).show();
-
-                bringActivityToFrontOrStart(MainActivity.class);
-            }
-        }
-
-        /**
-         * Start an activity, or if it is already there (in the background)
-         * bring it to the front.
-         * If normal <code>Intent</code> is used, the existing activity
-         * will still be on the history stack, i.e., when the user presses
-         * back button, it will navigate back to the same activity.
-         */
-        private void bringActivityToFrontOrStart(Class<?> activityClass) {
-            Intent intent = new Intent(getApplicationContext(),
-                                       activityClass);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            getApplicationContext().startActivity(intent);
-        }
-        
-        // OPEN: remove it if action cannot be made working.
-        private void showSnackBarLikeToast(@NonNull String msg,
-                                           @Nullable String actionText,
-                                           @Nullable View.OnClickListener actionOnClickListener) {
-            //inflate the custom toast
-            View layout = getLayoutInflater().inflate(R.layout.snackbar_like_toast,
-                                                      (ViewGroup) findViewById(R.id.snackbar_like_toast));
-
-            // Set the Text to show in TextView
-            TextView text = (TextView)layout.findViewById(R.id.snackbar_text);
-            text.setText(msg);
-
-            if (!TextUtils.isEmpty(actionText) && actionOnClickListener != null) {
-                Button button = (Button) layout.findViewById(R.id.snackbar_action);
-                button.setText(actionText);
-                button.setOnClickListener(actionOnClickListener);
-            }
-            Toast toast = new Toast(getApplicationContext());
-
-            //Setting up toast position, similar to Snackbar
-            toast.setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.FILL_HORIZONTAL, 0, 0);
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setView(layout);
-            toast.show();
-        }
     }
 
 }
