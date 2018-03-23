@@ -59,11 +59,11 @@ public class ThemeSwitcher {
         switch (theme) {
             case LSScratchPadModel.THEME_DARK:
                 themeId = ( activity instanceof SettingsActivity ? R.style.AppTheme_Dark :
-                        R.style.AppTheme_Dark_NoActionBar );
+                        R.style.AppTheme_Dark_NoActionBar_TransparentBG );
                 break;
             case LSScratchPadModel.THEME_LIGHT:
                 themeId = ( activity instanceof SettingsActivity ? R.style.AppTheme :
-                        R.style.AppTheme_NoActionBar );
+                        R.style.AppTheme_NoActionBar_TransparentBG );
                 break;
             default:
                 Log.w(TAG, "Unexpected theme option +[" + theme + "]. Use default");

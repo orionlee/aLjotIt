@@ -1,15 +1,28 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="lsspEditorBackground">@color/colorEditorBG</item>
     </style>
 
+    <!-- NoActionBar variant is used for AppCompatActivity, which replaces
+         system ActionBar with its own, hence it is NoActionBar -->
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.TransparentBG" parent="AppTheme.NoActionBar">
+        <!-- common across all transparent background AppCompat -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+
+        <!-- specific customization -->
+        <item name="colorPrimary">@color/colorPrimaryTranslucent</item>
     </style>
 
     <!-- Night theme -->
@@ -22,6 +35,21 @@
     <style name="AppTheme.Dark.NoActionBar" parent="AppTheme.Dark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppTheme.Dark.NoActionBar.TransparentBG" parent="AppTheme.Dark.NoActionBar">
+        <!-- common across all transparent background AppCompat -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+
+        <!-- PENDING: menu items somehow remain white background black text -->
+        
+        <!-- specific customization -->
+        <item name="colorPrimary">@color/colorPrimaryTranslucent</item>
+        <item name="lsspEditorBackground">@color/colorEditorBGDark</item>
     </style>
 
     <!-- themes for the support action bar itself stays the same  independent of normal / dark theme -->

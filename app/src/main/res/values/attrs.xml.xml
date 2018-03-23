@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTheme">
+        <!-- Intention is for ScratchPad editor's background to be switchable
+             between dark/light theme, beyond what the base theme calls for.
+            It is defined to be applicable to AppTheme so that it can be shared across both themes.
+           (Declaring once for each theme variation is illegal anyway,
+            as attribute can be defined once only.)
+         -->
+        <attr name="lsspEditorBackground" format="reference"/>
+    </declare-styleable>
+</resources>
