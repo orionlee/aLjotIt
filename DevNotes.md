@@ -15,13 +15,14 @@
 It just pushes further the stack.
 - [x] Support handling text/links to be shared TO LS Scratch Pad?! (downside: might pollute the share chooser UI)
 - [x] Post send to Keep workflow. Implement an option to clear the text.
-- [ ] Lock screen UI refinement case
+- [x] Lock screen UI refinement case
     - [x] if the app is in foreground before going to lock screen, put it back to background
     - [x] On lock screen, once Scratch Pad is brought out, and send is pressed:
         - The UI should give user some indication of what's happened (Snackbar indicating send is postponed till unlock).
         - If the user presses send again (still on lock screen), the app won't show up, as
         it is currently in the shared state (cannot be seen by user)
-    - [ ] Consider to change lock screen UI from a full screen to a dialog / floating box
+        - Once the screen is unlocked, do the send ASAP (or at least prompt the user to do so).
+    - [x] Consider to change lock screen UI from a full screen to a dialog / floating box
         - UX: clearer to users he/she is on lock screen
         - Code: can remove some of the (complicated) logic managing MainActivity's state, e.g., 
          hide MainActivity upon lock screen, UI customization, etc.
