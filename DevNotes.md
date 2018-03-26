@@ -26,6 +26,7 @@ It just pushes further the stack.
         - UX: clearer to users he/she is on lock screen
         - Code: can remove some of the (complicated) logic managing MainActivity's state, e.g., 
          hide MainActivity upon lock screen, UI customization, etc.
+- [x] bring up keyboard upon start        
 - [ ] The keep-like color scheme maybe confusing to users when both Keep and LS ScratchPad is open, say, in Recent App list
 - [ ] (Probably related) Theme change doesn't happen on editor when I hit system back button at the bottom, it does happen if I press the up button on action bar.
 - reduce apk / memory footprint (by cutting number of support libs used)
