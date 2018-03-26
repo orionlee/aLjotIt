@@ -5,6 +5,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="lsspEditorBackground">@color/colorEditorBG</item>
+        <!-- main height, margin properties: the additional layer here
+             enables the UI dimensions to be changed based on theme -->
+        <!-- full screen UI dimensions -->
+        <item name="mainHeight">@dimen/mainFS_height</item>
+        <item name="mainMarginHorizontal">@dimen/mainFS_marginHorizontal</item>
+        <item name="mainMarginTop">@dimen/mainFS_marginTop</item>
+        <item name="mainMarginBottom">@dimen/mainFS_marginBottom</item>
+        <item name="fabMargin">@dimen/fabFS_margin</item>
     </style>
 
     <!-- NoActionBar variant is used for AppCompatActivity, which replaces
@@ -21,8 +29,13 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
 
-        <!-- specific customization -->
+        <!-- Widget-like UI specific customization -->
         <item name="colorPrimary">@color/colorPrimaryTranslucent</item>
+        <item name="mainHeight">@dimen/main_height</item>
+        <item name="mainMarginHorizontal">@dimen/main_marginHorizontal</item>
+        <item name="mainMarginTop">@dimen/main_marginTop</item>
+        <item name="mainMarginBottom">@dimen/main_marginBottom</item>
+        <item name="fabMargin">@dimen/fab_margin</item>
     </style>
 
     <!-- Night theme -->
@@ -30,6 +43,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/nightColorAccent</item>
+        <item name="lsspEditorBackground">@color/colorEditorBGDark</item>
+        <!-- full screen UI dimensions -->
+        <item name="mainHeight">@dimen/mainFS_height</item>
+        <item name="mainMarginHorizontal">@dimen/mainFS_marginHorizontal</item>
+        <item name="mainMarginTop">@dimen/mainFS_marginTop</item>
+        <item name="mainMarginBottom">@dimen/mainFS_marginBottom</item>
+        <item name="fabMargin">@dimen/fabFS_margin</item>
     </style>
 
     <style name="AppTheme.Dark.NoActionBar" parent="AppTheme.Dark">
@@ -46,10 +66,14 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
 
         <!-- PENDING: menu items somehow remain white background black text -->
-        
-        <!-- specific customization -->
+
+        <!-- Widget-like UI specific customization -->
         <item name="colorPrimary">@color/colorPrimaryTranslucent</item>
-        <item name="lsspEditorBackground">@color/colorEditorBGDark</item>
+        <item name="mainHeight">@dimen/main_height</item>
+        <item name="mainMarginHorizontal">@dimen/main_marginHorizontal</item>
+        <item name="mainMarginTop">@dimen/main_marginTop</item>
+        <item name="mainMarginBottom">@dimen/main_marginBottom</item>
+        <item name="fabMargin">@dimen/fab_margin</item>
     </style>
 
     <!-- themes for the support action bar itself stays the same  independent of normal / dark theme -->

@@ -8,5 +8,11 @@
             as attribute can be defined once only.)
          -->
         <attr name="lsspEditorBackground" format="reference"/>
+        <attr name="mainHeight" format="dimension" />
+        <attr name="mainMarginHorizontal" format="dimension" />
+        <attr name="mainMarginTop" format="dimension" />
+        <attr name="mainMarginBottom" format="dimension" />
+        <attr name="fabMargin" format="dimension" />
+
     </declare-styleable>
 </resources>

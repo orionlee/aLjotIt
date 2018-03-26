@@ -50,6 +50,8 @@ public class ThemeSwitcher {
                     LSScratchPadModel.THEME_LIGHT );
         }
 
+        final boolean isUIWidgetStyle = model.isUIWidgetStyle(); // widget-like or full screen
+
         // For light or dark option
         // resolve the actual style based on the option and the activity currently requesting it
         // (SettingsActivity, based on Android Studio-generated template,
@@ -59,11 +61,13 @@ public class ThemeSwitcher {
         switch (theme) {
             case LSScratchPadModel.THEME_DARK:
                 themeId = ( activity instanceof SettingsActivity ? R.style.AppTheme_Dark :
-                        R.style.AppTheme_Dark_NoActionBar_TransparentBG );
+                            (isUIWidgetStyle ? R.style.AppTheme_Dark_NoActionBar_TransparentBG :
+                                    R.style.AppTheme_Dark_NoActionBar) );
                 break;
             case LSScratchPadModel.THEME_LIGHT:
                 themeId = ( activity instanceof SettingsActivity ? R.style.AppTheme :
-                        R.style.AppTheme_NoActionBar_TransparentBG );
+                            (isUIWidgetStyle ? R.style.AppTheme_NoActionBar_TransparentBG :
+                                    R.style.AppTheme_NoActionBar) );
                 break;
             default:
                 Log.w(TAG, "Unexpected theme option +[" + theme + "]. Use default");

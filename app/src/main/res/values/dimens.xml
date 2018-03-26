@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Widget-like UI dimensions,
+        main_height is be further customized based on screen height.
+        The default here is meant to be as a fallback for extra small screen (hence full-screen like)
+      -->
     <dimen name="fab_margin">8dp</dimen>
     <dimen name="main_height">-1px</dimen> <!-- intended as match_parent, except the keyword not allowed here -->
     <dimen name="main_marginHorizontal">16dp</dimen>
     <dimen name="main_marginTop">16dp</dimen>
     <dimen name="main_marginBottom">16dp</dimen>
+
+    <!-- normal full screen dimensions -->
+    <dimen name="fabFS_margin">16dp</dimen>
+    <dimen name="mainFS_height">-1px</dimen> <!-- intended as match_parent, except the keyword not allowed here -->
+    <dimen name="mainFS_marginHorizontal">0dp</dimen>
+    <dimen name="mainFS_marginTop">0dp</dimen>
+    <dimen name="mainFS_marginBottom">0dp</dimen>
 </resources>

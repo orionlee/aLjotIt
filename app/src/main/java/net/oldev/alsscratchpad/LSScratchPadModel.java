@@ -109,6 +109,12 @@ public class LSScratchPadModel {
         return TimeRange.parse(timeRangeStr);
     }
 
+    public boolean isUIWidgetStyle() {
+        // OPEN: might allow end users to change it.
+        // For now, it is hardcoded while Widget-style UI is being experimented.
+        // The switch lets developers to change back to normal full screen relatively quickly.
+        return true;
+    }
 
     //
     // SharedPreferences helpers
