@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:paddingLeft="16dp"
-              android:paddingRight="16dp"
-              android:paddingStart="16dp"
-              android:paddingEnd="16dp"
-              android:orientation="vertical" >
-    <android.support.v4.widget.Space
-        android:layout_weight="0.5"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"/>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_weight="5"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
+    android:layout_height="@dimen/main_height"
+    android:layout_marginTop="@dimen/main_marginTop"
+    android:layout_marginLeft="@dimen/main_marginHorizontal"
+    android:layout_marginRight="@dimen/main_marginHorizontal"
+    android:layout_marginStart="@dimen/main_marginHorizontal"
+    android:layout_marginEnd="@dimen/main_marginHorizontal"
+    android:layout_marginBottom="@dimen/main_marginBottom"
     android:id="@+id/activity_main"
     tools:context="net.oldev.alsscratchpad.MainActivity">
 
@@ -56,10 +49,3 @@
     <!-- app:backgroundTint="" to set background color, android:background won't work for FAB -->
 
 </android.support.design.widget.CoordinatorLayout>
-
-    <android.support.v4.widget.Space
-        android:layout_weight="4.5"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"/>
-
-</LinearLayout>

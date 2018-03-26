@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="fab_margin">8dp</dimen>
+    <dimen name="main_height">-1px</dimen> <!-- intended as match_parent, except the keyword not allowed here -->
+    <dimen name="main_marginHorizontal">16dp</dimen>
+    <dimen name="main_marginTop">16dp</dimen>
+    <dimen name="main_marginBottom">16dp</dimen>
 </resources>
