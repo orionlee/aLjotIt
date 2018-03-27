@@ -245,9 +245,6 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayShowHomeEnabled(true);
             // OPEN: Can't figure out how to specify the icon
             // in main_content.xml or styles.xml so it is hardcoded here.
-            //
-            // use app:navigationIcon on <...widget.Toolbar> displays the icon,
-            // but it has a much wider horizontal space / margin
             actionBar.setIcon(R.drawable.ic_menu_lock);
         } else {
             actionBar.setDisplayShowHomeEnabled(false);

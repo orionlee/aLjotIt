@@ -32,6 +32,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        <!-- note: "@drawable/ic_menu_lock" is set as Icon at home for lock screen case
+             It is not defined here because there seems to have no xml equivalent:
+             - app:logo has no effect
+             - app:navigationIcon has a different placement (much wider horizontal spacing)
+         -->
 
     </android.support.design.widget.AppBarLayout>
 
