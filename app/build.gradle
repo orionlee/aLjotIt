@@ -8,8 +8,8 @@ android {
         targetSdkVersion 26
         def vMajor = 0
         def vMinor = 3
-        def vPatch = 6
-        def vNameSuffix = '-lc2-wgt' // an optional, descriptive suffix on versionName used sparingly
+        def vPatch = 7
+        def vNameSuffix = '' // an optional, descriptive suffix on versionName used sparingly
         versionCode vMajor * 10000 + vMinor * 100 + vPatch
         versionName "${vMajor}.${vMinor}.${vPatch}${vNameSuffix}"
 
