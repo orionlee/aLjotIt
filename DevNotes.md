@@ -26,19 +26,42 @@ It just pushes further the stack.
         - UX: clearer to users he/she is on lock screen
         - Code: can remove some of the (complicated) logic managing MainActivity's state, e.g., 
          hide MainActivity upon lock screen, UI customization, etc.
-- [x] bring up keyboard upon start        
-- [ ] The keep-like color scheme maybe confusing to users when both Keep and LS ScratchPad is open, say, in Recent App list
-- [ ] (Probably related) Theme change doesn't happen on editor when I hit system back button at the bottom, it does happen if I press the up button on action bar.
-- reduce apk / memory footprint (by cutting number of support libs used)
+- [x] bring up keyboard upon start
+
+## For wider usage        
+- [ ] support Pre Android 7 devices (using lockscreen drawing / notification instead)
+    - On a 4.1.2 device, the action menu (vertical triple-dot) will disappear if AppCompat is given up.
+
+- reduce apk / memory footprint (by cutting number of support libs used?)
+
 - [ ] Limit the maximum size of a note?!
-- Let user customize advanced configuration
+- [ ] option to show a reminder whenever there is note
+
+- [ ] QS Tile: on normal screen, use a title such as "new Keep" to signify it is launching keep?
+
+- [ ] INTERMITTENT BUG: weird crash at times upon closing apps (somehow broadcast receiver not registered)
+  Caused by: java.lang.IllegalArgumentException: Receiver not registered: net.oldev.alsscratchpad.LSScratchPadApp$MainLockScreenReceiver@e4d2aa5
+
+- [ ] Let user customize advanced configuration
    - allow font size / font family be adjustable
    - enable / disable "Add to LS Scratch" (aka share friendly)
    - QS Tile: on normal screen: option to launch Scratch Pad or a new Keep note.
    - note maximum size 
-- support Pre Android 7 devices (using lockscreen drawing instead)
-    - On a 4.1.2 device, the action menu (vertical triple-dot) is missing. Unclear if it is due to Android version or small screen (480x800, unlikely as rotating to landscaping doesn't fix it) .
-- option to show a reminder whenever there is note
-- 1st-class support other note app (e.g., OneNote, etc.)
+
+- [ ] 1st-class support other note app (e.g., OneNote, etc.)
     - replace send to Keep with others
-- sticky widget?!
+
+## UI Polish for wider usage    
+- [ ] Change the name
+- [ ] Tweak color scheme: The keep-like color scheme maybe confusing to users when both Keep and LS ScratchPad is open, say, in Recent App list
+
+- [ ] splash screen? Prompt to add the QS Tile?
+- [ ] detect Google Keep installation (and error report if it's not installed)
+
+- [ ] Theme change doesn't happen on editor right away without restart
+  - (If restart needed) Make restart appear seamless with fade in/out animation
+	   	https://stackoverflow.com/a/35453525
+	   	
+- [] Minor Widget UI tweak
+  - the dialog post share (asking to clear it): move it up (rather than center)
+  - Toast (after unlock) may need to be moved up too.
