@@ -36,7 +36,8 @@
         <item>Dark</item>
         <item>Auto</item>
     </string-array>
-    <string-array name="pref_theme_values"> <!-- corresponds to LSScratchPadModel.ThemeOption -->
+    <string-array name="pref_theme_values"
+                  translatable="false"> <!-- MUST correspond to LSScratchPadModel.ThemeOption -->
         <item>LIGHT</item>
         <item>DARK</item>
         <item>AUTO</item>
