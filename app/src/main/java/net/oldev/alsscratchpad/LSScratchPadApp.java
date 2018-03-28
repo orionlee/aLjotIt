@@ -2,16 +2,22 @@ package net.oldev.alsscratchpad;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -131,17 +137,21 @@ public class LSScratchPadApp extends Application {
      */
     private class MainLockScreenReceiver extends LockScreenReceiver {
 
-        private @Nullable Activity getLatestActivity() {
+        private @Nullable
+        Activity getLatestActivity() {
             return mMainLockScreenReceiverManager.getLatestActivity();
         }
 
         @Override
         protected void onLocked() {
+            Log.v(TAG, "MainLockScreenReceiver.onLocked()");
             // hide the app when the screen is locked, so that it will not stay
             // on lock screen uninvited.
             if (getLatestActivity() != null) {
                 getLatestActivity().moveTaskToBack(true);
             }
+
+            showLockScreenNotification();
         }
 
         @Override
@@ -155,6 +165,7 @@ public class LSScratchPadApp extends Application {
 
                 bringActivityToFrontOrStart(MainActivity.class);
             }
+            cancelLockScreenNotification();
         }
 
         /**
@@ -182,7 +193,7 @@ public class LSScratchPadApp extends Application {
                              (ViewGroup) getLatestActivity().findViewById(R.id.snackbar_like_toast));
 
             // Set the Text to show in TextView
-            TextView text = (TextView)layout.findViewById(R.id.snackbar_text);
+            TextView text = (TextView) layout.findViewById(R.id.snackbar_text);
             text.setText(msg);
 
             if (!TextUtils.isEmpty(actionText) && actionOnClickListener != null) {
@@ -198,6 +209,63 @@ public class LSScratchPadApp extends Application {
             toast.setView(layout);
             toast.show();
         }
-    }
 
+        //
+        // Lock Screen Notification related logic, can be made into a class itself
+        //
+
+        private static final int LOCK_SCREEN_NOTIFICATION_ID = 7344;
+
+        private void cancelLockScreenNotification() {
+            if (!mModel.isLockScreenNotificationEnabled()) {
+                return;
+            }
+
+            NotificationManager notifyMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notifyMgr.cancel(LOCK_SCREEN_NOTIFICATION_ID);
+        }
+
+        private void showLockScreenNotification() {
+            if (!mModel.isLockScreenNotificationEnabled()) {
+                return;
+            }
+
+            final int lockScreenRequestCode = 2345;
+            // PENDING: add channel ID for Oreo
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+                    .setCategory(Notification.CATEGORY_SERVICE) // OPEN: the proper category is unclear
+                    .setShowWhen(false)  // ensure the unnecessary timestamp not shown
+                    .setPriority(Notification.PRIORITY_MAX) // ensure high enough in the priority to be seen on lock screen
+                    .setVisibility(Notification.VISIBILITY_PUBLIC); // ensure text be seen on lock screen
+
+            // prepare content intent to launch MainActivity (requires a redirect MainIntentService)
+            Intent intent = new Intent(getApplicationContext(), MainIntentService.class);
+            PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(),
+                                                                   lockScreenRequestCode,
+                                                                   intent,
+                                                                   PendingIntent.FLAG_UPDATE_CURRENT);
+
+            // set layout
+            // Need to use RemoteViews with custom layout plus IntentService to launch MainActivity
+            // @see https://stackoverflow.com/a/27838085
+            //
+            // Basic notification header (app name / icon) is preserved by
+            // customizing the content part of the view
+            // @see https://developer.android.com/training/notify-user/custom-notification.html#custom-content
+            //
+            RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notiifcation_lockscreen);
+            /// does not work on the container LinearLayout, even with setPendingIntentTemplate:
+            /// contentView.setPendingIntentTemplate(R.id.notification_content, pendingIntent);
+            contentView.setOnClickPendingIntent(R.id.notification_content_text, pendingIntent);
+            builder.setSmallIcon(R.drawable.ic_tile)
+                   .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                   .setCustomContentView(contentView)
+                   .setCustomBigContentView(contentView);
+
+            NotificationManager notifyMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notifyMgr.notify(LOCK_SCREEN_NOTIFICATION_ID, builder.build()); // builder.build() require jelly_bean
+
+        }
+
+    }
 }

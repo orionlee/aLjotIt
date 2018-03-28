@@ -24,6 +24,8 @@
     <string name="hint_scratch_pad_content">Take a note...</string>
     <string name="title_activity_settings">Settings</string>
 
+    <string name="label_lockscreen_notification">Click to jot down notes.</string>
+
     <!-- Strings related to Settings -->
 
     <string name="pref_category_ui">User Interface</string>

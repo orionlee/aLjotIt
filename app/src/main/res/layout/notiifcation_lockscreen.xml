@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Covering layout analogous to Notification.Builder.setContentText() -->
+<!-- android:layout_width="match_parent" to expand clickable area -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:ellipsize="end"
+          android:layout_gravity="start|center"
+          android:paddingLeft="8dp"
+          android:paddingStart="8dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:singleLine="true"
+          android:paddingTop="4dp"
+          android:paddingBottom="4dp"
+          android:id="@+id/notification_content_text"
+          android:clickable="true"
+          android:text="@string/label_lockscreen_notification"
+          style="@style/TextAppearance.AppCompat.Notification.Title" />

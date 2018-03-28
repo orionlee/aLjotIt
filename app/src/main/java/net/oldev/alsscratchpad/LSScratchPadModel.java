@@ -9,6 +9,12 @@ import android.text.TextUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * Provides access to
+ * 1. the states (content, cursor position, etc.) of the editor, and
+ * 2. preferences / settings used by the application
+ *
+ */
 public class LSScratchPadModel {
     // preference file name for the text
     private static final String P_CONTENT = "net.oldev.alsscratchpad";
@@ -114,6 +120,10 @@ public class LSScratchPadModel {
         // For now, it is hardcoded while Widget-style UI is being experimented.
         // The switch lets developers to change back to normal full screen relatively quickly.
         return true;
+    }
+
+    public boolean isLockScreenNotificationEnabled() {
+        return true; // to be exposed as a settings
     }
 
     //
