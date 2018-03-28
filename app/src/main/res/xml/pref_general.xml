@@ -22,5 +22,10 @@
             android:key="autoThemeDarkTimeRange"
             android:defaultValue="[23:00,07:00]"
             android:title="@string/pref_auto_theme_dark_time_range"/>
+
+        <SwitchPreference
+            android:key="lockScreenNotificationEnabled"
+            android:title="@string/pref_lock_screen_notification"
+            android:summary="@string/pref_lock_screen_notification_summary" />
     </PreferenceCategory>
 </PreferenceScreen>

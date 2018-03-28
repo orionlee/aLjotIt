@@ -2,6 +2,7 @@ package net.oldev.alsscratchpad;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.text.TextUtils;
@@ -39,7 +40,7 @@ public class LSScratchPadModel {
 
     // used by UI code
     static final String PREF_AUTO_THEME_DARK_TIME_RANGE = "autoThemeDarkTimeRange";
-
+    static final String PREF_LOCK_SCREEN_NOTIFICATION_ENABLED = "lockScreenNotificationEnabled";
 
     private final @NonNull
     Context mContext;
@@ -122,8 +123,21 @@ public class LSScratchPadModel {
         return true;
     }
 
+    // lock screen notification defaulted to true for Android 5 /6 devices,
+    // which do not support QSTile, the preferred way to access the app from lock screen.
+    private final boolean mLockScreenNotificationEnabledDefault =
+            ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    Build.VERSION.SDK_INT < Build.VERSION_CODES.N );
+
     public boolean isLockScreenNotificationEnabled() {
-        return true; // to be exposed as a settings
+        return getBooleanPref(P_SETTINGS, PREF_LOCK_SCREEN_NOTIFICATION_ENABLED,
+                              mLockScreenNotificationEnabledDefault);
+    }
+
+
+    public void setLockScreenNotificationEnabled(boolean enabled) {
+        setPref(P_SETTINGS, PREF_LOCK_SCREEN_NOTIFICATION_ENABLED, enabled);
+
     }
 
     //

@@ -46,5 +46,8 @@
 
     <string name="label_timerange_picker_begin">From</string>
     <string name="label_timerange_picker_end">To</string>
+    
+    <string name="pref_lock_screen_notification">Lock Screen Notification</string>
+    <string name="pref_lock_screen_notification_summary">Enable to access Scratch Pad on lock screen using notification.</string>
 
 </resources>
