@@ -8,6 +8,7 @@
             as attribute can be defined once only.)
          -->
         <attr name="lsspEditorBackground" format="reference"/>
+        <attr name="mainAppBarBackground" format="color" />
         <attr name="mainHeight" format="dimension" />
         <attr name="mainMarginHorizontal" format="dimension" />
         <attr name="mainMarginTop" format="dimension" />

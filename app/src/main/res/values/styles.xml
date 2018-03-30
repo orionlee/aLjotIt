@@ -5,6 +5,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="lsspEditorBackground">@color/colorEditorBG</item>
+        <!-- mainAppBarBackground: here it simulates default DarkActionBar style
+             it's overridden in widget-like style aka .TransparentBG
+          -->
+        <item name="mainAppBarBackground">@color/colorPrimary</item>
         <!-- main height, margin properties: the additional layer here
              enables the UI dimensions to be changed based on theme -->
         <!-- full screen UI dimensions -->
@@ -32,7 +36,7 @@
         <item name="android:backgroundDimAmount">0.5</item>
 
         <!-- Widget-like UI specific customization -->
-        <item name="colorPrimary">@color/colorPrimaryTranslucent</item>
+        <item name="mainAppBarBackground">@color/colorPrimaryTranslucent</item>
         <item name="mainHeight">@dimen/main_height</item>
         <item name="mainMarginHorizontal">@dimen/main_marginHorizontal</item>
         <item name="mainMarginTop">@dimen/main_marginTop</item>
@@ -72,7 +76,7 @@
         <!-- PENDING: menu items somehow remain white background black text -->
 
         <!-- Widget-like UI specific customization -->
-        <item name="colorPrimary">@color/colorPrimaryTranslucent</item>
+        <item name="mainAppBarBackground">@color/colorPrimaryTranslucent</item>
         <item name="mainHeight">@dimen/main_height</item>
         <item name="mainMarginHorizontal">@dimen/main_marginHorizontal</item>
         <item name="mainMarginTop">@dimen/main_marginTop</item>
