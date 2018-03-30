@@ -7,8 +7,8 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         def vMajor = 0
-        def vMinor = 3
-        def vPatch = 7
+        def vMinor = 4
+        def vPatch = 0
         def vNameSuffix = '' // an optional, descriptive suffix on versionName used sparingly
         versionCode vMajor * 10000 + vMinor * 100 + vPatch
         versionName "${vMajor}.${vMinor}.${vPatch}${vNameSuffix}"
@@ -70,4 +70,22 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+//It will create a new task(s) based on your application variants within (run) group
+//sample: ./gradlew installRunDebug
+//sample: ./gradlew installRunDevDebug
+project.afterEvaluate {
+    android.applicationVariants.all { variant ->
+        task "installRun${variant.name.capitalize()}"(type: Exec, dependsOn: "install${variant.name.capitalize()}", group: "run") {
+            description "Install and run app (${variant.name.capitalize()})"
+            // use `monkey` instead of `am start` to avoid specifying activity
+            commandLine "adb", "shell", "monkey", "-p", variant.applicationId, "1"
+            /// need to specify / deduce package name, activity can be a variable passed with -P
+            /// commandLine "adb", "shell", "am", "start", "-n", variant.applicationId + "/" + ".MainActivity"
+            doLast {
+                println "Launching ${variant.applicationId}"
+            }
+        }   
+    }
 }
