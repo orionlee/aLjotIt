@@ -1,10 +1,8 @@
 package net.oldev.alsscratchpad;
 
 import android.annotation.TargetApi;
-import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
-import android.os.IBinder;
 import android.service.quicksettings.TileService;
 
 @TargetApi(Build.VERSION_CODES.N)
@@ -19,10 +17,12 @@ public class LSScratchPadTileService extends TileService {
         // On lock screen, launch ScratchPad as Google Keep is not available.
         Intent intent;
         if (isLocked()) {
-            intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent = MainActivity.getStartActivityIntentFromOutsideActivityContext(this);
         } else {
-            intent = new Intent();
+            intent = new Intent(Intent.ACTION_SEND); // create a new note by sending an empty text
             intent.setClassName(MainActivity.GKEEP_PACKAGE_NAME, MainActivity.GKEEP_CLASSNAME);
+            intent.putExtra(Intent.EXTRA_TEXT, "");
+            intent.setType("text/plain");
         }
         startActivityAndCollapse(intent);
     }

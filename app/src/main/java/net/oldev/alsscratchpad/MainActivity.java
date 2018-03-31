@@ -39,6 +39,21 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_START_FROM_LOCK_SCREEN =
             MainActivity.class.getPackage().getName() + ".EXTRA_START_FROM_LOCK_SCREEN";
 
+    public static void startFromOutsideActivityContext(@NonNull Context startContext) {
+        Intent mainIntent = getStartActivityIntentFromOutsideActivityContext(startContext);
+        startContext.getApplicationContext().startActivity(mainIntent);
+    }
+
+    public static @NonNull Intent getStartActivityIntentFromOutsideActivityContext(@NonNull Context startContext) {
+        Intent mainIntent = new Intent(startContext.getApplicationContext(), MainActivity.class);
+        // FLAG_ACTIVITY_NEW_TASK is a requirement for starting activity
+        // from Services, BroadcastReceivers, etc., to avoid ActivityManager from
+        // throwing exception about startActivity from outside of an activity context
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        return mainIntent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v(TAG, "onCreate()");
@@ -193,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendToKeep() {
         /// Use Keep
-        sendTo(GKEEP_CLASSNAME, GKEEP_CLASSNAME);
+        sendTo(GKEEP_PACKAGE_NAME, GKEEP_CLASSNAME);
     }
 
     private void sendTo(@Nullable String packageName, @Nullable String className) {
@@ -206,10 +221,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_TEXT, mScratchPad.getText().toString()); // MUST cast to string or it won't be accepted by google Keep
         intent.setType("text/plain"); // MUST be set for the system the share chooser to show up.
 
-        /// Use Keep
         if (!TextUtils.isEmpty(packageName) && !TextUtils.isEmpty(className)) {
-            intent.setClassName("com.google.android.keep", "com.google.android.keep.activities.ShareReceiverActivity");
-        }  else {
+            intent.setClassName(packageName, className);
+        }  else { // Send-to activity not specified. Let user decides.
             // Customized chooser label
             String labelText = getString(R.string.label_send_to);
             SpannableString chooserLabel = new SpannableString(labelText);

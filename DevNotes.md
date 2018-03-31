@@ -30,6 +30,10 @@ It just pushes further the stack.
 
 ## For wider usage        
 - [ ] support Pre Android 7 devices (using lockscreen drawing / notification instead)
+  - [x] Lock Screen Notification (for Android 5 /6)
+    - [x] 1st cut
+    - [ ] misc. edge cases (startup, etc.)
+  - [ ] Support Android 4 (usable on lock screen)
     - On a 4.1.2 device, the action menu (vertical triple-dot) will disappear if AppCompat is given up.
 
 - reduce apk / memory footprint (by cutting number of support libs used?)

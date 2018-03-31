@@ -163,23 +163,9 @@ public class LSScratchPadApp extends Application {
                 Toast.makeText(getApplicationContext(), "Opening LS Scratch Pad to send the note...",
                                Toast.LENGTH_SHORT).show();
 
-                bringActivityToFrontOrStart(MainActivity.class);
+                MainActivity.startFromOutsideActivityContext(getApplicationContext());
             }
             cancelLockScreenNotification();
-        }
-
-        /**
-         * Start an activity, or if it is already there (in the background)
-         * bring it to the front.
-         * If normal <code>Intent</code> is used, the existing activity
-         * will still be on the history stack, i.e., when the user presses
-         * back button, it will navigate back to the same activity.
-         */
-        private void bringActivityToFrontOrStart(Class<?> activityClass) {
-            Intent intent = new Intent(getApplicationContext(),
-                                       activityClass);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            getApplicationContext().startActivity(intent);
         }
 
         // OPEN: remove it if action cannot be made working.
