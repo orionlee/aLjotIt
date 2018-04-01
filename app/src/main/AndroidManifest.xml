@@ -4,6 +4,8 @@
 
     <!-- For use on lock screen -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- Listen to lock screen changes on boot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".LSScratchPadApp"
@@ -58,7 +60,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.oldev.alsscratchpad.MainActivity"/>
         </activity>
-
         <activity
             android:name=".ShareReceiverActivity"
             android:label="@string/share_receiver_name">
@@ -75,6 +76,27 @@
             android:name=".MainIntentService"
             android:exported="false">
         </service>
+
+        <receiver android:name=".LockScreenNotificationReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".LockScreenNotificationService">
+        </service>
+
+        <!--
+             Upon boot, it listens to broadcasts related to lock screen, used by
+             LockScreen Notification feature.
+        -->
+        <receiver
+            android:name=".LockScreenNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
