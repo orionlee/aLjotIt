@@ -6,8 +6,8 @@ import android.os.Build;
 import android.service.quicksettings.TileService;
 
 @TargetApi(Build.VERSION_CODES.N)
-public class LSScratchPadTileService extends TileService {
-    public LSScratchPadTileService() {
+public class LjotItTileService extends TileService {
+    public LjotItTileService() {
     }
 
     @Override

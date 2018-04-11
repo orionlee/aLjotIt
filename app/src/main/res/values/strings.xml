@@ -37,7 +37,7 @@
         <item>Auto</item>
     </string-array>
     <string-array name="pref_theme_values"
-                  translatable="false"> <!-- MUST correspond to LSScratchPadModel.ThemeOption -->
+                  translatable="false"> <!-- MUST correspond to LjotItModel.ThemeOption -->
         <item>LIGHT</item>
         <item>DARK</item>
         <item>AUTO</item>

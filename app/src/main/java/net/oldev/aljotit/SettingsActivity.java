@@ -11,7 +11,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import net.oldev.aljotit.LSScratchPadModel.ThemeOption;
+import net.oldev.aljotit.LjotItModel.ThemeOption;
 
 import static net.oldev.aljotit.AppCompatPreferenceUtil.bindPreferenceSummaryToValue;
 
@@ -26,7 +26,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // superclass because they inherit from different base class.
         // Furthermore, using common superclass to enforce the behavior might not be desirable
         // to begin with (too rigid): Theme-aware activity is better described as an aspect / mix-in.
-        ThemeSwitcher.setTheme(new LSScratchPadModel(getApplicationContext()), this);
+        ThemeSwitcher.setTheme(new LjotItModel(getApplicationContext()), this);
 
         super.onCreate(savedInstanceState);
         setupActionBar();
@@ -88,16 +88,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // Each Preference has its own additional specific logic
             //
             { // Pref auto theme dark time range
-                Preference prefAutoThemeDarkTimeRange = findPreference(LSScratchPadModel.PREF_AUTO_THEME_DARK_TIME_RANGE);
+                Preference prefAutoThemeDarkTimeRange = findPreference(LjotItModel.PREF_AUTO_THEME_DARK_TIME_RANGE);
                 bindPreferenceSummaryToValue(prefAutoThemeDarkTimeRange);
 
                 // data bind prefAutoThemeDarkTimeRange enabled/disabled based on current theme
-                @ThemeOption String curTheme = new LSScratchPadModel(getActivity().getApplicationContext()).getTheme();
+                @ThemeOption String curTheme = new LjotItModel(getActivity().getApplicationContext()).getTheme();
                 updatePrefAutoThemeEnabledStatus(curTheme, prefAutoThemeDarkTimeRange);
             }
 
             { // Pref Theme (to use)
-                Preference prefTheme = findPreference(LSScratchPadModel.PREF_THEME);
+                Preference prefTheme = findPreference(LjotItModel.PREF_THEME);
                 bindPreferenceSummaryToValue(prefTheme);
 
                 // Refresh Settings itself upon theme change
@@ -116,7 +116,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         private void updatePrefAutoThemeEnabledStatus(@ThemeOption String themeOption,
                                            Preference prefAutoThemeDarkTimeRange) {
-            boolean enabled = (LSScratchPadModel.THEME_AUTO.equals(themeOption));
+            boolean enabled = (LjotItModel.THEME_AUTO.equals(themeOption));
             prefAutoThemeDarkTimeRange.setEnabled(enabled);
         }
 

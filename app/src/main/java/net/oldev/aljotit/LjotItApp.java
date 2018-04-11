@@ -15,21 +15,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LSScratchPadApp extends Application {
+public class LjotItApp extends Application {
 
     private static final String TAG = "LSSP-App";
     
     private final MainLockScreenReceiverManager mMainLockScreenReceiverManager =
             new MainLockScreenReceiverManager();
 
-    private LSScratchPadModel mModel;
+    private LjotItModel mModel;
 
 
     @Override
     public void onCreate() {
         Log.v(TAG, "onCreate()");
         super.onCreate();
-        mModel = new LSScratchPadModel(getApplicationContext());
+        mModel = new LjotItModel(getApplicationContext());
         registerActivityLifecycleCallbacks(mMainLockScreenReceiverManager);
 
         // Long-running background service for notification on lockscreen feature,
@@ -71,7 +71,7 @@ public class LSScratchPadApp extends Application {
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             Log.v(TAG, "onActivityCreated()");
             if (!mLockScreenReceiverRegistered) {
-                LockScreenReceiver.registerToLockScreenChanges(LSScratchPadApp.this, mLockScreenReceiver);
+                LockScreenReceiver.registerToLockScreenChanges(LjotItApp.this, mLockScreenReceiver);
                 mLockScreenReceiverRegistered = true;
             }
         }
@@ -120,7 +120,7 @@ public class LSScratchPadApp extends Application {
             if (activity instanceof  MainActivity) {
                 MainActivity mainActivity = (MainActivity)activity;
                 if (!mainActivity.isDeviceLocked()) {
-                    LockScreenReceiver.unregisterFromLockScreenChanges(LSScratchPadApp.this,
+                    LockScreenReceiver.unregisterFromLockScreenChanges(LjotItApp.this,
                                                                        mLockScreenReceiver);
                     mLockScreenReceiverRegistered = false;
                 }

@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.util.Log;
 
-import net.oldev.aljotit.LSScratchPadModel.ThemeOption;
+import net.oldev.aljotit.LjotItModel.ThemeOption;
 
 import java.util.Calendar;
 
@@ -18,7 +18,7 @@ public class ThemeSwitcher {
     /**
      * Set the activity to the theme based on the named model
      */
-    public static void setTheme(LSScratchPadModel model, Activity activity) {
+    public static void setTheme(LjotItModel model, Activity activity) {
         @StyleRes int themeId = findThemeIdByOption(model, activity);
         activity.setTheme(themeId);
     }
@@ -33,21 +33,21 @@ public class ThemeSwitcher {
         activity.startActivity(refresh);
     }
 
-    private static boolean isDarkEffectiveForAutoTheme(@NonNull LSScratchPadModel model) {
+    private static boolean isDarkEffectiveForAutoTheme(@NonNull LjotItModel model) {
         final TimeRange darkThemeTimeRange = model.getAutoThemeDarkTimeRange();
 
         Calendar curTime = Calendar.getInstance();
         return darkThemeTimeRange.contains(curTime);
     }
 
-    private static @StyleRes int findThemeIdByOption(@NonNull LSScratchPadModel model,
+    private static @StyleRes int findThemeIdByOption(@NonNull LjotItModel model,
                                                      @NonNull Activity activity) {
         @ThemeOption String theme = model.getTheme();
 
         // For auto case, resolve the actual theme option (light or dark)
-        if (LSScratchPadModel.THEME_AUTO.equals(theme)) {
-            theme = ( isDarkEffectiveForAutoTheme(model) ? LSScratchPadModel.THEME_DARK :
-                    LSScratchPadModel.THEME_LIGHT );
+        if (LjotItModel.THEME_AUTO.equals(theme)) {
+            theme = ( isDarkEffectiveForAutoTheme(model) ? LjotItModel.THEME_DARK :
+                    LjotItModel.THEME_LIGHT );
         }
 
         final boolean isUIWidgetStyle = model.isUIWidgetStyle(); // widget-like or full screen
@@ -59,12 +59,12 @@ public class ThemeSwitcher {
         //  variety that uses system's own action bar, rather than the default _NoActionBar variant)
         @StyleRes int themeId;
         switch (theme) {
-            case LSScratchPadModel.THEME_DARK:
+            case LjotItModel.THEME_DARK:
                 themeId = ( activity instanceof SettingsActivity ? R.style.AppTheme_Dark :
                             (isUIWidgetStyle ? R.style.AppTheme_Dark_NoActionBar_TransparentBG :
                                     R.style.AppTheme_Dark_NoActionBar) );
                 break;
-            case LSScratchPadModel.THEME_LIGHT:
+            case LjotItModel.THEME_LIGHT:
                 themeId = ( activity instanceof SettingsActivity ? R.style.AppTheme :
                             (isUIWidgetStyle ? R.style.AppTheme_NoActionBar_TransparentBG :
                                     R.style.AppTheme_NoActionBar) );

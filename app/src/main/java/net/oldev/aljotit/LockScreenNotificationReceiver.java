@@ -17,7 +17,7 @@ import android.widget.RemoteViews;
  * Life cycle of the receiver: it is implemented as a long-running background service that
  * starts on boot, so that users can have the notification ready without bringing up the app first.
  *
- * The actual initialization is done at LSScratchPadApp#onCreate(). A BootReceiver is declared
+ * The actual initialization is done at LjotItApp#onCreate(). A BootReceiver is declared
  * to start it at boot time.
  *
  * Issue: startup on boot does not appear to be working on an emulator. The BootReceiver is invoked,
@@ -90,7 +90,7 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
     private static final int LOCK_SCREEN_NOTIFICATION_ID = 7344;
 
     private void cancelLockScreenNotification() {
-        final LSScratchPadModel model = new LSScratchPadModel(mCurContext);
+        final LjotItModel model = new LjotItModel(mCurContext);
         if (!model.isLockScreenNotificationEnabled()) {
             return;
         }
@@ -100,7 +100,7 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
     }
 
     private void showLockScreenNotification() {
-        final LSScratchPadModel model = new LSScratchPadModel(mCurContext);
+        final LjotItModel model = new LjotItModel(mCurContext);
         if (!model.isLockScreenNotificationEnabled()) {
             return;
         }

@@ -41,7 +41,7 @@ public class AppCompatPreferenceUtil {
                 // (in #bindPreferenceSummaryToValue()), without going through the model,
                 // hence it might be missing, and defaults need to be applied.
                 String strValueToUse = !TextUtils.isEmpty(stringValue) ? stringValue :
-                        LSScratchPadModel.DEFAULT_AUTO_THEME_DARK_TIME_RANGE;
+                        LjotItModel.DEFAULT_AUTO_THEME_DARK_TIME_RANGE;
                 preference.setSummary(TimeRange.parse(strValueToUse).toString());
             } else {
                 // For all other preferences, set the summary to the value's

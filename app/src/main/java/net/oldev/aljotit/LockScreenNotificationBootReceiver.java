@@ -14,6 +14,6 @@ public class LockScreenNotificationBootReceiver extends BroadcastReceiver {
         Log.v(TAG, "onReceive()");
 
         // No real action is needed. The receiver activation on boot itself
-        // will trigger creating LSScratchPadApp, which will start the background service
+        // will trigger creating LjotItApp, which will start the background service
     }
 }

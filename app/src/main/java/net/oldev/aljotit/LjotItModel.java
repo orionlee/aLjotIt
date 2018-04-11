@@ -16,7 +16,7 @@ import java.lang.annotation.RetentionPolicy;
  * 2. preferences / settings used by the application
  *
  */
-public class LSScratchPadModel {
+public class LjotItModel {
     // preference file name for the text
     private static final String P_CONTENT = "net.oldev.aljotit";
 
@@ -45,7 +45,7 @@ public class LSScratchPadModel {
     private final @NonNull
     Context mContext;
 
-    public LSScratchPadModel(@NonNull Context context) {
+    public LjotItModel(@NonNull Context context) {
         mContext = context;
     }
 

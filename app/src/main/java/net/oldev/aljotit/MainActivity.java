@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mScratchPad;
     private Menu mOptionsMenu;
 
-    private LSScratchPadModel mModel;
+    private LjotItModel mModel;
 
 
     public static final String EXTRA_START_FROM_LOCK_SCREEN =
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
-        mModel = new LSScratchPadModel(getApplicationContext());
+        mModel = new LjotItModel(getApplicationContext());
 
         // setting attributes on the service declaration in AndroidManifest.xml
         // does not work for some reason android:showOnLockScreen="true", android:showOnLockScreen="true"

@@ -3,7 +3,7 @@
     <PreferenceCategory
         android:title="@string/pref_category_ui">
         <!-- android:key values should be consistent with
-             the PREF_ constants defined in LSScratchPadModel.java -->
+             the PREF_ constants defined in LjotItModel.java -->
 
         <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
              dismiss it. -->
