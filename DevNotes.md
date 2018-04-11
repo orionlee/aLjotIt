@@ -27,14 +27,19 @@ It just pushes further the stack.
         - Code: can remove some of the (complicated) logic managing MainActivity's state, e.g., 
          hide MainActivity upon lock screen, UI customization, etc.
 - [x] bring up keyboard upon start
+- [ ] Tweak UI size to avoid overlap with soft keyboard in typical case.
 
 ## For wider usage        
 - [ ] support Pre Android 7 devices (using lockscreen drawing / notification instead)
   - [x] Lock Screen Notification (for Android 5 /6)
     - [x] 1st cut
-    - [ ] misc. edge cases (startup, etc.)
+    - [x] misc. edge cases (startup, etc.)
+  - [ ] Lock Screen Notification refinement
+    - [ ] (MAYBE) Once notification swiped off lock screen, don't show it again until relocked, rather than screen on 
+    - [ ] Don't run service if disabled      
   - [ ] Support Android 4 (usable on lock screen)
     - On a 4.1.2 device, the action menu (vertical triple-dot) will disappear if AppCompat is given up.
+- [ ] Ensure Android 8 devices (in particular notification)
 
 - reduce apk / memory footprint (by cutting number of support libs used?)
 
