@@ -3,12 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "net.oldev.alsscratchpad"
+        applicationId "net.oldev.aljotit"
         minSdkVersion 14
         targetSdkVersion 26
         def vMajor = 0
         def vMinor = 5
-        def vPatch = 0
+        def vPatch = 1
         def vNameSuffix = '' // an optional, descriptive suffix on versionName used sparingly
         versionCode vMajor * 10000 + vMinor * 100 + vPatch
         versionName "${vMajor}.${vMinor}.${vPatch}${vNameSuffix}"

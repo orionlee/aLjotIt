@@ -1,4 +1,4 @@
-package net.oldev.alsscratchpad;
+package net.oldev.aljotit;
 
 import android.content.Context;
 import android.content.res.Configuration;

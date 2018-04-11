@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="net.oldev.alsscratchpad">
+          package="net.oldev.aljotit">
 
     <!-- For use on lock screen -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -58,7 +58,7 @@
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.oldev.alsscratchpad.MainActivity"/>
+                android:value="net.oldev.aljotit.MainActivity"/>
         </activity>
         <activity
             android:name=".ShareReceiverActivity"

@@ -1,4 +1,4 @@
-package net.oldev.alsscratchpad;
+package net.oldev.aljotit;
 
 import android.annotation.TargetApi;
 import android.app.FragmentTransaction;
@@ -11,9 +11,9 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import net.oldev.alsscratchpad.LSScratchPadModel.ThemeOption;
+import net.oldev.aljotit.LSScratchPadModel.ThemeOption;
 
-import static net.oldev.alsscratchpad.AppCompatPreferenceUtil.bindPreferenceSummaryToValue;
+import static net.oldev.aljotit.AppCompatPreferenceUtil.bindPreferenceSummaryToValue;
 
 // Simplified from Android Studio-generated template, which supports
 // a more complex two-pane(screen) UI.

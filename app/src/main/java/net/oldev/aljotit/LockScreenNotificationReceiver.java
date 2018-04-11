@@ -1,4 +1,4 @@
-package net.oldev.alsscratchpad;
+package net.oldev.aljotit;
 
 import android.app.Notification;
 import android.app.NotificationManager;

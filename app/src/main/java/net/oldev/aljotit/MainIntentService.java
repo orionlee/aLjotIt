@@ -1,4 +1,4 @@
-package net.oldev.alsscratchpad;
+package net.oldev.aljotit;
 
 import android.app.IntentService;
 import android.content.Intent;

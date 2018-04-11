@@ -18,7 +18,7 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_theme"/>
 
-        <net.oldev.alsscratchpad.TimeRangePreference
+        <net.oldev.aljotit.TimeRangePreference
             android:key="autoThemeDarkTimeRange"
             android:defaultValue="[23:00,07:00]"
             android:title="@string/pref_auto_theme_dark_time_range"/>

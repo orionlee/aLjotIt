@@ -1,4 +1,4 @@
-package net.oldev.alsscratchpad;
+package net.oldev.aljotit;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class LSScratchPadModel {
     // preference file name for the text
-    private static final String P_CONTENT = "net.oldev.alsscratchpad";
+    private static final String P_CONTENT = "net.oldev.aljotit";
 
     private static final String PREF_CONTENT = "content";
     private static final String PREF_CONTENT_CURSOR_IDX = "contentCursorIdx";

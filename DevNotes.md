@@ -63,7 +63,8 @@ It just pushes further the stack.
 ## UI Polish for wider usage    
 - [ ] Rebrand
   - [x] Change the name
-  - [ ] Tweak color scheme: The keep-like color scheme maybe confusing to users when both Keep and LS ScratchPad is open, say, in Recent App list
+  - [x] `NO-OP` Tweak color scheme: The keep-like color scheme maybe confusing to users when both Keep and LS ScratchPad is open, say, in Recent App list
+    - gray look weird, yellow is still close to keep
   - [ ] Update backend package / class name?!  
   
 - [ ] splash screen? Prompt to add the QS Tile?

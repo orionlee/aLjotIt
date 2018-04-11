@@ -1,6 +1,6 @@
-package net.oldev.alsscratchpad;
+package net.oldev.aljotit;
 
-import net.oldev.alsscratchpad.TimeRange.HhMm;
+import net.oldev.aljotit.TimeRange.HhMm;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
