@@ -26,7 +26,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "LSSP-Main"; // Lock Screen Scratch Pad abbreviation
+    private static final String TAG = "LJI-Main"; // Lock Screen Scratch Pad abbreviation
 
     private static final int REQUEST_CODE_SHARE_TEXT = 987;
 

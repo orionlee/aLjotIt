@@ -17,7 +17,7 @@ import android.util.Log;
  */
 public abstract class LockScreenReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "LSSP-LsRcvr";
+    private static final String TAG = "LJI-LsRcvr";
 
     // last relevant intent handled (to dispatch onShowingLockScreen() correctly)
     private Intent mLastIntent;

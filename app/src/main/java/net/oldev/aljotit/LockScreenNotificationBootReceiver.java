@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class LockScreenNotificationBootReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "LSSP-LsnB";
+    private static final String TAG = "LJI-LsnB";
 
     @Override
     public void onReceive(Context context, Intent intent) {

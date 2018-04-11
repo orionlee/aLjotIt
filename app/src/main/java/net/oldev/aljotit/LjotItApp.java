@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class LjotItApp extends Application {
 
-    private static final String TAG = "LSSP-App";
+    private static final String TAG = "LJI-App";
     
     private final MainLockScreenReceiverManager mMainLockScreenReceiverManager =
             new MainLockScreenReceiverManager();

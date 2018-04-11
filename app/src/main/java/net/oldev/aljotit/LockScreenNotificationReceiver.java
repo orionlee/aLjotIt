@@ -44,7 +44,7 @@ import android.widget.RemoteViews;
  */
 public class LockScreenNotificationReceiver extends LockScreenReceiver {
 
-    private static final String TAG = "LSSP-LsnR";
+    private static final String TAG = "LJI-LsnR";
 
     private Context mCurContext; // OPEN: move it to parameters of onLocked(), etc.
 

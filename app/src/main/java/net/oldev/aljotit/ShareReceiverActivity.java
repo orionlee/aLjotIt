@@ -12,7 +12,7 @@ import android.util.Log;
  */
 public class ShareReceiverActivity extends Activity {
 
-    private static final String TAG = "LSSP-ShrRcvr";
+    private static final String TAG = "LJI-ShrRcvr";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

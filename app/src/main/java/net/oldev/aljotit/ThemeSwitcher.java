@@ -13,7 +13,7 @@ import java.util.Calendar;
 // Utility to set the theme for an Activity
 public class ThemeSwitcher {
 
-    private static final String TAG = "LSSP-Theme";
+    private static final String TAG = "LJI-Theme";
 
     /**
      * Set the activity to the theme based on the named model

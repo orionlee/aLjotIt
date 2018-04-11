@@ -8,7 +8,7 @@ import android.util.Log;
 import static android.content.ContentValues.TAG;
 
 public class LockScreenNotificationService extends Service {
-    private static final String Tag = "LSSP-LsnS";
+    private static final String Tag = "LJI-LsnS";
 
     private final LockScreenNotificationReceiver mLockScreenNotificationReceiver =
             new LockScreenNotificationReceiver();

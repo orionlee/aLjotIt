@@ -17,7 +17,7 @@ public class MainIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.v("LSSP-MainIn", "onHandleIntent()");
+        Log.v("LJI-MainIn", "onHandleIntent()");
         if (intent != null) {
             MainActivity.startFromOutsideActivityContext(this);
         }
