@@ -27,7 +27,7 @@ It just pushes further the stack.
         - Code: can remove some of the (complicated) logic managing MainActivity's state, e.g., 
          hide MainActivity upon lock screen, UI customization, etc.
 - [x] bring up keyboard upon start
-- [ ] Tweak UI size to avoid overlap with soft keyboard in typical case.
+- [x] Tweak UI size to avoid overlap with soft keyboard in popular devices.
 
 ## For wider usage        
 - [ ] support Pre Android 7 devices (using lockscreen drawing / notification instead)
