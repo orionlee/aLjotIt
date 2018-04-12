@@ -1,5 +1,6 @@
 package net.oldev.aljotit;
 
+import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
@@ -111,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (REQUEST_CODE_SHARE_TEXT == requestCode) {
+            // UI tweak: temporarily hide soft keyboard as it might obstruct snackbar messages
+            // after the prompt
+            hideSoftKeyboard();
             promptUserToClearContent();
         } else {
             Log.e(TAG, "Unsupported requestCode " + requestCode);
@@ -217,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         // else normal workflow
+
+        // Core logic
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, mScratchPad.getText().toString()); // MUST cast to string or it won't be accepted by google Keep
         intent.setType("text/plain"); // MUST be set for the system the share chooser to show up.
@@ -237,6 +244,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_CODE_SHARE_TEXT);
 
     }
+
+    private void hideSoftKeyboard() {
+        ((InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(mScratchPad.getWindowToken(), 0);
+    }
+
 
     //
     // Lock Screen UI customization logic
