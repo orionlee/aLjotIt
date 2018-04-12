@@ -19,8 +19,10 @@ public class LjotItTileService extends TileService {
         if (isLocked()) {
             intent = MainActivity.getStartActivityIntentFromOutsideActivityContext(this);
         } else {
+            LjotItModel model = ((LjotItApp)getApplication()).getModel();
             intent = new Intent(Intent.ACTION_SEND); // create a new note by sending an empty text
-            intent.setClassName(MainActivity.GKEEP_PACKAGE_NAME, MainActivity.GKEEP_CLASSNAME);
+            intent.setClassName(model.getSendToPreferredPackageName(),
+                                model.getSendToPreferredClassName());
             intent.putExtra(Intent.EXTRA_TEXT, "");
             intent.setType("text/plain");
         }

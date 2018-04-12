@@ -130,6 +130,11 @@ public class LjotItApp extends Application {
         }
     }
 
+    // Used by other components
+    LjotItModel getModel() {
+        return mModel;
+    }
+    
     /**
      * Control MainActivity's UI behavior by listening to
      * whether the screen is locked / unlocked.
