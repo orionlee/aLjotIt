@@ -2,6 +2,7 @@ package net.oldev.aljotit;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -25,6 +26,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -239,7 +241,12 @@ public class MainActivity extends AppCompatActivity {
         }
         ///Log.e(TAG, "text to send: " + textView.getText());
 
-        startActivityForResult(intent, REQUEST_CODE_SHARE_TEXT);
+        try {
+            startActivityForResult(intent, REQUEST_CODE_SHARE_TEXT);
+        } catch (ActivityNotFoundException anfe) {
+            Toast.makeText(this, R.string.msg_err_note_app_not_found, Toast.LENGTH_LONG).show();
+            Log.e(TAG, "sendTo: target note application is not found", anfe);
+        }
 
     }
 
