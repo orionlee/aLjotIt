@@ -35,7 +35,8 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
             {
                 // Screen is on but not unlocked (if any locking mechanism present)
                 Log.v(tag(), "[SCREEN_ON]");
-                if (mLastIntent.getAction().equals(Intent.ACTION_USER_PRESENT) &&
+                if (mLastIntent != null &&
+                        mLastIntent.getAction().equals(Intent.ACTION_USER_PRESENT) &&
                         mLastIntentTimestamp > System.currentTimeMillis() - 2000) {
                     Log.v(tag(), "  SCREEN_ON ignored: USER_PRESENT was just sent, indicating it is ON due to using fingerprint (or other non-visual one such as voice) unlocking ");
                     return;
