@@ -120,9 +120,18 @@ public class LjotItApp extends Application {
             if (activity instanceof  MainActivity) {
                 MainActivity mainActivity = (MainActivity)activity;
                 if (!mainActivity.isDeviceLocked()) {
-                    LockScreenReceiver.unregisterFromLockScreenChanges(LjotItApp.this,
-                                                                       mLockScreenReceiver);
-                    mLockScreenReceiverRegistered = false;
+                    try {
+                        LockScreenReceiver.unregisterFromLockScreenChanges(LjotItApp.this,
+                                                                           mLockScreenReceiver);
+                    } catch (Throwable t) {
+                        // In some edge case, the MainLockScreenReceiver is not registered
+                        // (or has been unregistered), unregister it here would
+                        // result in IllegalArgumentException and causes the app to crash
+                        // handle it by logging such cases
+                        Log.e(TAG, "unregister from lock screen changes failed unexpectedly", t);
+                    } finally {
+                        mLockScreenReceiverRegistered = false;
+                    }
                 }
             }
 

@@ -48,7 +48,7 @@ It just pushes further the stack.
 
 - [ ] QS Tile: on normal screen, use a title such as "new Keep" to signify it is launching keep?
 
-- [ ] INTERMITTENT BUG: weird crash at times upon closing apps (somehow broadcast receiver not registered)
+- [x] INTERMITTENT BUG: weird crash at times upon closing apps (somehow broadcast receiver not registered)
   Caused by: java.lang.IllegalArgumentException: Receiver not registered: net.oldev.alsscratchpad.LSScratchPadApp$MainLockScreenReceiver@e4d2aa5
 
 - [ ] Let user customize advanced configuration
