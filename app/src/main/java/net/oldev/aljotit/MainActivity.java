@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             hideSoftKeyboard();
             promptUserToClearContent();
         } else {
-            Log.e(TAG, "Unsupported requestCode " + requestCode);
+            Log.w(TAG, "onActivityResult() - Unsupported requestCode " + requestCode);
         }
     }
 
@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Log.d(TAG, "onOptionsItemSelected() - To be implemented. menuItem.id=" + id);
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent);
             return true;
@@ -239,13 +238,12 @@ public class MainActivity extends AppCompatActivity {
                                  0, labelText.length(), 0); // larger that default
             intent = intent.createChooser(intent, chooserLabel);
         }
-        ///Log.e(TAG, "text to send: " + textView.getText());
 
         try {
             startActivityForResult(intent, REQUEST_CODE_SHARE_TEXT);
         } catch (ActivityNotFoundException anfe) {
             Toast.makeText(this, R.string.msg_err_note_app_not_found, Toast.LENGTH_LONG).show();
-            Log.e(TAG, "sendTo: target note application is not found", anfe);
+            Log.w(TAG, "sendTo() - target note application is not found", anfe);
         }
 
     }
@@ -261,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
     //
 
     private void customizeMainUiForLockScreen() {
-        Log.v(TAG, "customizeMainUiForLockScreen()");
+        Log.v(TAG, "  customizeMainUiForLockScreen()");
         final boolean locked = isDeviceLocked();
 
         // LATER: make disabled color defined in resources?
@@ -285,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void customizeOptionsMenuForLockScreen(@NonNull Menu optionsMenu) {
-        Log.v(TAG, "customizeOptionMenuForLockScreen()");
+        Log.v(TAG, "  customizeOptionMenuForLockScreen()");
 
         final boolean locked = isDeviceLocked();
 
@@ -304,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isDeviceLocked() {
         KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
         boolean locked = km.inKeyguardRestrictedInputMode();
-        Log.v(TAG, "isDeviceLocked()  locked :" + locked);
+        Log.v(TAG, "  isDeviceLocked()  locked :" + locked);
         return locked;
     }
 

@@ -16,14 +16,17 @@ import android.util.Log;
  * @see #onUnlocked()
  */
 public abstract class LockScreenReceiver extends BroadcastReceiver {
-
-    private static final String TAG = "LJI-LsRcvr";
-
+    
     // last relevant intent handled (to dispatch onShowingLockScreen() correctly)
     private Intent mLastIntent;
     private long mLastIntentTimestamp;
     private boolean mScreenLocked = false;
 
+    /**
+     * @return the TAG used for logging purposes
+     */
+    protected abstract @NonNull String tag();
+    
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent != null && intent.getAction() != null)
@@ -31,10 +34,10 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
             {
                 // Screen is on but not unlocked (if any locking mechanism present)
-                Log.d(TAG, "[SCREEN_ON]");
+                Log.v(tag(), "[SCREEN_ON]");
                 if (mLastIntent.getAction().equals(Intent.ACTION_USER_PRESENT) &&
                         mLastIntentTimestamp > System.currentTimeMillis() - 2000) {
-                    Log.d(TAG, "  SCREEN_ON ignored: USER_PRESENT was just sent, indicating it is ON due to using fingerprint (or other non-visual one such as voice) unlocking ");
+                    Log.v(tag(), "  SCREEN_ON ignored: USER_PRESENT was just sent, indicating it is ON due to using fingerprint (or other non-visual one such as voice) unlocking ");
                     return;
                 } else {
                     // normal case
@@ -44,7 +47,7 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
             else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
             {
                 // Screen is locked, (technically, becomes non-interactive, screen might still be on)
-                Log.d(TAG, "[SCREEN_OFF]");
+                Log.v(tag(), "[SCREEN_OFF]");
                 if (!mScreenLocked) {
                     mScreenLocked = true;
                     onLocked();
@@ -67,13 +70,13 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
                     //
                     // The logic here prevents onLocked() being invoked again, thus preventing lockscreen notification being
                     // shown again.
-                    Log.d(TAG, "  SCREEN_OFF ignored: the screen has already been locked. The user just turns off the screen after seeing the lock screen (without any unlock).");
+                    Log.v(tag(), "  SCREEN_OFF ignored: the screen has already been locked. The user just turns off the screen after seeing the lock screen (without any unlock).");
                 }
             }
             else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
             {
                 // Screen is unlocked
-                Log.d(TAG, "[USER_PRESENT]");
+                Log.v(tag(), "[USER_PRESENT]");
                 mScreenLocked = false;
                 onUnlocked();
             } else {
@@ -103,7 +106,7 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
 
     public static void registerToLockScreenChanges(@NonNull Context ctx,
                                                    @NonNull LockScreenReceiver receiver) {
-        Log.d(TAG, "registerToLockScreenChanges()");
+        Log.v(receiver.tag(), "registerToLockScreenChanges()");
         IntentFilter lockFilter = new IntentFilter();
         lockFilter.addAction(Intent.ACTION_SCREEN_ON);
         lockFilter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -113,7 +116,7 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
 
     public static void unregisterFromLockScreenChanges(@NonNull Context ctx,
                                                        @NonNull LockScreenReceiver receiver) {
-        Log.d(TAG, "unregisterFromLockScreenChanges()");
+        Log.v(receiver.tag(), "unregisterFromLockScreenChanges()");
         ctx.unregisterReceiver(receiver);
     }
 

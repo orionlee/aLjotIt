@@ -128,7 +128,7 @@ public class LjotItApp extends Application {
                         // (or has been unregistered), unregister it here would
                         // result in IllegalArgumentException and causes the app to crash
                         // handle it by logging such cases
-                        Log.e(TAG, "unregister from lock screen changes failed unexpectedly", t);
+                        Log.w(TAG, "unregister from lock screen changes failed unexpectedly", t);
                     } finally {
                         mLockScreenReceiverRegistered = false;
                     }
@@ -154,6 +154,9 @@ public class LjotItApp extends Application {
         Activity getLatestActivity() {
             return mMainLockScreenReceiverManager.getLatestActivity();
         }
+
+        @Override
+        protected @NonNull String tag() { return TAG; }
 
         @Override
         protected void onLocked() {

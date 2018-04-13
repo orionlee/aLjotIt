@@ -53,6 +53,9 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
     }
 
     @Override
+    protected @NonNull String tag() { return TAG; }
+
+    @Override
     public void onReceive(Context context, Intent intent) {
         mCurContext = context; // to be used by onLocked(), etc.
         super.onReceive(context, intent);
