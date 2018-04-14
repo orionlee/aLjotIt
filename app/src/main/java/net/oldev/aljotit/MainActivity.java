@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mScratchPad;
     private Menu mOptionsMenu;
+    private @StyleRes int mThemeId; // id of the theme used
 
     private LjotItModel mModel;
 
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         // does not work for some reason android:showOnLockScreen="true", android:showOnLockScreen="true"
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 
-        ThemeSwitcher.setTheme(mModel, this); // MUST be done before setContentView, consider setting the theme
+        mThemeId = ThemeSwitcher.setTheme(mModel, this); // MUST be done before setContentView, consider setting the theme
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,6 +86,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         Log.v(TAG, "onStart()");
         super.onStart();
+
+        // Switch theme if the preference is changed, e.g., returning to this screen
+        // after changing the theme in SettingsActivity
+        // Also useful for auto theme case when the app is brought back to foreground
+        // and the theme should be changed due to time.
+        if (mThemeId != ThemeSwitcher.findThemeIdByOption(mModel, this)) {
+            Log.v(TAG, "  Theme changed. Restart activity...");
+            ThemeSwitcher.refreshActivity(this);
+            return;
+        }
+
         // data binding
         // @see #onStop() for when content gets persisted.
         // onStart is the correspond life cycle method, so it is used to load the content

@@ -18,9 +18,10 @@ public class ThemeSwitcher {
     /**
      * Set the activity to the theme based on the named model
      */
-    public static void setTheme(LjotItModel model, Activity activity) {
+    public static @StyleRes int setTheme(LjotItModel model, Activity activity) {
         @StyleRes int themeId = findThemeIdByOption(model, activity);
         activity.setTheme(themeId);
+        return themeId;
     }
 
     /**
@@ -40,7 +41,7 @@ public class ThemeSwitcher {
         return darkThemeTimeRange.contains(curTime);
     }
 
-    private static @StyleRes int findThemeIdByOption(@NonNull LjotItModel model,
+    public static @StyleRes int findThemeIdByOption(@NonNull LjotItModel model,
                                                      @NonNull Activity activity) {
         @ThemeOption String theme = model.getTheme();
 

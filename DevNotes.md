@@ -70,7 +70,7 @@ It just pushes further the stack.
 - [ ] splash screen? Prompt to add the QS Tile?
 - [ ] detect Google Keep installation (and error report if it's not installed)
 
-- [ ] Theme change doesn't happen on editor right away without restart
+- [x] Theme change doesn't happen on editor right away without restart
   - (If restart needed) Make restart appear seamless with fade in/out animation
 	   	https://stackoverflow.com/a/35453525
 	   	
