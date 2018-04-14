@@ -320,6 +320,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void notifyUserSentDisabledOnLockscreen() {
+        // UI tweak: temporarily hide soft keyboard as it might obstruct snackbar messages
+        hideSoftKeyboard();
+
         mModel.setSendPostponed(true);
 
         Snackbar.make(findViewById(R.id.activity_main), "Wait until the screen is unlocked to send.",
