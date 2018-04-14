@@ -130,8 +130,7 @@ public class LjotItModel {
     // lock screen notification defaulted to true for Android 5 /6 devices,
     // which do not support QSTile, the preferred way to access the app from lock screen.
     private final boolean mLockScreenNotificationEnabledDefault =
-            ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                    Build.VERSION.SDK_INT < Build.VERSION_CODES.N );
+            ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP );
 
     public boolean isLockScreenNotificationEnabled() {
         return getBooleanPref(P_SETTINGS, PREF_LOCK_SCREEN_NOTIFICATION_ENABLED,
