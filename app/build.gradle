@@ -8,7 +8,7 @@ android {
         targetSdkVersion 26
         def vMajor = 0
         def vMinor = 5
-        def vPatch = 2
+        def vPatch = 3
         def vNameSuffix = '' // an optional, descriptive suffix on versionName used sparingly
         versionCode vMajor * 10000 + vMinor * 100 + vPatch
         versionName "${vMajor}.${vMinor}.${vPatch}${vNameSuffix}"
@@ -55,7 +55,8 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // use optimized defaults so that custom stripping Log.{d|v} will be applicable
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.releaseConfig
         }
     }

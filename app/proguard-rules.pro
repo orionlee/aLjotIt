@@ -19,3 +19,13 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# disable debug / verbose logging
+# - requires optimized version of android default proguard rules,
+#   more specifically, it requires removing both
+#   dontoptimize and dontpreverify from the proguard rules.
+#   see: https://stackoverflow.com/a/31671469
+-assumenosideeffects class android.util.Log {
+    public static *** v(...);
+    public static *** d(...);
+}
