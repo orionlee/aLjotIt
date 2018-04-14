@@ -26,6 +26,9 @@
 
     <string name="label_lockscreen_notification">Click to jot down notes.</string>
 
+    <string name="label_lockscreen_notification_channel_name">Lock Screen</string>
+    <string name="label_lockscreen_notification_channel_desc">Access LjotIt on lock screen.</string>
+
     <!-- Strings related to Settings -->
 
     <string name="pref_category_ui">User Interface</string>

@@ -26,6 +26,10 @@ public class LockScreenNotificationService extends Service {
     public void onCreate() {
         Log.v(TAG, "onCreate()");
         super.onCreate();
+
+        // Notification channel setup required for Oreo+, NO-OP otherwise
+        LockScreenNotificationReceiver.createNotificationChannel(this);
+
         // Registration is done at onCreate(), rather than onStartCommand,
         // so that the service can be potentially started multiple times (at boot time, or app start up)
         // while registering exactly once.

@@ -1,6 +1,7 @@
 package net.oldev.aljotit;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -90,6 +91,33 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
 
     // Lock Screen Notification related logic
 
+    private static final String LOCK_SCREEN_CHANNEL = "lockScreen";
+
+    /**
+     * Setup Notification Channel for lockscreen notification.
+     * Should be called before receiver instance methods are invoked.
+     *
+     * For Oreo+ devices, NO-OP otherwise.
+     */
+    public static void createNotificationChannel(@NonNull Context ctx) {
+        // Notification channel applies only to Oreo+
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
+            return;
+        }
+
+        NotificationChannel channel = new NotificationChannel(LOCK_SCREEN_CHANNEL,
+                                                              ctx.getString(R.string.label_lockscreen_notification_channel_name),
+                                                              NotificationManager.IMPORTANCE_HIGH);
+        channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        channel.setDescription(ctx.getString(R.string.label_lockscreen_notification_channel_desc));
+        // Oreo defaults have sounds. Disable sound as it will be a nuisance.
+        channel.setSound(null, null);
+
+        ((NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE)).
+                createNotificationChannel(channel);
+    }
+
+
     private static final int LOCK_SCREEN_NOTIFICATION_ID = 7344;
 
     private void cancelLockScreenNotification() {
@@ -109,8 +137,8 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
         }
 
         final int lockScreenRequestCode = 2345;
-        // OPEN: add channel ID for Oreo, if Oreo is to be supported (currently no)
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                                                                            LOCK_SCREEN_CHANNEL)
                 .setCategory(Notification.CATEGORY_SERVICE) // OPEN: the proper category is unclear
                 .setShowWhen(false)  // ensure the unnecessary timestamp not shown
                 .setPriority(Notification.PRIORITY_MAX) // ensure high enough in the priority to be seen on lock screen
