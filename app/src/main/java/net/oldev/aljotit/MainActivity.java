@@ -302,11 +302,9 @@ public class MainActivity extends AppCompatActivity {
 
         final boolean visible = locked ? false : true;
 
-        // Hide all send UIs
-        // if I disable them rather than making them invisible
-        // the send menu will be grayed out correctly, however,
-        // send_to_keep, being an icon, shows no visible change, and is confusing.
-        optionsMenu.findItem(R.id.action_send_to_keep).setVisible(visible);
+        // Allow menu R.id.action_send_to_keep remain visible,
+        // as an alternative to FAB: the FAB might be obstructed by soft keyboard.
+        
         optionsMenu.findItem(R.id.action_share).setVisible(visible);
         optionsMenu.findItem(R.id.action_settings).setVisible(visible);
 
