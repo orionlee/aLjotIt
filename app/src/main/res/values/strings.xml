@@ -29,6 +29,9 @@
     <string name="label_lockscreen_notification_channel_name">Lock Screen</string>
     <string name="label_lockscreen_notification_channel_desc">Access LjotIt on lock screen.</string>
 
+    <string name="msg_err_note_app_not_found">Send failed. Note application is missing.</string>
+    <string name="msg_auto_open_app_post_unlock">Opening LjotIt to send the note...</string>
+    
     <!-- Strings related to Settings -->
 
     <string name="pref_category_ui">User Interface</string>
@@ -53,6 +56,5 @@
     
     <string name="pref_lock_screen_notification">Lock Screen Notification</string>
     <string name="pref_lock_screen_notification_summary">Enable to access LjotIt on lock screen using notification.</string>
-    <string name="msg_err_note_app_not_found">Send failed. Note application is missing.</string>
 
 </resources>

@@ -174,7 +174,7 @@ public class LjotItApp extends Application {
             if (mModel.isSendPostponed()) {
                 // Start MainActivity takes some noticeable delay
                 // Show a toast to let user know what to expect.
-                Toast.makeText(getApplicationContext(), "Opening LS Scratch Pad to send the note...",
+                Toast.makeText(getApplicationContext(), R.string.msg_auto_open_app_post_unlock,
                                Toast.LENGTH_SHORT).show();
 
                 MainActivity.startFromOutsideActivityContext(getApplicationContext());
