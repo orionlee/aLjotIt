@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#F5B80D</color>
     <color name="colorAccent">#9e9e9e</color>
     <color name="keepBackground">#f9a825</color>
+    <color name="keepBackgroundOnLockScreen">#bdbdbd</color>
 
     <color name="nightColorAccent">#d7ccc8</color>
 

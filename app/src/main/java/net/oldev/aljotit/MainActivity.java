@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -276,7 +275,8 @@ public class MainActivity extends AppCompatActivity {
         final boolean locked = isDeviceLocked();
 
         // LATER: make disabled color defined in resources?
-        final @ColorInt int color = locked ? Color.LTGRAY : getResources().getColor(R.color.keepBackground);
+        final @ColorInt int color = locked ? getResources().getColor(R.color.keepBackgroundOnLockScreen)
+                : getResources().getColor(R.color.keepBackground);
 
         // Make the button look disabled
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
