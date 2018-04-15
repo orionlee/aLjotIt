@@ -36,6 +36,7 @@ It just pushes further the stack.
     - [x] 1st cut
     - [x] misc. edge cases (startup, etc.)
   - [ ] Lock Screen Notification refinement
+    - [x] Add warnings if system app notifications is disabled (render lock screen notifications useless)
     - [ ] (MAYBE) Once notification swiped off lock screen, don't show it again until relocked, rather than screen on 
     - [ ] Don't run service if disabled      
   - [ ] Support Android 4 (usable on lock screen)

@@ -1,14 +1,19 @@
 package net.oldev.aljotit;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 
 import net.oldev.aljotit.LjotItModel.ThemeOption;
@@ -112,6 +117,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 });
             }
+
+            { // Pref Lock screen notification
+                Preference prefLSN = findPreference(LjotItModel.PREF_LOCK_SCREEN_NOTIFICATION_ENABLED);
+
+                checkLockScreenNotificationSettings(getActivity());
+
+                prefLSN.setOnPreferenceChangeListener((preference, newValue) -> {
+                    boolean newBVal = Boolean.parseBoolean(newValue.toString());
+                    checkLockScreenNotificationSettings(getActivity(), newBVal);
+                    return true;
+                });
+            }
         }
 
         private void updatePrefAutoThemeEnabledStatus(@ThemeOption String themeOption,
@@ -123,6 +140,43 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
+        }
+
+        //
+        // Lock Screen Notification Preference helpers
+        //
+
+        private static void checkLockScreenNotificationSettings(@NonNull Activity ctx) {
+            boolean enabledInPreference =
+                    ((LjotItApp)ctx.getApplication()).getModel().isLockScreenNotificationEnabled();
+            checkLockScreenNotificationSettings(ctx, enabledInPreference);
+        }
+
+        private static void checkLockScreenNotificationSettings(@NonNull Activity ctx, boolean enabledInPreference) {
+            // OPEN: using Snackbar to show the warning is rather clumsy.
+            // consider place it inline to the Lock Screen Notification Preference
+            // using a custom layout (or maybe just widgetLayout)
+            if ( enabledInPreference &&
+                    !LockScreenNotificationReceiver.isNotificationEnabledInSystem(ctx) ) {
+                final Snackbar snackbar = Snackbar.make(ctx.findViewById(android.R.id.content),
+                                                        R.string.msg_warn_app_notifications_disabled,
+                                                        Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction(R.string.text_dismiss, v -> {
+                    snackbar.dismiss();
+                    promptUserToEnableAppNotifications(ctx);
+                });
+                snackbar.show();
+            }
+        }
+
+        private static void promptUserToEnableAppNotifications(@NonNull Context ctx) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+            builder.setMessage(R.string.prompt_enable_app_notifications)
+                   .setNegativeButton(R.string.text_no, (d, w) -> {})
+                   .setPositiveButton(R.string.text_yes, (d, w) -> {
+                       LockScreenNotificationReceiver.startAppNotificationSettingsActivity(ctx);
+                   })
+                   .show();
         }
 
     }

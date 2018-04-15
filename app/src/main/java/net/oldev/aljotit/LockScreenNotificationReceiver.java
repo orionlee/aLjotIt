@@ -4,12 +4,16 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 /**
  * Bring up a notification on lock screen so that the user can access the app there,
@@ -117,6 +121,58 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
                 createNotificationChannel(channel);
     }
 
+
+    /**
+     * A UI utility to check if notification (or the specific lock screen notification for Oreo+)
+     * is enabled in system, i.e., app notification settings.
+     *
+     * The use case is if the lock screen notification is enabled in app preference,
+     * but the correspond Android system-wide app notification is disabled, the net result  
+     * is that lock screen is still disabled, which will confuse users.
+     *
+     * @ctx context for the calling activity
+     *
+     */
+    public static boolean isNotificationEnabledInSystem(@NonNull Context ctx) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
+            // MUST use Compat for Android 5/6 devices.
+            NotificationManagerCompat mgrCompat = NotificationManagerCompat.from(ctx);
+            return mgrCompat.areNotificationsEnabled();
+        } else {
+            // case Oreo+: need to check the specific channel, in addition to app settings
+            NotificationManager notifyMgr = (NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel channel = notifyMgr.getNotificationChannel(LOCK_SCREEN_CHANNEL);
+            return ( notifyMgr.areNotificationsEnabled() &&
+                     (channel.getImportance() != NotificationManager.IMPORTANCE_NONE) );
+        }
+
+    }
+
+    /**
+     * A UI utility to go to they system app notification settings screen
+     */
+    public static void startAppNotificationSettingsActivity(@NonNull Context ctx) {
+        Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+        // @see https://stackoverflow.com/a/32368604
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
+           // Android 5 - 7
+           intent.putExtra("app_package", ctx.getPackageName());
+           intent.putExtra("app_uid", ctx. getApplicationInfo().uid);
+        } else {
+            // Android 8+
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, ctx.getPackageName());
+            intent.putExtra(Settings.EXTRA_CHANNEL_ID, LOCK_SCREEN_CHANNEL);
+        }
+
+        try {
+            ctx.startActivity(intent);
+        } catch (ActivityNotFoundException anfe) {
+            Toast.makeText(ctx,
+                           R.string.msg_err_start_app_notifications_settings_failed,
+                           Toast.LENGTH_LONG)
+                 .show();
+        }
+    }
 
     private static final int LOCK_SCREEN_NOTIFICATION_ID = 7344;
 

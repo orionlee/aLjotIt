@@ -31,7 +31,15 @@
 
     <string name="msg_err_note_app_not_found">Send failed. Note application is missing.</string>
     <string name="msg_auto_open_app_post_unlock">Opening LjotIt to send the note...</string>
+
     
+    <string name="msg_err_start_app_notifications_settings_failed">Unable to open App Notification Settings. Please go there manually to enable it.</string>
+    <string name="msg_warn_app_notifications_disabled">App notifications disabled. Lock Screen Notification ineffective.</string>
+    <string name="text_dismiss">Dismiss</string>
+    <string name="prompt_enable_app_notifications">Enable App Notifications?</string>
+    <string name="text_no">No</string>
+    <string name="text_yes">Yes</string>
+
     <!-- Strings related to Settings -->
 
     <string name="pref_category_ui">User Interface</string>
