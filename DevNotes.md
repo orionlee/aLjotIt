@@ -29,6 +29,19 @@ It just pushes further the stack.
 - [x] bring up keyboard upon start
 - [x] Tweak UI size to avoid overlap with soft keyboard in popular devices.
   - [x] avoid obstructing snackbar messages by hiding soft keyboard.  
+
+- [ ] option to show a reminder whenever there is note
+- [ ] Let user customize advanced configuration
+   - allow font size / font family be adjustable
+   - enable / disable "Add to LS Scratch" (aka share friendly)
+   - QS Tile: on normal screen: option to launch Scratch Pad or a new Keep note.
+   - note maximum size 
+
+- [x] (BUG, INTERMITTENT]: weird crash at times upon closing apps (somehow broadcast receiver not registered)
+  Caused by: java.lang.IllegalArgumentException: Receiver not registered: net.oldev.alsscratchpad.LSScratchPadApp$MainLockScreenReceiver@e4d2aa5
+- [x] (BUG) Theme change doesn't happen on editor right away without restart
+- [ ] (BUG) on my tablet, lock screen notification does not work after MainActivity is destroyed (user flow: user removes the app from recent app list). 
+  - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
   
 ## For wider usage        
 - [ ] support Pre Android 7 devices (using lockscreen drawing / notification instead)
@@ -39,25 +52,9 @@ It just pushes further the stack.
     - [x] Add warnings if system app notifications is disabled (render lock screen notifications useless)
     - [ ] (MAYBE) Once notification swiped off lock screen, don't show it again until relocked, rather than screen on 
     - [ ] Don't run service if disabled      
-  - [ ] Support Android 4 (usable on lock screen)
+  - [ ] Support Android 4 (usable on lock screen), e.g., lockscreen widget 
     - On a 4.1.2 device, the action menu (vertical triple-dot) will disappear if AppCompat is given up.
 - [x] Ensure Android 8 devices (in particular notification)
-
-- reduce apk / memory footprint (by cutting number of support libs used?)
-
-- [ ] Limit the maximum size of a note?!
-- [ ] option to show a reminder whenever there is note
-
-- [ ] QS Tile: on normal screen, use a title such as "new Keep" to signify it is launching keep?
-
-- [x] INTERMITTENT BUG: weird crash at times upon closing apps (somehow broadcast receiver not registered)
-  Caused by: java.lang.IllegalArgumentException: Receiver not registered: net.oldev.alsscratchpad.LSScratchPadApp$MainLockScreenReceiver@e4d2aa5
-
-- [ ] Let user customize advanced configuration
-   - allow font size / font family be adjustable
-   - enable / disable "Add to LS Scratch" (aka share friendly)
-   - QS Tile: on normal screen: option to launch Scratch Pad or a new Keep note.
-   - note maximum size 
 
 - [ ] 1st-class support other note app (e.g., OneNote, etc.)
     - replace send to Keep with others
@@ -72,10 +69,16 @@ It just pushes further the stack.
 - [ ] splash screen? Prompt to add the QS Tile?
 - [ ] detect Google Keep installation (and error report if it's not installed)
 
-- [x] Theme change doesn't happen on editor right away without restart
-  - (If restart needed) Make restart appear seamless with fade in/out animation
-	   	https://stackoverflow.com/a/35453525
-	   	
+- [ ] Run lint / code inspection
+- [ ] Finalize min SDK API 
+
+- [ ] links to rate and feedback, maybe using Google doc forms for feedback
+
+- [ ] Increase lock screen notification clickable areas, not just body text.
+- [ ] QSTile on normal screen: for initial use, add a message (better than toast) explaining it launches keep. Long press to launch app itself.
+
 - [] Minor Widget UI tweak
   - the dialog post share (asking to clear it): move it up (rather than center)
   - Toast (after unlock) may need to be moved up too.
+
+- [ ] (MAYBE) reduce apk / memory footprint (by cutting number of support libs used?)
