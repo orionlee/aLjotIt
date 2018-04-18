@@ -53,6 +53,7 @@ It just pushes further the stack.
 - [x] Introduction for initial startup
 - [x] For Android 4, hide Lock Screen Notifications UI
 - [ ] Run lint / code inspection
+- [ ] Sanity Check Test
 - [ ] Publish alpha version 
 
 
@@ -60,7 +61,8 @@ It just pushes further the stack.
 - [ ] App Introduction tweaks
   - [ ] configure lock screen access step: simplifying it, Make it android version specific
   - [ ] Might need a help screen for lock screen access configuration details tips
-
+  - [ ] Make text localizable
+  
 - [ ] (MAYBE) coach marks
   - Tip to suggest add QSTile (Android 7+), with graphics
   - Tip to suggest add to lock screen quick access (vendor specific screen shot), for Android 4
