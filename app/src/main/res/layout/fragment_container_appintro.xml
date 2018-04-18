@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AppIntro layout container that allows custom content layout.
+Derived from
+https://github.com/apl-devs/AppIntro/blob/master/library/src/main/res/layout/fragment_intro.xml
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/appintro_container_main"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/appIntroBottomBarHeight">
+</LinearLayout>
