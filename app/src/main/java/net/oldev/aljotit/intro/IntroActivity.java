@@ -20,7 +20,7 @@ public class IntroActivity extends AppIntro {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final @ColorInt int bgColor = getResources().getColor(R.color.colorPrimary);
+        final @ColorInt int bgColor = getResources().getColor(R.color.colorPrimaryDark);
 
         addSlide(AppIntroFragment.newInstance("Welcome to LjotIt",
                                               "Jot down notes on lock screen without unlocking. Click the notification to bring up a notepad.",
