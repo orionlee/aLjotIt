@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- The following issues are ignored for now. They are to be revisited later. -->
+    
+    <issue id="AllowBackup" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <issue id="IconLocation">
+        <ignore path="src/main/res/drawable/ic_intro_ljotit_cropped_marked.png" />
+        <ignore path="src/main/res/drawable/ic_intro_lockscreen_notification_cropped_marked.png" />
+        <ignore path="src/main/res/drawable/ic_intro_post_unlock_cropped_marked.png" />
+    </issue>
+    <issue id="Overdraw">
+        <ignore path="src/main/res/layout/snackbar_like_toast.xml" />
+    </issue>
+    <issue id="RtlSymmetry">
+        <ignore path="src/main/res/layout/notiifcation_lockscreen.xml" />
+        <ignore path="src/main/res/layout/snackbar_like_toast.xml" />
+    </issue>
+
+    <issue id="RtlHardcoded">
+        <ignore path="src/main/res/layout/snackbar_like_toast.xml" />
+    </issue>
+    
+</lint>

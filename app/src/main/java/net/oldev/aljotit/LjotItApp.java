@@ -1,5 +1,6 @@
 package net.oldev.aljotit;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
@@ -193,6 +194,7 @@ public class LjotItApp extends Application {
         }
 
         // OPEN: remove it if action cannot be made working.
+        @SuppressLint("RtlHardcoded")
         private void showSnackBarLikeToast(@NonNull String msg,
                                            @Nullable String actionText,
                                            @Nullable View.OnClickListener actionOnClickListener) {
