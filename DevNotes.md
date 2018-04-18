@@ -66,7 +66,7 @@ It just pushes further the stack.
     - gray look weird, yellow is still close to keep
   - [x] Update backend package / class name  
   
-- [ ] splash screen? Prompt to add the QS Tile?
+- [x] Introduction for initial startup
 - [ ] detect Google Keep installation (and error report if it's not installed)
 
 - [ ] Run lint / code inspection
