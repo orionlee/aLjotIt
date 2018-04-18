@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.annotation.NonNull;
@@ -79,6 +80,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GeneralPreferenceFragment extends PreferenceFragment {
+
+        public static final String CATEGORY_KEY_UI = "pref_category_ui";
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -121,13 +125,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             { // Pref Lock screen notification
                 Preference prefLSN = findPreference(LjotItModel.PREF_LOCK_SCREEN_NOTIFICATION_ENABLED);
 
-                checkLockScreenNotificationSettings(getActivity());
+                LjotItModel model = LjotItApp.getApp(getActivity()).getModel();
+                if (model.isLockScreenNotificationSupported()) {
+                    checkLockScreenNotificationSettings(getActivity());
 
-                prefLSN.setOnPreferenceChangeListener((preference, newValue) -> {
-                    boolean newBVal = Boolean.parseBoolean(newValue.toString());
-                    checkLockScreenNotificationSettings(getActivity(), newBVal);
-                    return true;
-                });
+                    prefLSN.setOnPreferenceChangeListener((preference, newValue) -> {
+                        boolean newBVal = Boolean.parseBoolean(newValue.toString());
+                        checkLockScreenNotificationSettings(getActivity(), newBVal);
+                        return true;
+                    });
+                } else { // case lock screen notification not supported, aka Android 4 devices
+                    removePreferenceFromCategory(prefLSN, CATEGORY_KEY_UI);
+                }
+
             }
         }
 
@@ -137,6 +147,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             prefAutoThemeDarkTimeRange.setEnabled(enabled);
         }
 
+        private void removePreferenceFromCategory(Preference preference, String categoryKey) {
+            PreferenceCategory category = (PreferenceCategory)findPreference(categoryKey);
+            category.removePreference(preference);
+        }
+        
         @Override
         public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
             return super.onPreferenceTreeClick(preferenceScreen, preference);

@@ -146,6 +146,13 @@ public class LjotItModel {
 
     }
 
+    /**
+     *
+     * @return true if Lock Screen Notification is supported by this device. It is NOT a setting.
+     */
+    public boolean isLockScreenNotificationSupported() {
+        return ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP );
+    }
 
     public boolean isShowIntro() {
         return getBooleanPref(P_SETTINGS, PREF_SHOW_INTRO, true);

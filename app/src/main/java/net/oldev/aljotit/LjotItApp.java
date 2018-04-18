@@ -24,6 +24,12 @@ public class LjotItApp extends Application {
 
     private LjotItModel mModel;
 
+    /**
+     * Convenience helper to access LjotItApp instance
+     */
+    public static LjotItApp getApp(@NonNull Activity activity) {
+        return ((LjotItApp)activity.getApplication());
+    }
 
     @Override
     public void onCreate() {

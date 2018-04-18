@@ -51,7 +51,7 @@ It just pushes further the stack.
   - [x] Update backend package / class name  
   
 - [x] Introduction for initial startup
-- [ ] For Android 4, hide Lock Screen Notifications UI
+- [x] For Android 4, hide Lock Screen Notifications UI
 - [ ] Run lint / code inspection
 - [ ] Publish alpha version 
 
