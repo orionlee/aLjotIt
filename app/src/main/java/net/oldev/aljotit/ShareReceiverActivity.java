@@ -45,7 +45,7 @@ public class ShareReceiverActivity extends Activity {
         String text = getNonNullStringExtra(intent, Intent.EXTRA_TEXT);
 
         String textToAdd = TextUtils.isEmpty(subject) ? text : subject + "\n" + text;
-        new LjotItModel(getApplicationContext()).appendToContent(textToAdd);
+        LjotItApp.getApp(this).getModel().appendToContent(textToAdd);
     }
     
     @NonNull

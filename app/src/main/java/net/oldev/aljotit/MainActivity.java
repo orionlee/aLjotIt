@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
-        mModel = new LjotItModel(getApplicationContext());
+        mModel = LjotItApp.getApp(this).getModel();
 
         // Show intro, (for initial case)
         if ( mModel.isShowIntro() &&

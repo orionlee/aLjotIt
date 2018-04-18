@@ -2,6 +2,7 @@ package net.oldev.aljotit;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,10 @@ public class LjotItApp extends Application {
         return ((LjotItApp)activity.getApplication());
     }
 
+    public static LjotItApp getApp(@NonNull Service service) {
+        return ((LjotItApp)service.getApplication());
+    }
+    
     @Override
     public void onCreate() {
         Log.v(TAG, "onCreate()");
