@@ -70,6 +70,7 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
         super.onReceive(context, intent);  // super class check action to dispatch
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onLocked() {
         Log.v(TAG, "LockScreenNotificationReceiver.onLocked()");

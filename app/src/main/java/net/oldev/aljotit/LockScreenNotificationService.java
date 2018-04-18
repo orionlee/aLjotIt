@@ -27,6 +27,12 @@ public class LockScreenNotificationService extends Service {
         Log.v(TAG, "onCreate()");
         super.onCreate();
 
+        // Skip all the work if the Android version does not support lock screen notifications
+        if (!isSupportedByOS()) {
+            stopSelf();
+            return;
+        }
+
         // Notification channel setup required for Oreo+, NO-OP otherwise
         LockScreenNotificationReceiver.createNotificationChannel(this);
 
@@ -44,7 +50,17 @@ public class LockScreenNotificationService extends Service {
     public void onDestroy() {
         Log.v(TAG, "onDestroy()");
         super.onDestroy();
+
+        if (!isSupportedByOS()) {
+            return;
+        }
+
         LockScreenNotificationReceiver.unregisterFromLockScreenChanges(getApplicationContext(),
                                                                        mLockScreenNotificationReceiver);
     }
+
+    private boolean isSupportedByOS() {
+        return LjotItApp.getApp(this).getModel().isLockScreenNotificationSupported();
+    }
+    
 }
