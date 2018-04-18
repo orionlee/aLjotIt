@@ -28,19 +28,23 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import net.oldev.aljotit.intro.IntroActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "LJI-Main"; // Lock Screen Scratch Pad abbreviation
 
     private static final int REQUEST_CODE_SHARE_TEXT = 987;
-
+    
     private EditText mScratchPad;
     private Menu mOptionsMenu;
     private @StyleRes int mThemeId; // id of the theme used
 
     private LjotItModel mModel;
 
-
+    public static final String EXTRA_FROM_INTRO =
+            MainActivity.class.getPackage().getName() + ".EXTRA_FROM_INTRO";
+    
     public static final String EXTRA_START_FROM_LOCK_SCREEN =
             MainActivity.class.getPackage().getName() + ".EXTRA_START_FROM_LOCK_SCREEN";
 
@@ -65,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mModel = new LjotItModel(getApplicationContext());
+
+        // Show intro, (for initial case)
+        if ( mModel.isShowIntro() &&
+                !isFromIntro() ) { // if started from Intro, do not redirect back.
+            redirectToIntroActivity();
+            return;
+        }
 
         // setting attributes on the service declaration in AndroidManifest.xml
         // does not work for some reason android:showOnLockScreen="true", android:showOnLockScreen="true"
@@ -184,6 +195,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.v(TAG, "onDestroy()");
         super.onDestroy();
+    }
+
+    //
+    // IntroActivity redirection on startup.
+    //
+
+    private boolean isFromIntro() {
+        Intent intent = getIntent();
+        return  ( intent != null &&
+                intent.getBooleanExtra(EXTRA_FROM_INTRO, false) );
+    }
+
+    private void redirectToIntroActivity() {
+        finish();
+        Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
+        startActivity(intent);
     }
 
 

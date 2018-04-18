@@ -42,6 +42,9 @@ public class LjotItModel {
     static final String PREF_AUTO_THEME_DARK_TIME_RANGE = "autoThemeDarkTimeRange";
     static final String PREF_LOCK_SCREEN_NOTIFICATION_ENABLED = "lockScreenNotificationEnabled";
 
+    // semi-hidden prefs, (accessed in IntroActivity)
+    private static final String PREF_SHOW_INTRO = "showIntro";
+
     // hidden prefs (for now), customized in dev / test
     private static final String PREF_SENDTO_PREFERRED_PACKAGE_NAME = "sendToPreferredPackageName";
     private static final String PREF_SENDTO_PREFERRED_CLASS_NAME = "sendToPreferredClassName";
@@ -142,6 +145,16 @@ public class LjotItModel {
         setPref(P_SETTINGS, PREF_LOCK_SCREEN_NOTIFICATION_ENABLED, enabled);
 
     }
+
+
+    public boolean isShowIntro() {
+        return getBooleanPref(P_SETTINGS, PREF_SHOW_INTRO, true);
+    }
+
+    public void setShowIntro(boolean showIntro) {
+        setPref(P_SETTINGS, PREF_SHOW_INTRO, showIntro);
+    }
+
 
     private static final String GKEEP_PACKAGE_NAME = "com.google.android.keep";
     private static final String GKEEP_CLASS_NAME = "com.google.android.keep.activities.ShareReceiverActivity";

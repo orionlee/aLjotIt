@@ -52,7 +52,8 @@
             android:buttonTint="@android:color/white"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:checked="true" />
+            android:checked="true"
+            android:onClick="onNotShowAgainCheckboxClicked" />
 
     </LinearLayout>
 </merge>

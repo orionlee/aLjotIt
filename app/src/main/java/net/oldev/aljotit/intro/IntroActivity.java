@@ -8,18 +8,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
+import net.oldev.aljotit.LjotItApp;
+import net.oldev.aljotit.LjotItModel;
 import net.oldev.aljotit.MainActivity;
 import net.oldev.aljotit.R;
 
 public class IntroActivity extends AppIntro {
+    private boolean mNotShowAgain = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
         final @ColorInt int bgColor = getResources().getColor(R.color.colorPrimaryDark);
 
         addSlide(AppIntroFragment.newInstance("Welcome to LjotIt",
@@ -41,15 +46,27 @@ public class IntroActivity extends AppIntro {
 
     }
 
+
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
         currentFragment.getActivity().finish();
 
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+        mainIntent.putExtra(MainActivity.EXTRA_FROM_INTRO, true);
         startActivity(mainIntent);
+
+
+        // Persist the settings on whether to show intro on next startup
+        LjotItModel model = ((LjotItApp)getApplication()).getModel();
+        model.setShowIntro(!mNotShowAgain);
+
     }
 
+    public void onNotShowAgainCheckboxClicked(View view) {
+        // Is the view now checked?
+        mNotShowAgain = ((CheckBox) view).isChecked();
+    }
 
     //
     // Based on https://github.com/apl-devs/AppIntro/blob/v4.2.2/example/src/main/java/com/amqtech/opensource/appintroexample/util/SampleSlide.java

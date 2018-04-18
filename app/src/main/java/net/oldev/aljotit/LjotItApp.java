@@ -140,7 +140,7 @@ public class LjotItApp extends Application {
     }
 
     // Used by other components
-    LjotItModel getModel() {
+    public LjotItModel getModel() {
         return mModel;
     }
     
