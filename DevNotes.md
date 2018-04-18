@@ -30,36 +30,20 @@ It just pushes further the stack.
 - [x] Tweak UI size to avoid overlap with soft keyboard in popular devices.
   - [x] avoid obstructing snackbar messages by hiding soft keyboard.  
 
-- [ ] option to show a reminder whenever there is note
-- [ ] Let user customize advanced configuration
-   - allow font size / font family be adjustable
-   - enable / disable "Add to LS Scratch" (aka share friendly)
-   - QS Tile: on normal screen: option to launch Scratch Pad or a new Keep note.
-   - note maximum size 
-
 - [x] (BUG, INTERMITTENT]: weird crash at times upon closing apps (somehow broadcast receiver not registered)
   Caused by: java.lang.IllegalArgumentException: Receiver not registered: net.oldev.alsscratchpad.LSScratchPadApp$MainLockScreenReceiver@e4d2aa5
 - [x] (BUG) Theme change doesn't happen on editor right away without restart
-- [ ] (BUG) on my tablet, lock screen notification does not work after MainActivity is destroyed (user flow: user removes the app from recent app list). 
-  - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
   
 ## For wider usage        
-- [ ] support Pre Android 7 devices (using lockscreen drawing / notification instead)
+- [x] support Pre Android 7 devices (using lockscreen drawing / notification instead)
   - [x] Lock Screen Notification (for Android 5 /6)
     - [x] 1st cut
     - [x] misc. edge cases (startup, etc.)
-  - [ ] Lock Screen Notification refinement
-    - [x] Add warnings if system app notifications is disabled (render lock screen notifications useless)
-    - [ ] (MAYBE) Once notification swiped off lock screen, don't show it again until relocked, rather than screen on 
-    - [ ] Don't run service if disabled      
-  - [ ] Support Android 4 (usable on lock screen), e.g., lockscreen widget 
-    - On a 4.1.2 device, the action menu (vertical triple-dot) will disappear if AppCompat is given up.
+  - [x] Add warnings if system app notifications is disabled (render lock screen notifications useless)
+  - [x] Some Android 4 support: those devices allow shortcuts/access to apps from lockscreen
 - [x] Ensure Android 8 devices (in particular notification)
 
-- [ ] 1st-class support other note app (e.g., OneNote, etc.)
-    - replace send to Keep with others
-
-## UI Polish for wider usage    
+## Alpha - UI Polish for wider usage that cane be published    
 - [x] Rebrand
   - [x] Change the name
   - [x] `NO-OP` Tweak color scheme: The keep-like color scheme maybe confusing to users when both Keep and LS ScratchPad is open, say, in Recent App list
@@ -67,17 +51,51 @@ It just pushes further the stack.
   - [x] Update backend package / class name  
   
 - [x] Introduction for initial startup
-- [ ] detect Google Keep installation (and error report if it's not installed)
-
+- [ ] For Android 4, hide Lock Screen Notifications UI
 - [ ] Run lint / code inspection
-- [ ] Finalize min SDK API 
+- [ ] Publish alpha version 
+
+
+## Beta - Tightening up for general usage
+- [ ] App Introduction tweaks
+  - [ ] configure lock screen access step: simplifying it, Make it android version specific
+  - [ ] Might need a help screen for lock screen access configuration details tips
+
+- [ ] (MAYBE) coach marks
+  - Tip to suggest add QSTile (Android 7+), with graphics
+  - Tip to suggest add to lock screen quick access (vendor specific screen shot), for Android 4
+  - Tip to disable lock screen notification once QSTile is added
+  - QSTile on normal screen: for initial use, add a message (better than toast) explaining it launches keep. Long press to launch app itself.
+  - Convert Settings app notification disabled warning snackbar to inline 
+      
+- [ ] detect Google Keep initial startup (and error report if it's not installed)
 
 - [ ] links to rate and feedback, maybe using Google doc forms for feedback
 
-- [ ] Increase lock screen notification clickable areas, not just body text.
-- [ ] QSTile on normal screen: for initial use, add a message (better than toast) explaining it launches keep. Long press to launch app itself.
+- [ ] lock screen notification: Increase clickable areas, not just body text.
 
-- [] Minor Widget UI tweak
+- [ ] (BUG) on my tablet, lock screen notification does not work after MainActivity is destroyed (user flow: user removes the app from recent app list). 
+  - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
+
+## Post Beta - Unscheduled 
+- [ ] Lock Screen Notification refinement
+  - [ ] Don't run service if disabled      
+  - [ ] support dark theme
+
+- [ ] option to show a reminder whenever there is note
+- [ ] Let user customize advanced configuration
+   - allow font size / font family be adjustable
+   - enable / disable "Add to LS Scratch" (aka share friendly)
+   - QS Tile: on normal screen: option to launch Scratch Pad or a new Keep note.
+   - note maximum size 
+
+- [ ] Better Android 4 support (usable on lock screen) with lockscreen widgets 
+
+- [ ] Support outside gKeep
+   - [ ] Support general send on lockscreen, thus allow it to be used with non Google Keep, albeit in a clunky way.
+   - [ ] 1st-class support other note app (e.g., OneNote, etc.), i.e., send to Keep becomes send to default
+
+- [ ] Minor Widget UI tweak
   - the dialog post share (asking to clear it): move it up (rather than center)
   - Toast (after unlock) may need to be moved up too.
 
