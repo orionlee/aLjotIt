@@ -46,14 +46,15 @@
         <CheckBox
             android:id="@+id/chkbox_not_show_intro"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="0.9"
             android:text="Do not show again."
             android:buttonTint="@android:color/white"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:checked="true"
-            android:onClick="onNotShowAgainCheckboxClicked" />
+            android:onClick="onNotShowAgainCheckboxClicked"
+            tools:ignore="UnusedAttribute"/>
 
     </LinearLayout>
 </merge>

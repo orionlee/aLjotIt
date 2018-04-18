@@ -79,6 +79,9 @@ It just pushes further the stack.
 - [ ] (BUG) on my tablet, lock screen notification does not work after MainActivity is destroyed (user flow: user removes the app from recent app list). 
   - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
 
+- [ ] Specify app backup, maybe in `<application fullBackupContent="..."`
+
+
 ## Post Beta - Unscheduled 
 - [ ] Lock Screen Notification refinement
   - [ ] Don't run service if disabled      

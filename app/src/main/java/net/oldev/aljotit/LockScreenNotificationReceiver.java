@@ -1,5 +1,6 @@
 package net.oldev.aljotit;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -7,8 +8,10 @@ import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -32,12 +35,12 @@ import android.widget.Toast;
  * Drawback: the background service will be terminated quickly for Android 8+ devices. However,
  * the feature is used for Android 5/6 devices so it does not matter.
  *
- * @see https://developer.android.com/about/versions/oreo/background.html
+ * Reference: https://developer.android.com/about/versions/oreo/background.html
  *
  * Other lifecycle implementation considered and dropped.
  * 1. Declare (and register) the receiver at AndroidManifest.xml : it is not possible because
  *    SCREEN_ON / SCREEN_OFF cannot be registered via xml (neither USER_PRESENT starting Android 8)
- * @see https://developer.android.com/guide/components/broadcast-exceptions.html
+ * Reference: https://developer.android.com/guide/components/broadcast-exceptions.html
  *
  * 2. Register the receiver programmatically at BootReceiver (wihtout service): it does not work
  *    because the registration will not last beyond initial BootReceiver,
@@ -60,10 +63,11 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
     @Override
     protected @NonNull String tag() { return TAG; }
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
         mCurContext = context; // to be used by onLocked(), etc.
-        super.onReceive(context, intent);
+        super.onReceive(context, intent);  // super class check action to dispatch
     }
 
     @Override
@@ -152,8 +156,10 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
      * A UI utility to go to they system app notification settings screen
      */
     public static void startAppNotificationSettingsActivity(@NonNull Context ctx) {
-        Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-        // @see https://stackoverflow.com/a/32368604
+        // Note: ACTION_APP_NOTIFICATION_SETTINGS officially supports in Oreo
+        // here I  added unofficial support for Android 5 - 7
+        // Reference: https://stackoverflow.com/a/32368604
+        @SuppressLint("InlinedApi") Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
            // Android 5 - 7
            intent.putExtra("app_package", ctx.getPackageName());
@@ -186,6 +192,7 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
         notifyMgr.cancel(LOCK_SCREEN_NOTIFICATION_ID);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void showLockScreenNotification() {
         final LjotItModel model = new LjotItModel(mCurContext);
         if (!model.isLockScreenNotificationEnabled()) {

@@ -10,7 +10,7 @@
     android:layout_marginRight="?mainMarginHorizontal"
     android:layout_marginStart="?mainMarginHorizontal"
     android:layout_marginEnd="?mainMarginHorizontal"
-    android:layout_marginBottom="?mainMarginBottom  "
+    android:layout_marginBottom="?mainMarginBottom"
     android:id="@+id/activity_main"
     tools:context="net.oldev.aljotit.MainActivity">
 
@@ -50,7 +50,8 @@
         android:layout_margin="?fabMargin"
         android:tooltipText="@string/tip_send_to_keep"
         app:backgroundTint="@color/keepBackground"
-        app:srcCompat="@drawable/ic_send_to_keep"/>
+        app:srcCompat="@drawable/ic_send_to_keep"
+        tools:ignore="UnusedAttribute"/>
     <!-- app:backgroundTint="" to set background color, android:background won't work for FAB -->
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package net.oldev.aljotit;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ public class LockScreenNotificationBootReceiver extends BroadcastReceiver {
 
     private static final String TAG = "LJI-LsnB";
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.v(TAG, "onReceive()");

@@ -1,5 +1,6 @@
 package net.oldev.aljotit;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.ActivityNotFoundException;
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
      * Persist content. onStop is used as it is the life cycle method
      * when the activity will get destroyed.
      *
-     * @see https://developer.android.com/guide/components/activities/activity-lifecycle.html
+     * Reference: https://developer.android.com/guide/components/activities/activity-lifecycle.html
      */
     @Override
     protected void onStop() {
@@ -254,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                mModel.getSendToPreferredClassName());
     }
 
+    @SuppressLint("InlinedApi")
     private void sendTo(@Nullable String packageName, @Nullable String className) {
         if (isDeviceLocked()) {
             notifyUserSentDisabledOnLockscreen();
@@ -272,6 +274,8 @@ public class MainActivity extends AppCompatActivity {
             // Customized chooser label
             String labelText = getString(R.string.label_send_to);
             SpannableString chooserLabel = new SpannableString(labelText);
+            // Note: android.R.style.TextAppearance_Material_Medium requires API level 21,
+            // but it does not hurt for lower API level, leave it as it-is
             chooserLabel.setSpan(new TextAppearanceSpan(this,
                                                         android.R.style.TextAppearance_Material_Medium),
                                  0, labelText.length(), 0); // larger that default

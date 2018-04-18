@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="start|top"
-        android:fontFamily="sans-serif"
+        app:fontFamily="sans-serif"
         android:inputType="text|textAutoCorrect|textCapSentences|textMultiLine"
         android:hint="@string/hint_scratch_pad_content"
         android:textSize="18sp"

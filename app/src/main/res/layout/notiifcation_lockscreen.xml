@@ -14,5 +14,6 @@
           android:paddingBottom="4dp"
           android:id="@+id/notification_content_text"
           android:clickable="true"
+          android:focusable="true"
           android:text="@string/label_lockscreen_notification"
           style="@style/TextAppearance.AppCompat.Notification.Title" />
