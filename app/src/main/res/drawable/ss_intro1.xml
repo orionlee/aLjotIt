@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+                android:oneshot="false">
+    <!-- Reduce number of screenshots shown to avoid OutOfMemoryError -->
+
+    <item android:drawable="@drawable/ss_lockscreen" android:duration="1500" />
+    <item android:drawable="@drawable/ss_lockscreen_qstile" android:duration="1500" />
+    <!--<item android:drawable="@drawable/ss_lockscreen_ljotit1" android:duration="900" />-->
+    <item android:drawable="@drawable/ss_lockscreen_ljotit2" android:duration="2500" />
+    <!--<item android:drawable="@drawable/ss_lockscreen_ljotit3" android:duration="600" />-->
+</animation-list>

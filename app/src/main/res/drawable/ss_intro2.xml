@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+                android:oneshot="false">
+    <!-- Reduce number of screenshots shown to avoid OutOfMemoryError -->
+
+    <item android:drawable="@drawable/ss_post_unlock1" android:duration="1500" />
+    <!--<item android:drawable="@drawable/ss_post_unlock2" android:duration="1000" />-->
+    <item android:drawable="@drawable/ss_post_unlock3" android:duration="1000" />
+</animation-list>
