@@ -17,7 +17,7 @@
         android:inputType="text|textAutoCorrect|textCapSentences|textMultiLine"
         android:hint="@string/hint_scratch_pad_content"
         android:textSize="18sp"
-        android:background="?lsspEditorBackground"
+        android:background="?attr/ljiEditorBackground"
         android:paddingTop="0dp"
         android:paddingStart="8dp"
         android:paddingLeft="8dp"

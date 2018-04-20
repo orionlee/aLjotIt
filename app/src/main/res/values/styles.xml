@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="lsspEditorBackground">@color/colorEditorBG</item>
+        <item name="ljiEditorBackground">@color/colorEditorBG</item>
         <!-- main height, margin properties: the additional layer here
              enables the UI dimensions to be changed based on theme -->
         <!-- full screen UI dimensions -->
@@ -44,7 +44,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/nightColorAccent</item>
-        <item name="lsspEditorBackground">@color/colorEditorBGDark</item>
+        <item name="ljiEditorBackground">@color/colorEditorBGDark</item>
         <!-- full screen UI dimensions -->
         <item name="mainHeight">@dimen/mainFS_height</item>
         <item name="mainMarginHorizontal">@dimen/mainFS_marginHorizontal</item>

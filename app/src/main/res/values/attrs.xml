@@ -7,7 +7,7 @@
            (Declaring once for each theme variation is illegal anyway,
             as attribute can be defined once only.)
          -->
-        <attr name="lsspEditorBackground" format="reference"/>
+        <attr name="ljiEditorBackground" format="reference"/>
         <attr name="mainHeight" format="dimension" />
         <attr name="mainMarginHorizontal" format="dimension" />
         <attr name="mainMarginTop" format="dimension" />
