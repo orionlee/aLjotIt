@@ -2,6 +2,8 @@
 /local.properties
 gradle.properties
 /app/release.keystore
+/app/release/
+/tmp/
 
 *.iml
 .idea/
