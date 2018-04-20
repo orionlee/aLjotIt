@@ -56,12 +56,16 @@ It just pushes further the stack.
 - [ ] Sanity Check Test
 - [ ] Publish alpha version 
 
-
 ## Beta - Tightening up for general usage
 - [ ] App Introduction tweaks
   - [ ] configure lock screen access step: simplifying it, Make it android version specific
   - [ ] Might need a help screen for lock screen access configuration details tips
   - [ ] Make text localizable
+
+- [ ] Play store listing polish
+  - [ ] Update feature graphics and screenshots
+  - [ ] Add tablet screenshots (7" and 10")
+  - [ ] Update descriptions
   
 - [ ] (MAYBE) coach marks
   - Tip to suggest add QSTile (Android 7+), with graphics
