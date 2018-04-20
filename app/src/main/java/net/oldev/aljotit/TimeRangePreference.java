@@ -29,8 +29,8 @@ public class TimeRangePreference extends DialogPreference {
     private final @IdRes int pickerBeginId;
     private final @IdRes int pickerEndId;
 
-    public TimeRangePreference(Context ctxt, AttributeSet attrs) {
-        super(ctxt, attrs);
+    public TimeRangePreference(Context ctx, AttributeSet attrs) {
+        super(ctx, attrs);
 
         // PENDING: parametrize the IDs rather than hardcoding it.
         pickerLayoutId = R.layout.timerange_picker_fragment;
@@ -94,7 +94,7 @@ public class TimeRangePreference extends DialogPreference {
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        String rangeStr=null;
+        String rangeStr;
 
         if (restoreValue) {
             if (defaultValue==null) {
@@ -114,7 +114,7 @@ public class TimeRangePreference extends DialogPreference {
     @NonNull
     private TimeRange timePickersToTimeRange() {
         TimeRange.HhMm begin = new TimeRange.HhMm(picker.getCurrentHour(), picker.getCurrentMinute());
-        TimeRange.HhMm end  = new TimeRange.HhMm(pickerEnd.getCurrentHour(), pickerEnd.getCurrentMinute());;
+        TimeRange.HhMm end  = new TimeRange.HhMm(pickerEnd.getCurrentHour(), pickerEnd.getCurrentMinute());
         return new TimeRange(begin, end);
     }
 }

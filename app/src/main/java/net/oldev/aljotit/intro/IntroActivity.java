@@ -76,6 +76,8 @@ public class IntroActivity extends AppIntro {
         protected static final String ARG_LAYOUT_RES_ID = "layoutResId";
 
         private int mLayoutResId;
+
+        @SuppressWarnings("unused")
         public static CustomSlide newInstance(int layoutResId) {
             CustomSlide customSlide = new CustomSlide();
             Bundle args = createBundleForNewInstance(layoutResId);
@@ -156,6 +158,7 @@ public class IntroActivity extends AppIntro {
             // the container layout MUST be a ViewGroup
             ViewGroup fragmentView = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 
+            assert fragmentView != null;
             View mainLayout = fragmentView.findViewById(R.id.appintro_container_main);
             mainLayout.setBackgroundColor(mBgColor);
 

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -147,14 +146,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             prefAutoThemeDarkTimeRange.setEnabled(enabled);
         }
 
+        @SuppressWarnings("SameParameterValue")
         private void removePreferenceFromCategory(Preference preference, String categoryKey) {
             PreferenceCategory category = (PreferenceCategory)findPreference(categoryKey);
             category.removePreference(preference);
-        }
-        
-        @Override
-        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-            return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
 
         //
@@ -188,9 +183,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
             builder.setMessage(R.string.prompt_enable_app_notifications)
                    .setNegativeButton(R.string.text_no, (d, w) -> {})
-                   .setPositiveButton(R.string.text_yes, (d, w) -> {
-                       LockScreenNotificationReceiver.startAppNotificationSettingsActivity(ctx);
-                   })
+                   .setPositiveButton(R.string.text_yes, (d, w) ->
+                           LockScreenNotificationReceiver.startAppNotificationSettingsActivity(ctx))
                    .show();
         }
 

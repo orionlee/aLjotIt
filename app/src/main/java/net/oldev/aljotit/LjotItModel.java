@@ -112,6 +112,8 @@ public class LjotItModel {
         return getStringPref(P_SETTINGS, PREF_THEME, THEME_LIGHT);
     }
 
+    // Settings currently set it directly with underlying SharedPreference
+    @SuppressWarnings("unused")
     public void setTheme(@NonNull @ThemeOption String theme) {
         setPref(P_SETTINGS, PREF_THEME, theme);
     }
@@ -123,6 +125,7 @@ public class LjotItModel {
         return TimeRange.parse(timeRangeStr);
     }
 
+    @SuppressWarnings("SameReturnValue")
     public boolean isUIWidgetStyle() {
         // OPEN: might allow end users to change it.
         // For now, it is hardcoded while Widget-style UI is being experimented.
@@ -141,6 +144,8 @@ public class LjotItModel {
     }
 
 
+    // Settings currently set it directly with underlying SharedPreference
+    @SuppressWarnings("unused")
     public void setLockScreenNotificationEnabled(boolean enabled) {
         setPref(P_SETTINGS, PREF_LOCK_SCREEN_NOTIFICATION_ENABLED, enabled);
 
@@ -183,10 +188,8 @@ public class LjotItModel {
 
     private @NonNull
     SharedPreferences getPreferences(@NonNull String prefName) {
-        SharedPreferences prefs =
-                mContext.getSharedPreferences(prefName,
-                                              Context.MODE_PRIVATE);
-        return prefs;
+        return mContext.getSharedPreferences(prefName,
+                                     Context.MODE_PRIVATE);
     }
 
     private @NonNull
@@ -195,8 +198,9 @@ public class LjotItModel {
         return getPreferences(prefName).getString(key, defValue);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private int getIntPref(@NonNull String prefName,
-                         @NonNull String key, int defValue) {
+                           @NonNull String key, int defValue) {
         return getPreferences(prefName).getInt(key, defValue);
     }
 
@@ -214,6 +218,7 @@ public class LjotItModel {
         editor.apply();
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void setPref(@NonNull String prefName,
                          @NonNull String key, int value) {
         SharedPreferences.Editor editor = getPreferences(prefName).edit();

@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import static android.content.ContentValues.TAG;
-
 public class LockScreenNotificationService extends Service {
-    private static final String Tag = "LJI-LsnS";
+    private static final String TAG = "LJI-LsnS";
 
     private final LockScreenNotificationReceiver mLockScreenNotificationReceiver =
             new LockScreenNotificationReceiver();
@@ -59,6 +57,7 @@ public class LockScreenNotificationService extends Service {
                                                                        mLockScreenNotificationReceiver);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isSupportedByOS() {
         return LjotItApp.getApp(this).getModel().isLockScreenNotificationSupported();
     }

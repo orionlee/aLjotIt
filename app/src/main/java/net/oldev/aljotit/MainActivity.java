@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_FROM_INTRO =
             MainActivity.class.getPackage().getName() + ".EXTRA_FROM_INTRO";
-    
-    public static final String EXTRA_START_FROM_LOCK_SCREEN =
-            MainActivity.class.getPackage().getName() + ".EXTRA_START_FROM_LOCK_SCREEN";
 
     public static void startFromOutsideActivityContext(@NonNull Context startContext) {
         Intent mainIntent = getStartActivityIntentFromOutsideActivityContext(startContext);
@@ -84,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         mThemeId = ThemeSwitcher.setTheme(mModel, this); // MUST be done before setContentView, consider setting the theme
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mScratchPad = (EditText)findViewById(R.id.scratch_pad_content);
+        mScratchPad = findViewById(R.id.scratch_pad_content);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener((view) -> { sendToKeep(); });
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener((view) -> sendToKeep());
     }
 
     @Override
@@ -163,16 +160,17 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.action_send_to_keep) {
-            sendToKeep();
-            return true;
-        } else if (id == R.id.action_share) {
-            sendToShareChooser();
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_send_to_keep:
+                sendToKeep();
+                return true;
+            case R.id.action_share:
+                sendToShareChooser();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -223,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.prompt_clear_all_after_sent)
                .setNegativeButton(R.string.prompt_clear_all_no, (d, w) -> {})
-               .setPositiveButton(R.string.prompt_clear_all_yes, (d, w) -> { clearContent(); })
+               .setPositiveButton(R.string.prompt_clear_all_yes, (d, w) -> clearContent())
                .show();
     }
 
@@ -233,9 +231,7 @@ public class MainActivity extends AppCompatActivity {
 
         Snackbar.make(findViewById(R.id.activity_main), R.string.msg_clear_all_done,
                       Snackbar.LENGTH_LONG)
-                .setAction(R.string.action_clear_all_undo, v -> {
-                    mScratchPad.setText(oldContent);
-                })
+                .setAction(R.string.action_clear_all_undo, v -> mScratchPad.setText(oldContent))
                 .show();
     }
 
@@ -279,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
             chooserLabel.setSpan(new TextAppearanceSpan(this,
                                                         android.R.style.TextAppearance_Material_Medium),
                                  0, labelText.length(), 0); // larger that default
-            intent = intent.createChooser(intent, chooserLabel);
+            intent = Intent.createChooser(intent, chooserLabel);
         }
 
         try {
@@ -292,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideSoftKeyboard() {
+        //noinspection ConstantConditions
         ((InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(mScratchPad.getWindowToken(), 0);
     }
@@ -310,19 +307,21 @@ public class MainActivity extends AppCompatActivity {
                 : getResources().getColor(R.color.keepBackground);
 
         // Make the button look disabled
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(color));
 
         // Show an indicator on action bar to remind the user the Scratch Pad is on lock screen
         ActionBar actionBar = getSupportActionBar();
-        if (locked) {
-            actionBar.setDisplayShowHomeEnabled(true);
-            // OPEN: Can't figure out how to specify the icon
-            // in main_content.xml or styles.xml so it is hardcoded here.
-            actionBar.setIcon(R.drawable.ic_menu_lock);
-        } else {
-            actionBar.setDisplayShowHomeEnabled(false);
-            // setDisplayShowHomeEnabled to false is sufficient actionBar.setIcon(null);
+        if (actionBar != null) {
+            if (locked) {
+                actionBar.setDisplayShowHomeEnabled(true);
+                // OPEN: Can't figure out how to specify the icon
+                // in main_content.xml or styles.xml so it is hardcoded here.
+                actionBar.setIcon(R.drawable.ic_menu_lock);
+            } else {
+                actionBar.setDisplayShowHomeEnabled(false);
+                // setDisplayShowHomeEnabled to false is sufficient actionBar.setIcon(null);
+            }
         }
     }
 
@@ -331,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
 
         final boolean locked = isDeviceLocked();
 
-        final boolean visible = locked ? false : true;
+        final boolean visible = !locked;
 
         // Allow menu R.id.action_send_to_keep remain visible,
         // as an alternative to FAB: the FAB might be obstructed by soft keyboard.
@@ -342,8 +341,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     boolean isDeviceLocked() {
-        KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-        boolean locked = km.inKeyguardRestrictedInputMode();
+        //noinspection ConstantConditions
+        boolean locked = ((KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE))
+                .inKeyguardRestrictedInputMode();
         Log.v(TAG, "  isDeviceLocked()  locked :" + locked);
         return locked;
     }

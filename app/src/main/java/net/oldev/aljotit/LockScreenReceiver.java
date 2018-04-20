@@ -31,11 +31,12 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent != null && intent.getAction() != null)
         {
+            //noinspection SimplifiableIfStatement
             if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
             {
                 // Screen is on but not unlocked (if any locking mechanism present)
                 Log.v(tag(), "[SCREEN_ON]");
-                if (mLastIntent != null &&
+                if (mLastIntent != null && mLastIntent.getAction() != null &&
                         mLastIntent.getAction().equals(Intent.ACTION_USER_PRESENT) &&
                         mLastIntentTimestamp > System.currentTimeMillis() - 2000) {
                     Log.v(tag(), "  SCREEN_ON ignored: USER_PRESENT was just sent, indicating it is ON due to using fingerprint (or other non-visual one such as voice) unlocking ");
@@ -92,16 +93,19 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
     /**
      * Implementation should override this method to implement the behavior needed.
      */
+    @SuppressWarnings("EmptyMethod")
     protected void onLocked() {}
 
     /**
      * Implementation should override this method to implement the behavior needed.
      */
+    @SuppressWarnings("EmptyMethod")
     protected void onUnlocked() {}
 
     /**
      * Implementation should override this method to implement the behavior needed.
      */
+    @SuppressWarnings("EmptyMethod")
     protected void onShowingLockScreen() {}
 
 

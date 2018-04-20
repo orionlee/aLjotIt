@@ -90,6 +90,7 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
     }
 
 
+    @SuppressWarnings("SameParameterValue")
     private Object getSystemService(@NonNull String name) {
         return mCurContext.getSystemService(name);
     }
@@ -122,6 +123,7 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
         // Oreo defaults have sounds. Disable sound as it will be a nuisance.
         channel.setSound(null, null);
 
+        //noinspection ConstantConditions
         ((NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE)).
                 createNotificationChannel(channel);
     }
@@ -135,7 +137,7 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
      * but the correspond Android system-wide app notification is disabled, the net result  
      * is that lock screen is still disabled, which will confuse users.
      *
-     * @ctx context for the calling activity
+     * @param ctx context for the calling activity
      *
      */
     public static boolean isNotificationEnabledInSystem(@NonNull Context ctx) {
@@ -146,6 +148,7 @@ public class LockScreenNotificationReceiver extends LockScreenReceiver {
         } else {
             // case Oreo+: need to check the specific channel, in addition to app settings
             NotificationManager notifyMgr = (NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+            assert notifyMgr != null;
             NotificationChannel channel = notifyMgr.getNotificationChannel(LOCK_SCREEN_CHANNEL);
             return ( notifyMgr.areNotificationsEnabled() &&
                      (channel.getImportance() != NotificationManager.IMPORTANCE_NONE) );

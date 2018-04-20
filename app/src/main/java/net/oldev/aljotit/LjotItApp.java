@@ -1,6 +1,5 @@
 package net.oldev.aljotit;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
@@ -8,13 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class LjotItApp extends Application {
@@ -193,34 +186,36 @@ public class LjotItApp extends Application {
             }
         }
 
-        // OPEN: remove it if action cannot be made working.
-        @SuppressLint("RtlHardcoded")
-        private void showSnackBarLikeToast(@NonNull String msg,
-                                           @Nullable String actionText,
-                                           @Nullable View.OnClickListener actionOnClickListener) {
-            //inflate the custom toast
-            View layout = getLatestActivity()
-                    .getLayoutInflater()
-                    .inflate(R.layout.snackbar_like_toast,
-                             (ViewGroup) getLatestActivity().findViewById(R.id.snackbar_like_toast));
-
-            // Set the Text to show in TextView
-            TextView text = (TextView) layout.findViewById(R.id.snackbar_text);
-            text.setText(msg);
-
-            if (!TextUtils.isEmpty(actionText) && actionOnClickListener != null) {
-                Button button = (Button) layout.findViewById(R.id.snackbar_action);
-                button.setText(actionText);
-                button.setOnClickListener(actionOnClickListener);
-            }
-            Toast toast = new Toast(getApplicationContext());
-
-            //Setting up toast position, similar to Snackbar
-            toast.setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.FILL_HORIZONTAL, 0, 0);
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setView(layout);
-            toast.show();
-        }
+// --Commented out by Inspection START (4/20/2018 12:46 PM):
+//        // OPEN: remove it if action cannot be made working.
+//        @SuppressLint("RtlHardcoded")
+//        private void showSnackBarLikeToast(@NonNull String msg,
+//                                           @Nullable String actionText,
+//                                           @Nullable View.OnClickListener actionOnClickListener) {
+//            //inflate the custom toast
+//            View layout = getLatestActivity()
+//                    .getLayoutInflater()
+//                    .inflate(R.layout.snackbar_like_toast,
+//                             (ViewGroup) getLatestActivity().findViewById(R.id.snackbar_like_toast));
+//
+//            // Set the Text to show in TextView
+//            TextView text = (TextView) layout.findViewById(R.id.snackbar_text);
+//            text.setText(msg);
+//
+//            if (!TextUtils.isEmpty(actionText) && actionOnClickListener != null) {
+//                Button button = (Button) layout.findViewById(R.id.snackbar_action);
+//                button.setText(actionText);
+//                button.setOnClickListener(actionOnClickListener);
+//            }
+//            Toast toast = new Toast(getApplicationContext());
+//
+//            //Setting up toast position, similar to Snackbar
+//            toast.setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.FILL_HORIZONTAL, 0, 0);
+//            toast.setDuration(Toast.LENGTH_LONG);
+//            toast.setView(layout);
+//            toast.show();
+//        }
+// --Commented out by Inspection STOP (4/20/2018 12:46 PM)
 
     }
 }
