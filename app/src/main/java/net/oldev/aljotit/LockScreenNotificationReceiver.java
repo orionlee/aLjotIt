@@ -42,12 +42,12 @@ import android.widget.Toast;
  *    SCREEN_ON / SCREEN_OFF cannot be registered via xml (neither USER_PRESENT starting Android 8)
  * Reference: https://developer.android.com/guide/components/broadcast-exceptions.html
  *
- * 2. Register the receiver programmatically at BootReceiver (wihtout service): it does not work
+ * 2. Register the receiver programmatically at BootReceiver (without service): it does not work
  *    because the registration will not last beyond initial BootReceiver,
  *    as described in Context.registerReceiver() documentation.
  *
  * 3. A foreground service: it will work, but with the drawback of having an annoying notification
- * shown all the time on normal screen. It will work on Android 8+ devices (not a priroity).
+ * shown all the time on normal screen. It will work on Android 8+ devices (not a priority).
  *
  */
 public class LockScreenNotificationReceiver extends LockScreenReceiver {
