@@ -45,6 +45,9 @@ android {
             }
         }
     }
+    lintOptions {
+        baseline file("lint-baseline.xml")
+    }
     buildTypes {
         debug {
             // allow debug / release be installed as separate apps,

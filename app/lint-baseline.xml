@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 3.1.1">
+
+    <issue
+        id="OldTargetApi"
+        message="Not targeting the latest versions of Android; compatibility &#xA;modes apply. Consider testing and updating this version. &#xA;Consult the android.os.Build.VERSION_CODES javadoc for details."
+        errorLine1="        targetSdkVersion 26"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="8"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.snackbar_like_toast` appears to be unused"
+        errorLine1="&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src\main\res\layout\snackbar_like_toast.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Configure access from lock screen&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Configure access from lock screen&quot; />"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_config.xml"
+            line="17"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;You can access LjotIt from lock screen by configuring one of the following options.&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;You can access LjotIt from lock screen by configuring one of the following options.&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_config.xml"
+            line="41"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;• Lock Screen Notification&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;• Lock Screen Notification&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_config.xml"
+            line="49"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Enabled by default, configured in Settings.&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Enabled by default, configured in Settings.&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_config.xml"
+            line="56"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;• Quick Settings&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;• Quick Settings&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_config.xml"
+            line="64"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;You can add LjotIt to Quick Settings panel: Click panel edit button, and drag LjotIt to the active one.&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;You can add LjotIt to Quick Settings panel: Click panel edit button, and drag LjotIt to the active one.&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_config.xml"
+            line="71"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;• Lock Screen Shortcuts&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;• Lock Screen Shortcuts&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_config.xml"
+            line="79"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Some devices allow you to set applications on lock screen, typically in system lock screen settings. \nIt may be known as shortcuts (Samsung devices), Quick access (ASUS), etc.&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Some devices allow you to set applications on lock screen, typically in system lock screen settings. \nIt may be known as shortcuts (Samsung devices), Quick access (ASUS), etc.&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_config.xml"
+            line="85"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;You are all set.&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;You are all set.&quot; />"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_done.xml"
+            line="18"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Do not show again.&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Do not show again.&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\fragment_content_intro_done.xml"
+            line="51"
+            column="13"/>
+    </issue>
+
+</issues>
