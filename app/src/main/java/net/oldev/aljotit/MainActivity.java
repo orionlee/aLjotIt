@@ -12,6 +12,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -36,8 +37,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "LJI-Main"; // Lock Screen Scratch Pad abbreviation
 
     private static final int REQUEST_CODE_SHARE_TEXT = 987;
-    
-    private EditText mScratchPad;
+
+    @VisibleForTesting
+    ActivityLauncher mActivityLauncher = new ActivityLauncher(this);
+
+    @VisibleForTesting
+    EditText mScratchPad;
     private Menu mOptionsMenu;
     private @StyleRes int mThemeId; // id of the theme used
 
@@ -279,12 +284,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            startActivityForResult(intent, REQUEST_CODE_SHARE_TEXT);
+            mActivityLauncher.startActivityForResult(intent, REQUEST_CODE_SHARE_TEXT);
         } catch (ActivityNotFoundException anfe) {
             Toast.makeText(this, R.string.msg_err_note_app_not_found, Toast.LENGTH_LONG).show();
             Log.w(TAG, "sendTo() - target note application is not found", anfe);
         }
 
+    }
+
+    // Wrapper around launching external note app
+    // so that the launch can be mocked for testing
+    @VisibleForTesting
+    static class ActivityLauncher {
+        protected final Activity mActivity;
+
+        public ActivityLauncher(@NonNull Activity activity) {
+            mActivity = activity;
+        }
+
+        public void startActivityForResult(@NonNull Intent intent, int requestCode)
+                throws ActivityNotFoundException {
+            mActivity.startActivityForResult(intent, requestCode);
+        }
     }
 
     private void hideSoftKeyboard() {

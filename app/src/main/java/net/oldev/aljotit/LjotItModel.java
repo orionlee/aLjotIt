@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import java.lang.annotation.Retention;
@@ -167,6 +168,8 @@ public class LjotItModel {
         setPref(P_SETTINGS, PREF_SHOW_INTRO, showIntro);
     }
 
+    @VisibleForTesting
+    void removeShowIntro() { removePref(P_SETTINGS, PREF_SHOW_INTRO); }
 
     private static final String GKEEP_PACKAGE_NAME = "com.google.android.keep";
     private static final String GKEEP_CLASS_NAME = "com.google.android.keep.activities.ShareReceiverActivity";
@@ -237,4 +240,16 @@ public class LjotItModel {
         editor.apply();
     }
 
+    private void removePref(@NonNull String prefName,
+                            @NonNull String key) {
+        SharedPreferences preferences = getPreferences(prefName);
+        if (preferences.contains(key)) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove(key);
+
+            // use asynchronous apply. I can't handle commit() failures other than reporting it anyway.
+            editor.apply();
+        } // else key not found, do nothing
+
+    }
 }

@@ -53,8 +53,8 @@ It just pushes further the stack.
 - [x] Introduction for initial startup
 - [x] For Android 4, hide Lock Screen Notifications UI
 - [x] Run lint / code inspection
-- [ ] Sanity Check Test
-- [ ] Publish alpha version 
+- [x] Sanity Check Test
+- [x] Publish alpha version (v0.5.9) 
 
 ## Beta - Tightening up for general usage
 - [ ] App Introduction tweaks
