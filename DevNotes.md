@@ -52,7 +52,7 @@ It just pushes further the stack.
   
 - [x] Introduction for initial startup
 - [x] For Android 4, hide Lock Screen Notifications UI
-- [ ] Run lint / code inspection
+- [x] Run lint / code inspection
 - [ ] Sanity Check Test
 - [ ] Publish alpha version 
 
