@@ -86,6 +86,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         public static final String CATEGORY_KEY_UI = "pref_category_ui";
         public static final String KEY_RATE_APP = "rateApp";
+        public static final String KEY_APP_VERSION = "appVersion";
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -148,6 +149,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             {
                 Preference prefScreenRate = findPreference(KEY_RATE_APP);
                 prefScreenRate.setOnPreferenceClickListener( p -> launchGPlayStoreToRate(getActivity()) );
+            }
+
+            {
+                Preference prefScreenAppVersion = findPreference(KEY_APP_VERSION);
+                prefScreenAppVersion.setSummary(BuildConfig.VERSION_NAME);
             }
 
         }

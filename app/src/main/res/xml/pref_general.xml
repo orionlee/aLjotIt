@@ -31,15 +31,24 @@
             android:summary="@string/pref_lock_screen_notification_summary" />
     </PreferenceCategory>
 
+    <!-- For the following preferences that are links / informational only,
+         android:key values should be consistent with the KEY_ constants in
+         SettingsActivity.GeneralPreferenceFragment class -->
+
     <PreferenceCategory
         android:key="pref_cat_contact"
         android:title="@string/pref_category_contact">
-        <!-- android:key values should be consistent with
-             the KEY_ constants in
-             SettingsActivity.GeneralPreferenceFragment class -->
         <PreferenceScreen
             android:key="rateApp"
             android:title="@string/pref_rate_app" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_cat_about"
+        android:title="@string/pref_category_about">
+        <PreferenceScreen
+            android:key="appVersion"
+            android:title="@string/pref_app_version" />
     </PreferenceCategory>
 
 </PreferenceScreen>
