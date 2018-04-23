@@ -160,6 +160,14 @@ public class LjotItModel {
         return ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP );
     }
 
+    /**
+     *
+     * @return true if Quick Settings Tile is supported by this device. It is NOT a setting.
+     */
+    public boolean isQSTileSupported() {
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N);
+    }
+
     public boolean isShowIntro() {
         return getBooleanPref(P_SETTINGS, PREF_SHOW_INTRO, true);
     }

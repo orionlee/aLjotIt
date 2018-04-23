@@ -41,6 +41,7 @@
                 android:text="You can access LjotIt from lock screen by configuring one of the following options." />
 
             <TextView
+                android:id="@+id/intro_ls_conf_lsn_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -49,6 +50,7 @@
                 android:text="• Lock Screen Notification" />
 
             <TextView
+                android:id="@+id/intro_ls_conf_lsn_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -56,6 +58,7 @@
                 android:text="Enabled by default, configured in Settings." />
 
             <TextView
+                android:id="@+id/intro_ls_conf_qs_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -64,6 +67,7 @@
                 android:text="• Quick Settings" />
 
             <TextView
+                android:id="@+id/intro_ls_conf_qs_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -71,6 +75,7 @@
                 android:text="You can add LjotIt to Quick Settings panel: Click panel edit button, and drag LjotIt to the active one." />
 
             <TextView
+                android:id="@+id/intro_ls_conf_lss_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -78,6 +83,7 @@
                 android:textSize="20sp"
                 android:text="• Lock Screen Shortcuts" />
             <TextView
+                android:id="@+id/intro_ls_conf_lss_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"

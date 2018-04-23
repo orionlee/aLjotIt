@@ -40,11 +40,12 @@ public class IntroActivity extends AppIntro {
                                               R.drawable.ic_intro_post_unlock_cropped_marked, bgColor));
 
 
-        addSlide(AppIntroCustomSlide.newInstance(R.layout.fragment_content_intro_config, bgColor));
+        addSlide(LSConfigSlide.newInstance(bgColor)); // Lock Screen Access config information
 
         addSlide(AppIntroCustomSlide.newInstance(R.layout.fragment_content_intro_done, bgColor));
 
     }
+
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {
@@ -72,6 +73,11 @@ public class IntroActivity extends AppIntro {
         LjotItModel model = ((LjotItApp)getApplication()).getModel();
         model.setShowIntro(!mNotShowAgain);
 
+    }
+
+    @Override
+    public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
+        super.onSlideChanged(oldFragment, newFragment);
     }
 
     public void onNotShowAgainCheckboxClicked(View view) {
@@ -138,12 +144,17 @@ public class IntroActivity extends AppIntro {
         public static AppIntroCustomSlide  newInstance(int contentLayoutResId, @ColorInt int bgColor) {
             AppIntroCustomSlide  customSlide = new AppIntroCustomSlide();
 
-            Bundle args = CustomSlide.createBundleForNewInstance(VAL_LAYOUT_RES_ID);
-            args.putInt(ARG_CONTENT_LAYOUT_RES_ID, contentLayoutResId);
-            args.putInt(ARG_BG_COLOR, bgColor);
+            Bundle args = createBundleForNewInstance(contentLayoutResId, bgColor);
             customSlide.setArguments(args);
 
             return customSlide;
+        }
+
+        protected static Bundle createBundleForNewInstance(int contentLayoutResId, @ColorInt int bgColor) {
+            Bundle args = CustomSlide.createBundleForNewInstance(VAL_LAYOUT_RES_ID);
+            args.putInt(ARG_CONTENT_LAYOUT_RES_ID, contentLayoutResId);
+            args.putInt(ARG_BG_COLOR, bgColor);
+            return args;
         }
 
         @Override
@@ -180,5 +191,40 @@ public class IntroActivity extends AppIntro {
         }
 
     }
+
+    public static class LSConfigSlide extends AppIntroCustomSlide {
+
+        public static LSConfigSlide  newInstance(@ColorInt int bgColor) {
+            LSConfigSlide  customSlide = new LSConfigSlide();
+
+            Bundle args = AppIntroCustomSlide.createBundleForNewInstance(R.layout.fragment_content_intro_config, bgColor);
+            customSlide.setArguments(args);
+
+            return customSlide;
+        }
+
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            LjotItModel model = LjotItApp.getApp(getActivity()).getModel();
+
+            // Show information about 1) lock screen notifications, 2) quick settings
+            // only if the device supports the feature.
+
+            final int lsnVisibility =
+                    ( model.isLockScreenNotificationSupported() ? View.VISIBLE : View.GONE );
+            final int qsVisibility =
+                    ( model.isQSTileSupported() ? View.VISIBLE : View.GONE);
+
+            view.findViewById(R.id.intro_ls_conf_lsn_head).setVisibility(lsnVisibility);
+            view.findViewById(R.id.intro_ls_conf_lsn_desc).setVisibility(lsnVisibility);
+
+            view.findViewById(R.id.intro_ls_conf_qs_head).setVisibility(qsVisibility);
+            view.findViewById(R.id.intro_ls_conf_qs_desc).setVisibility(qsVisibility);
+
+        }
+
+    }
+
 
 }

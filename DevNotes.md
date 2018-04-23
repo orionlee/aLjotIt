@@ -57,11 +57,9 @@ It just pushes further the stack.
 - [x] Publish alpha version (v0.5.9) 
 
 ## Beta - Tightening up for general usage
-- [ ] App Introduction tweaks
+- [x] App Introduction tweaks
   - [x] Implement skip
-  - [ ] configure lock screen access step: simplifying it, Make it android version specific
-  - [ ] Might need a help screen for lock screen access configuration details tips
-  - [ ] Make text localizable
+  - [x] (barebone tweak, just hiding irrelevant information) configure lock screen access step: simplifying it, Make it android version specific
 
 - [ ] Play store listing polish
   - [ ] Update feature graphics and screenshots
@@ -74,6 +72,10 @@ It just pushes further the stack.
   - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
 
 ## Beta Maybe
+- [ ] App Introduction further tweak
+  - [ ] Might need a help screen for lock screen access configuration details tips
+  - [ ] Make text localizable
+
 - [ ] (MAYBE) coach marks
   - Tip to suggest add QSTile (Android 7+), with graphics
   - Tip to suggest add to lock screen quick access (vendor specific screen shot), for Android 4
