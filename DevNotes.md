@@ -66,22 +66,25 @@ It just pushes further the stack.
   - [ ] Update feature graphics and screenshots
   - [ ] Add tablet screenshots (7" and 10")
   - [ ] Update descriptions
-  
+
+- [ ] links to rate on play store
+
+- [ ] (BUG) on my tablet, lock screen notification does not work after MainActivity is destroyed (user flow: user removes the app from recent app list).
+  - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
+
+## Beta Maybe
 - [ ] (MAYBE) coach marks
   - Tip to suggest add QSTile (Android 7+), with graphics
   - Tip to suggest add to lock screen quick access (vendor specific screen shot), for Android 4
   - Tip to disable lock screen notification once QSTile is added
   - QSTile on normal screen: for initial use, add a message (better than toast) explaining it launches keep. Long press to launch app itself.
   - Convert Settings app notification disabled warning snackbar to inline 
-      
-- [ ] detect Google Keep initial startup (and error report if it's not installed)
 
-- [ ] links to rate and feedback, maybe using Google doc forms for feedback
+- [ ] detect Google Keep initial startup (and warn users if it's not installed)
+
+- [ ] allow users give private feedback, maybe using Google doc forms for feedback
 
 - [ ] lock screen notification: Increase clickable areas, not just body text.
-
-- [ ] (BUG) on my tablet, lock screen notification does not work after MainActivity is destroyed (user flow: user removes the app from recent app list). 
-  - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
 
 - [ ] Specify app backup, maybe in `<application fullBackupContent="..."`
 
