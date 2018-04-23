@@ -83,18 +83,18 @@
         </activity>
         <!-- MainIntentService: a workaround to start MainActivity from Lock Screen notification -->
         <service
-            android:name=".MainIntentService"
+            android:name=".lsn.MainIntentService"
             android:exported="false">
         </service>
 
-        <receiver android:name=".LockScreenNotificationReceiver">
+        <receiver android:name=".lsn.LockScreenNotificationReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".LockScreenNotificationService">
+            android:name=".lsn.LockScreenNotificationService">
         </service>
 
         <!--
@@ -102,7 +102,7 @@
              LockScreen Notification feature.
         -->
         <receiver
-            android:name=".LockScreenNotificationBootReceiver">
+            android:name=".lsn.LockScreenNotificationBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>

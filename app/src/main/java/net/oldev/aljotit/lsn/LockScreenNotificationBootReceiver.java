@@ -1,4 +1,4 @@
-package net.oldev.aljotit;
+package net.oldev.aljotit.lsn;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;

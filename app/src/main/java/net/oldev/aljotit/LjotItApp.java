@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import net.oldev.aljotit.lsn.LockScreenNotificationService;
+
 public class LjotItApp extends Application {
 
     private static final String TAG = "LJI-App";
@@ -76,7 +78,7 @@ public class LjotItApp extends Application {
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             Log.v(TAG, "onActivityCreated()");
             if (!mLockScreenReceiverRegistered) {
-                LockScreenReceiver.registerToLockScreenChanges(LjotItApp.this, mLockScreenReceiver);
+                AbstractLockScreenReceiver.registerToLockScreenChanges(LjotItApp.this, mLockScreenReceiver);
                 mLockScreenReceiverRegistered = true;
             }
         }
@@ -126,7 +128,7 @@ public class LjotItApp extends Application {
                 MainActivity mainActivity = (MainActivity)activity;
                 if (!mainActivity.isDeviceLocked()) {
                     try {
-                        LockScreenReceiver.unregisterFromLockScreenChanges(LjotItApp.this,
+                        AbstractLockScreenReceiver.unregisterFromLockScreenChanges(LjotItApp.this,
                                                                            mLockScreenReceiver);
                     } catch (Throwable t) {
                         // In some edge case, the MainLockScreenReceiver is not registered
@@ -153,7 +155,7 @@ public class LjotItApp extends Application {
      * Control MainActivity's UI behavior by listening to
      * whether the screen is locked / unlocked.
      */
-    private class MainLockScreenReceiver extends LockScreenReceiver {
+    private class MainLockScreenReceiver extends AbstractLockScreenReceiver {
 
         private @Nullable
         Activity getLatestActivity() {

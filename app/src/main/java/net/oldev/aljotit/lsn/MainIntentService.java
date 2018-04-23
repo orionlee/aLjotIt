@@ -1,8 +1,10 @@
-package net.oldev.aljotit;
+package net.oldev.aljotit.lsn;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
+
+import net.oldev.aljotit.MainActivity;
 
 /**
  * Used to start MainActivity from a Lock Screen Notification

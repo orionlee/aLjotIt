@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 
 import net.oldev.aljotit.LjotItModel.ThemeOption;
+import net.oldev.aljotit.lsn.LockScreenNotificationReceiver;
 
 import static net.oldev.aljotit.AppCompatPreferenceUtil.bindPreferenceSummaryToValue;
 

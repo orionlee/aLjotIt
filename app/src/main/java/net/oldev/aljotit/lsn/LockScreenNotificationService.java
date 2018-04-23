@@ -1,9 +1,11 @@
-package net.oldev.aljotit;
+package net.oldev.aljotit.lsn;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+
+import net.oldev.aljotit.LjotItApp;
 
 public class LockScreenNotificationService extends Service {
     private static final String TAG = "LJI-LsnS";

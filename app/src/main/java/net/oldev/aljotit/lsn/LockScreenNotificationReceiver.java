@@ -1,4 +1,4 @@
-package net.oldev.aljotit;
+package net.oldev.aljotit.lsn;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -17,6 +17,10 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+
+import net.oldev.aljotit.AbstractLockScreenReceiver;
+import net.oldev.aljotit.LjotItModel;
+import net.oldev.aljotit.R;
 
 /**
  * Bring up a notification on lock screen so that the user can access the app there,
@@ -50,7 +54,7 @@ import android.widget.Toast;
  * shown all the time on normal screen. It will work on Android 8+ devices (not a priority).
  *
  */
-public class LockScreenNotificationReceiver extends LockScreenReceiver {
+public class LockScreenNotificationReceiver extends AbstractLockScreenReceiver {
 
     private static final String TAG = "LJI-LsnR";
 

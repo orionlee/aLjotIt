@@ -15,7 +15,7 @@ import android.util.Log;
  * @see #onShowingLockScreen()
  * @see #onUnlocked()
  */
-public abstract class LockScreenReceiver extends BroadcastReceiver {
+public abstract class AbstractLockScreenReceiver extends BroadcastReceiver {
     
     // last relevant intent handled (to dispatch onShowingLockScreen() correctly)
     private Intent mLastIntent;
@@ -110,7 +110,7 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
 
 
     public static void registerToLockScreenChanges(@NonNull Context ctx,
-                                                   @NonNull LockScreenReceiver receiver) {
+                                                   @NonNull AbstractLockScreenReceiver receiver) {
         Log.v(receiver.tag(), "registerToLockScreenChanges()");
         IntentFilter lockFilter = new IntentFilter();
         lockFilter.addAction(Intent.ACTION_SCREEN_ON);
@@ -120,7 +120,7 @@ public abstract class LockScreenReceiver extends BroadcastReceiver {
     }
 
     public static void unregisterFromLockScreenChanges(@NonNull Context ctx,
-                                                       @NonNull LockScreenReceiver receiver) {
+                                                       @NonNull AbstractLockScreenReceiver receiver) {
         Log.v(receiver.tag(), "unregisterFromLockScreenChanges()");
         ctx.unregisterReceiver(receiver);
     }
