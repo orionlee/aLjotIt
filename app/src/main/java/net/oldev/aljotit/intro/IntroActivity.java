@@ -46,6 +46,17 @@ public class IntroActivity extends AppIntro {
 
     }
 
+    @Override
+    public void onSkipPressed(Fragment currentFragment) {
+        super.onSkipPressed(currentFragment);
+        goToLastSlide();
+
+    }
+
+    private void goToLastSlide() {
+        int lastSlideIdx = getSlides().size() - 1;
+        getPager().setCurrentItem(lastSlideIdx);
+    }
 
     @Override
     public void onDonePressed(Fragment currentFragment) {

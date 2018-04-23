@@ -58,6 +58,7 @@ It just pushes further the stack.
 
 ## Beta - Tightening up for general usage
 - [ ] App Introduction tweaks
+  - [x] Implement skip
   - [ ] configure lock screen access step: simplifying it, Make it android version specific
   - [ ] Might need a help screen for lock screen access configuration details tips
   - [ ] Make text localizable
