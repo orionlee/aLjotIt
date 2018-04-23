@@ -3,7 +3,10 @@ package net.oldev.aljotit;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -82,6 +85,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public static class GeneralPreferenceFragment extends PreferenceFragment {
 
         public static final String CATEGORY_KEY_UI = "pref_category_ui";
+        public static final String KEY_RATE_APP = "rateApp";
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -139,6 +143,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 }
 
             }
+
+            // Rate / review on google play store
+            {
+                Preference prefScreenRate = findPreference(KEY_RATE_APP);
+                prefScreenRate.setOnPreferenceClickListener( p -> launchGPlayStoreToRate(getActivity()) );
+            }
+
         }
 
         private void updatePrefAutoThemeEnabledStatus(@ThemeOption String themeOption,
@@ -151,6 +162,30 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         private void removePreferenceFromCategory(Preference preference, String categoryKey) {
             PreferenceCategory category = (PreferenceCategory)findPreference(categoryKey);
             category.removePreference(preference);
+        }
+
+
+        private static boolean launchGPlayStoreToRate(@NonNull Context context) {
+            // Adapted from: https://stackoverflow.com/a/10816846
+
+            // remove .debug suffix (if exists) as it is not part of id in google play store
+            String gPlayPkgName = context.getPackageName().replace(".debug", "");
+
+            Uri uri = Uri.parse("market://details?id=" + gPlayPkgName);
+            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+            // To count with Play market backstack, After pressing back button,
+            // to taken back to our application, we need to add following flags to intent.
+            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            try {
+                context.startActivity(goToMarket);
+            } catch (ActivityNotFoundException e) {
+                context.startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=" + gPlayPkgName)));
+            }
+
+            return true; // indicate launched
         }
 
         //

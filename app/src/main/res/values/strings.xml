@@ -64,5 +64,7 @@
     
     <string name="pref_lock_screen_notification">Lock Screen Notification</string>
     <string name="pref_lock_screen_notification_summary">Enable to access LjotIt on lock screen using notification.</string>
+    <string name="pref_rate_app">Rate and Review</string>
+    <string name="pref_category_contact">Contact Us</string>
 
 </resources>

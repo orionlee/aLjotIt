@@ -30,4 +30,16 @@
             android:title="@string/pref_lock_screen_notification"
             android:summary="@string/pref_lock_screen_notification_summary" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_cat_contact"
+        android:title="@string/pref_category_contact">
+        <!-- android:key values should be consistent with
+             the KEY_ constants in
+             SettingsActivity.GeneralPreferenceFragment class -->
+        <PreferenceScreen
+            android:key="rateApp"
+            android:title="@string/pref_rate_app" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
