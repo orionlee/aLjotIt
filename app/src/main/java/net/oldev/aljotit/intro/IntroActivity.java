@@ -261,6 +261,9 @@ public class IntroActivity extends AppIntro {
             // Lock screen shortcuts section
             // always visible to users
             {
+                setHtmlText(view.findViewById(R.id.intro_ls_conf_lss_desc),
+                        R.string.intro_ls_conf_lss_desc, null);
+
                 View openLSSPanelBtn = view.findViewById(R.id.intro_ls_conf_lss_btn);
                 openLSSPanelBtn.setOnClickListener(v -> {
                     tryToOpenLockScreenSettings(getActivity());

@@ -72,5 +72,6 @@
     <!-- Strings related to App Introduction -->
 
     <string name="intro_ls_conf_qs_desc">The &lt;b>BEST&lt;/b> method. You can add LjotIt to Quick Settings panel:&lt;br>Click panel edit button &lt;img src="ic_edit_white_20dp">, and drag LjotIt to the active pane.</string>
+    <string name="intro_ls_conf_lss_desc">Some devices allow you to set applications on lock screen, typically in system lock screen settings.&lt;br>It may be known as &lt;b>Shortcuts&lt;/b> (Samsung devices), &lt;b>Quick access&lt;/b> (ASUS), etc.</string>
 
 </resources>
