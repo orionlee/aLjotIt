@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- Listen to lock screen changes on boot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- To open quick settings panel progrmmatically to helper users setup QSTile -->
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
 
     <application
         android:name=".LjotItApp"

@@ -3,8 +3,11 @@ package net.oldev.aljotit.intro;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 import net.oldev.aljotit.LjotItApp;
 import net.oldev.aljotit.LjotItModel;
 import net.oldev.aljotit.MainActivity;
+import net.oldev.aljotit.QSPanelUtil;
 import net.oldev.aljotit.R;
 
 public class IntroActivity extends AppIntro {
@@ -216,15 +220,33 @@ public class IntroActivity extends AppIntro {
             final int qsVisibility =
                     ( model.isQSTileSupported() ? View.VISIBLE : View.GONE);
 
-            view.findViewById(R.id.intro_ls_conf_lsn_head).setVisibility(lsnVisibility);
-            view.findViewById(R.id.intro_ls_conf_lsn_desc).setVisibility(lsnVisibility);
+            if (!model.isLockScreenNotificationEnabled()) {
+                makeViewGone(view, R.id.intro_ls_conf_lsn_head);
+                makeViewGone(view, R.id.intro_ls_conf_lsn_desc);
+            }
 
-            view.findViewById(R.id.intro_ls_conf_qs_head).setVisibility(qsVisibility);
-            view.findViewById(R.id.intro_ls_conf_qs_desc).setVisibility(qsVisibility);
+            if (!model.isQSTileSupported()) {
+                makeViewGone(view, R.id.intro_ls_conf_qs_head);
+                makeViewGone(view, R.id.intro_ls_conf_qs_desc);
+                makeViewGone(view, R.id.intro_ls_conf_qs_btn);
+            } else {
+                View openQSPanelBtn = view.findViewById(R.id.intro_ls_conf_qs_btn);
+                openQSPanelBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean success = QSPanelUtil.expandQuickSettingsPanel(getActivity());
+                        Log.v("LJI-Intro", "Open Quick Settings Panel result: " + success);
+                        // OPEN: Consider show an message to users if opening it fails
+                    }
+                });
+
+            }
 
         }
 
+        private static void makeViewGone(@NonNull View container,  @IdRes int id) {
+            container.findViewById(id).setVisibility(View.GONE);
+        }
     }
-
 
 }

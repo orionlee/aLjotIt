@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:text="Enabled by default, configured in Settings." />
+                android:text="Enabled by default." />
 
             <TextView
                 android:id="@+id/intro_ls_conf_qs_head"
@@ -72,7 +72,12 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:text="You can add LjotIt to Quick Settings panel: Click panel edit button, and drag LjotIt to the active one." />
+                android:text="The *best* method. You can add LjotIt to Quick Settings panel: Click panel edit button, and drag LjotIt to the active one." />
+            <Button
+                android:id="@+id/intro_ls_conf_qs_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Quick Settings" />
 
             <TextView
                 android:id="@+id/intro_ls_conf_lss_head"
