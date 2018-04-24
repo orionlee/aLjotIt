@@ -61,7 +61,10 @@ It just pushes further the stack.
   - [x] Implement skip
   - [x] (barebone tweak, just hiding irrelevant information) configure lock screen access step: simplifying it, Make it android version specific
   - [x] Aide users to configure quick settings tile
-
+  - [x] Try to aide users to configure lock screen shortcuts 
+- [ ] Further remind users to configure quick settings tile
+  - [ ] A snackbar message upon entering settings, if QSTile is not added
+  
 - [ ] Play store listing polish
   - [ ] Update feature graphics and screenshots
   - [ ] Add tablet screenshots (7" and 10")

@@ -28,6 +28,8 @@ import net.oldev.aljotit.MainActivity;
 import net.oldev.aljotit.QSPanelUtil;
 import net.oldev.aljotit.R;
 
+import static net.oldev.aljotit.intro.LockScreenSettingsUtil.tryToOpenLockScreenSettings;
+
 public class IntroActivity extends AppIntro {
     private boolean mNotShowAgain = true;
 
@@ -256,7 +258,17 @@ public class IntroActivity extends AppIntro {
 
             }
 
+            // Lock screen shortcuts section
+            // always visible to users
+            {
+                View openLSSPanelBtn = view.findViewById(R.id.intro_ls_conf_lss_btn);
+                openLSSPanelBtn.setOnClickListener(v -> {
+                    tryToOpenLockScreenSettings(getActivity());
+                });
+            }
+
         }
+
 
         private class LSCImageGetter implements Html.ImageGetter {
             @Override
@@ -294,6 +306,7 @@ public class IntroActivity extends AppIntro {
         private static void makeViewGone(@NonNull View container,  @IdRes int id) {
             container.findViewById(id).setVisibility(View.GONE);
         }
+
     }
 
 }

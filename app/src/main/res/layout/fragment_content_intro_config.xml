@@ -93,7 +93,14 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:text="Some devices allow you to set applications on lock screen, typically in system lock screen settings. \nIt may be known as shortcuts (Samsung devices), Quick access (ASUS), etc." />
+            <Button
+                android:id="@+id/intro_ls_conf_lss_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Settings" />
         </LinearLayout>
     </ScrollView>
 
 </merge>
+
+
