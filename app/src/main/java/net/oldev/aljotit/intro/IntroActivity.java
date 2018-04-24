@@ -230,7 +230,7 @@ public class IntroActivity extends AppIntro {
             final int qsVisibility =
                     ( model.isQSTileSupported() ? View.VISIBLE : View.GONE);
 
-            if (!model.isLockScreenNotificationEnabled()) {
+            if (!model.isLockScreenNotificationSupported()) {
                 makeViewGone(view, R.id.intro_ls_conf_lsn_head);
                 makeViewGone(view, R.id.intro_ls_conf_lsn_desc);
             }
