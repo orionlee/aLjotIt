@@ -69,4 +69,8 @@
     <string name="pref_category_about">About</string>
     <string name="pref_app_version">Version</string>
 
+    <!-- Strings related to App Introduction -->
+
+    <string name="intro_ls_conf_qs_desc">The &lt;b>BEST&lt;/b> method. You can add LjotIt to Quick Settings panel:&lt;br>Click panel edit button &lt;img src="ic_edit_white_20dp">, and drag LjotIt to the active pane.</string>
+
 </resources>

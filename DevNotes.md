@@ -60,6 +60,7 @@ It just pushes further the stack.
 - [x] App Introduction tweaks
   - [x] Implement skip
   - [x] (barebone tweak, just hiding irrelevant information) configure lock screen access step: simplifying it, Make it android version specific
+  - [x] Aide users to configure quick settings tile
 
 - [ ] Play store listing polish
   - [ ] Update feature graphics and screenshots

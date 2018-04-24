@@ -1,17 +1,23 @@
 package net.oldev.aljotit.intro;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
@@ -207,6 +213,8 @@ public class IntroActivity extends AppIntro {
             return customSlide;
         }
 
+        private final Html.ImageGetter mImageGetter = new LSCImageGetter();
+
         @Override
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
@@ -229,7 +237,13 @@ public class IntroActivity extends AppIntro {
                 makeViewGone(view, R.id.intro_ls_conf_qs_head);
                 makeViewGone(view, R.id.intro_ls_conf_qs_desc);
                 makeViewGone(view, R.id.intro_ls_conf_qs_btn);
-            } else {
+            } else { // case QSTile is supported
+
+                // bind rich text to description
+                setHtmlText(view.findViewById(R.id.intro_ls_conf_qs_desc),
+                        R.string.intro_ls_conf_qs_desc, mImageGetter);
+
+                // bind action to open quick settings panel button
                 View openQSPanelBtn = view.findViewById(R.id.intro_ls_conf_qs_btn);
                 openQSPanelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -242,6 +256,39 @@ public class IntroActivity extends AppIntro {
 
             }
 
+        }
+
+        private class LSCImageGetter implements Html.ImageGetter {
+            @Override
+            public Drawable getDrawable(String source) {
+                @DrawableRes int id;
+                if (source != null &&
+                        source.equals("ic_edit_white_20dp")) {
+                    id = R.drawable.ic_edit_white_20dp;
+                } else {
+                    return null;
+                }
+
+                Drawable d = getResources().getDrawable(id);
+                d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+                return d;
+            }
+        }
+
+        private void setHtmlText(@NonNull TextView view,
+                                 @StringRes int htmlTextId,
+                                 Html.ImageGetter imageGetter) {
+            String htmlText = getString(htmlTextId);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                view.setText(Html.fromHtml(htmlText,
+                        Html.FROM_HTML_MODE_LEGACY,
+                        imageGetter,
+                        null));
+            } else {
+                view.setText(Html.fromHtml(htmlText,
+                        imageGetter,
+                        null));
+            }
         }
 
         private static void makeViewGone(@NonNull View container,  @IdRes int id) {

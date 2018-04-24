@@ -71,8 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:text="The *best* method. You can add LjotIt to Quick Settings panel: Click panel edit button, and drag LjotIt to the active pane." />
+                android:textSize="16sp" /> <!-- android:text is specified programmatically as it is rich text with images -->
             <Button
                 android:id="@+id/intro_ls_conf_qs_btn"
                 android:layout_width="wrap_content"
