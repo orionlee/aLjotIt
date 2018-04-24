@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:text="You can access LjotIt from lock screen by configuring one of the following options." />
+                android:text="You can access LjotIt from lock screen with following options." />
 
             <TextView
                 android:id="@+id/intro_ls_conf_lsn_head"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:text="The *best* method. You can add LjotIt to Quick Settings panel: Click panel edit button, and drag LjotIt to the active one." />
+                android:text="The *best* method. You can add LjotIt to Quick Settings panel: Click panel edit button, and drag LjotIt to the active pane." />
             <Button
                 android:id="@+id/intro_ls_conf_qs_btn"
                 android:layout_width="wrap_content"
