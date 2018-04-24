@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
 
 public class QSPanelUtil {
 
+    private static final String TAG = "LJI-Utils";
+
     public static boolean expandQuickSettingsPanel(@NonNull Context context) {
         // Using system undocumented methods so it might not work on certain devices.
         // Adapted from
@@ -25,7 +27,7 @@ public class QSPanelUtil {
             showsb.invoke(sbservice);
             return true;
         } catch (Throwable t) {
-            Log.w("LJI-Utils", "Fail to expand quick settings panel.", t);
+            Log.w(TAG, "Fail to expand quick settings panel.", t);
             return false;
         }
     }

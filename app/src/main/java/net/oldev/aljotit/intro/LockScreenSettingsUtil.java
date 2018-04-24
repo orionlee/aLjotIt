@@ -11,6 +11,8 @@ import java.util.List;
 
 public class LockScreenSettingsUtil {
 
+    private static final String TAG = "LJI-Utils";
+
     /**
      * Attempt to open Lock screen settings screen.
      * As there is no standard, if it fails. It will fallback to open general
@@ -64,7 +66,7 @@ public class LockScreenSettingsUtil {
             context.startActivity(intent);
             return true;
         } catch (Throwable t) {
-            Log.v("LJI-Intro", "safeStartActivity() fails - " + errMsg + " | failed intent: <" + intent + ">", t);
+            Log.v(TAG, "safeStartActivity() fails - " + errMsg + " | failed intent: <" + intent + ">", t);
             return false;
         }
     }

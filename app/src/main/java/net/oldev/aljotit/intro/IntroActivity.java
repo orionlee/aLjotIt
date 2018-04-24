@@ -31,6 +31,9 @@ import net.oldev.aljotit.R;
 import static net.oldev.aljotit.intro.LockScreenSettingsUtil.tryToOpenLockScreenSettings;
 
 public class IntroActivity extends AppIntro {
+
+    private static final String TAG = "LJI-Intro";
+
     private boolean mNotShowAgain = true;
 
     @Override
@@ -225,11 +228,6 @@ public class IntroActivity extends AppIntro {
             // Show information about 1) lock screen notifications, 2) quick settings
             // only if the device supports the feature.
 
-            final int lsnVisibility =
-                    ( model.isLockScreenNotificationSupported() ? View.VISIBLE : View.GONE );
-            final int qsVisibility =
-                    ( model.isQSTileSupported() ? View.VISIBLE : View.GONE);
-
             if (!model.isLockScreenNotificationSupported()) {
                 makeViewGone(view, R.id.intro_ls_conf_lsn_head);
                 makeViewGone(view, R.id.intro_ls_conf_lsn_desc);
@@ -251,7 +249,7 @@ public class IntroActivity extends AppIntro {
                     @Override
                     public void onClick(View v) {
                         boolean success = QSPanelUtil.expandQuickSettingsPanel(getActivity());
-                        Log.v("LJI-Intro", "Open Quick Settings Panel result: " + success);
+                        Log.v(TAG, "Open Quick Settings Panel result: " + success);
                         // OPEN: Consider show an message to users if opening it fails
                     }
                 });
