@@ -16,4 +16,4 @@
           android:clickable="true"
           android:focusable="true"
           android:text="@string/label_lockscreen_notification"
-          style="@style/TextAppearance.AppCompat.Notification.Title" />
+          style="@style/TextAppearance.Compat.Notification.Title" />
