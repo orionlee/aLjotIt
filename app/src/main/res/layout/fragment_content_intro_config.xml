@@ -47,7 +47,7 @@
                 android:textColor="@android:color/white"
                 android:layout_marginTop="16dp"
                 android:textSize="20sp"
-                android:text="• Lock Screen Notification" />
+                android:text="● Lock Screen Notification" />
 
             <TextView
                 android:id="@+id/intro_ls_conf_lsn_desc"
@@ -64,7 +64,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="• Quick Settings" />
+                android:text="● Quick Settings" />
 
             <TextView
                 android:id="@+id/intro_ls_conf_qs_desc"
@@ -86,7 +86,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="• Lock Screen Shortcuts" />
+                android:text="● Lock Screen Shortcuts" />
             <TextView
                 android:id="@+id/intro_ls_conf_lss_desc"
                 android:layout_width="match_parent"
