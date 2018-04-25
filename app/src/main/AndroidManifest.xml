@@ -63,6 +63,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.oldev.aljotit.MainActivity"/>
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+                <category android:name="android.intent.category.PREFERENCE" />
+            </intent-filter>
         </activity>
 
         <activity
