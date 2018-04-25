@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -205,6 +206,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // if QSTile supported, and is not added
         // prompt user to add it.
         private void promptUsersToAddQSTileIfApplicable() {
+            // invoke the real logic with a 1-second delay
+            // Reason: in a typical flow, a user traverses to Settings from Main, often
+            // with soft keyboard showing
+            // Without the delay, the dialog created in doPromptUsersToAddQSTileIfApplicable()
+            // will be shown while the soft keyboard is still showing, distracting users.
+            // the delay gives android system some time to hide the soft keyboard
+            new Handler().postDelayed(() -> doPromptUsersToAddQSTileIfApplicable(), 1000);
+        }
+
+        private void doPromptUsersToAddQSTileIfApplicable() {
 
             if (!getModel().isQSTileSupported() ||
                     getModel().isQSTileAdded() ||
