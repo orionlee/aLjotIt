@@ -24,6 +24,7 @@ public class LjotItModel {
     private static final String PREF_CONTENT = "content";
     private static final String PREF_CONTENT_CURSOR_IDX = "contentCursorIdx";
     private static final String PREF_STATE_SEND_POSTPONED = "SendPostponed";
+    private static final String PREF_STATE_QS_TILE_ADDED = "qsTileAdded";
 
     // preference file name for settings (typically exposed in UI)
     private static final String P_SETTINGS  = BuildConfig.APPLICATION_ID + "_preferences";
@@ -45,6 +46,8 @@ public class LjotItModel {
 
     // semi-hidden prefs, (accessed in IntroActivity)
     private static final String PREF_SHOW_INTRO = "showIntro";
+
+    private static final String PREF_SHOW_ADD_QS_TILE_PROMPT = "showAddQSTilePrompt";
 
     // hidden prefs (for now), customized in dev / test
     private static final String PREF_SENDTO_PREFERRED_PACKAGE_NAME = "sendToPreferredPackageName";
@@ -101,6 +104,22 @@ public class LjotItModel {
 
     public void setSendPostponed(boolean isPostponed) {
         setPref(P_CONTENT, PREF_STATE_SEND_POSTPONED, isPostponed);
+    }
+
+    /**
+     *
+     * @return true if Quick Settings Tile is supported by this device. It is NOT a setting.
+     */
+    public boolean isQSTileSupported() {
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N);
+    }
+
+    public boolean isQSTileAdded() {
+        return getBooleanPref(P_CONTENT, PREF_STATE_QS_TILE_ADDED, false);
+    }
+
+    public void setQSTileAdded(boolean added) {
+        setPref(P_CONTENT, PREF_STATE_QS_TILE_ADDED, added);
     }
 
     // Access Settings
@@ -160,14 +179,6 @@ public class LjotItModel {
         return ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP );
     }
 
-    /**
-     *
-     * @return true if Quick Settings Tile is supported by this device. It is NOT a setting.
-     */
-    public boolean isQSTileSupported() {
-        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N);
-    }
-
     public boolean isShowIntro() {
         return getBooleanPref(P_SETTINGS, PREF_SHOW_INTRO, true);
     }
@@ -178,6 +189,14 @@ public class LjotItModel {
 
     @VisibleForTesting
     void removeShowIntro() { removePref(P_SETTINGS, PREF_SHOW_INTRO); }
+
+    public boolean isShowAddQSTilePrompt() {
+        return getBooleanPref(P_SETTINGS, PREF_SHOW_ADD_QS_TILE_PROMPT, true);
+    }
+
+    public void setShowAddQSTilePrompt(boolean showPrompt) {
+        setPref(P_SETTINGS, PREF_SHOW_ADD_QS_TILE_PROMPT, showPrompt);
+    }
 
     private static final String GKEEP_PACKAGE_NAME = "com.google.android.keep";
     private static final String GKEEP_CLASS_NAME = "com.google.android.keep.activities.ShareReceiverActivity";

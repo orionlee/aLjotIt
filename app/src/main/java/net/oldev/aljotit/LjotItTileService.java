@@ -19,7 +19,7 @@ public class LjotItTileService extends TileService {
         if (isLocked()) {
             intent = MainActivity.getStartActivityIntentFromOutsideActivityContext(this);
         } else {
-            LjotItModel model = LjotItApp.getApp(this).getModel();
+            LjotItModel model = getModel();
             intent = new Intent(Intent.ACTION_SEND); // create a new note by sending an empty text
             intent.setClassName(model.getSendToPreferredPackageName(),
                                 model.getSendToPreferredClassName());
@@ -28,5 +28,22 @@ public class LjotItTileService extends TileService {
         }
         startActivityAndCollapse(intent);
     }
-    
+
+
+    @Override
+    public void onTileAdded() {
+        super.onTileAdded();
+        getModel().setQSTileAdded(true);
+    }
+
+    @Override
+    public void onTileRemoved() {
+        super.onTileRemoved();
+        getModel().setQSTileAdded(false);
+    }
+
+    private LjotItModel getModel() {
+        return LjotItApp.getApp(this).getModel();
+    }
+
 }

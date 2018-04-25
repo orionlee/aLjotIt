@@ -2,6 +2,7 @@ package net.oldev.aljotit;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 
 import net.oldev.aljotit.LjotItModel.ThemeOption;
 import net.oldev.aljotit.lsn.LockScreenNotificationReceiver;
@@ -35,7 +37,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // superclass because they inherit from different base class.
         // Furthermore, using common superclass to enforce the behavior might not be desirable
         // to begin with (too rigid): Theme-aware activity is better described as an aspect / mix-in.
-        ThemeSwitcher.setTheme(new LjotItModel(getApplicationContext()), this);
+        ThemeSwitcher.setTheme(((LjotItApp)getApplication()).getModel(), this);
 
         super.onCreate(savedInstanceState);
         setupActionBar();
@@ -106,7 +108,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 bindPreferenceSummaryToValue(prefAutoThemeDarkTimeRange);
 
                 // data bind prefAutoThemeDarkTimeRange enabled/disabled based on current theme
-                @ThemeOption String curTheme = new LjotItModel(getActivity().getApplicationContext()).getTheme();
+                @ThemeOption String curTheme = getModel().getTheme();
                 updatePrefAutoThemeEnabledStatus(curTheme, prefAutoThemeDarkTimeRange);
             }
 
@@ -130,8 +132,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             { // Pref Lock screen notification
                 Preference prefLSN = findPreference(LjotItModel.PREF_LOCK_SCREEN_NOTIFICATION_ENABLED);
 
-                LjotItModel model = LjotItApp.getApp(getActivity()).getModel();
-                if (model.isLockScreenNotificationSupported()) {
+                if (getModel().isLockScreenNotificationSupported()) {
                     checkLockScreenNotificationSettings(getActivity());
 
                     prefLSN.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -145,6 +146,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             }
 
+            promptUsersToAddQSTileIfApplicable();
+
             // Rate / review on google play store
             {
                 Preference prefScreenRate = findPreference(KEY_RATE_APP);
@@ -156,6 +159,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 prefScreenAppVersion.setSummary(BuildConfig.VERSION_NAME);
             }
 
+        }
+
+        private LjotItModel getModel() {
+            return LjotItApp.getApp(getActivity()).getModel();
         }
 
         private void updatePrefAutoThemeEnabledStatus(@ThemeOption String themeOption,
@@ -192,6 +199,33 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
 
             return true; // indicate launched
+        }
+
+
+        // if QSTile supported, and is not added
+        // prompt user to add it.
+        private void promptUsersToAddQSTileIfApplicable() {
+
+            if (!getModel().isQSTileSupported() ||
+                    getModel().isQSTileAdded() ||
+                    !getModel().isShowAddQSTilePrompt()) {
+                return;
+            }
+            // Else case QSTile is supported and it is not added, and the prompt is to be shown
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.prompt_add_qstile_title)
+                    .setMessage(R.string.prompt_add_qstile_msg)
+                    .setView(R.layout.dialog_add_qstile_prompt)
+                    .setNeutralButton(R.string.label_open_quick_settings,
+                            (d, w) -> QSPanelUtil.expandQuickSettingsPanel(getActivity()))
+                    .setPositiveButton(R.string.text_ok,
+                            (d, w) -> {
+                                CheckBox cb = ((Dialog)d).findViewById(R.id.chkbox_not_show_add_qstile_prompt);
+                                boolean showAddQSTilePrompt = !cb.isChecked();
+                                getModel().setShowAddQSTilePrompt(showAddQSTilePrompt);
+                            })
+                    .show();
         }
 
         //
