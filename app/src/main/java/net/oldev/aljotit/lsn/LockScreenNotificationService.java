@@ -13,8 +13,9 @@ public class LockScreenNotificationService extends Service {
     private final LockScreenNotificationReceiver mLockScreenNotificationReceiver =
             new LockScreenNotificationReceiver();
 
+    // TODO:  Development-use use only - change Log.v to Log.i for debug on real devices
     public LockScreenNotificationService() {
-        Log.v(TAG, "<init>");
+        Log.i(TAG, "<init>");
     }
 
     @Override
@@ -24,7 +25,7 @@ public class LockScreenNotificationService extends Service {
 
     @Override
     public void onCreate() {
-        Log.v(TAG, "onCreate()");
+        Log.i(TAG, "onCreate()");
         super.onCreate();
 
         // Skip all the work if the Android version does not support lock screen notifications
@@ -48,7 +49,7 @@ public class LockScreenNotificationService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.v(TAG, "onDestroy()");
+        Log.i(TAG, "onDestroy()");
         super.onDestroy();
 
         if (!isSupportedByOS()) {

@@ -34,7 +34,8 @@ public class LjotItApp extends Application {
     
     @Override
     public void onCreate() {
-        Log.v(TAG, "onCreate()");
+        // TODO: Development use only - change Log.v to Log.i for debug on real devices
+        Log.i(TAG, "onCreate()");
         super.onCreate();
         mModel = new LjotItModel(getApplicationContext());
         registerActivityLifecycleCallbacks(mMainLockScreenReceiverManager);
@@ -76,7 +77,7 @@ public class LjotItApp extends Application {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            Log.v(TAG, "onActivityCreated()");
+            Log.i(TAG, "onActivityCreated()");
             if (!mLockScreenReceiverRegistered) {
                 AbstractLockScreenReceiver.registerToLockScreenChanges(LjotItApp.this, mLockScreenReceiver);
                 mLockScreenReceiverRegistered = true;
@@ -115,7 +116,7 @@ public class LjotItApp extends Application {
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            Log.v(TAG, "onActivityDestroyed()");
+            Log.i(TAG, "onActivityDestroyed()");
             // Unregister mLockScreenReceiver if MainActivity is gone
             //
             // Note: mLockScreenReceiver CANNOT be unregistered earlier, e.g., onStop().
@@ -167,7 +168,7 @@ public class LjotItApp extends Application {
 
         @Override
         protected void onLocked() {
-            Log.v(TAG, "MainLockScreenReceiver.onLocked()");
+            Log.i(TAG, "MainLockScreenReceiver.onLocked()");
             // hide the app when the screen is locked, so that it will not stay
             // on lock screen uninvited.
             if (getLatestActivity() != null) {
@@ -177,7 +178,7 @@ public class LjotItApp extends Application {
 
         @Override
         protected void onUnlocked() {
-            Log.v(TAG, "MainLockScreenReceiver.onUnlocked()");
+            Log.i(TAG, "MainLockScreenReceiver.onUnlocked()");
             if (mModel.isSendPostponed()) {
                 // Start MainActivity takes some noticeable delay
                 // Show a toast to let user know what to expect.

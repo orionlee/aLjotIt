@@ -60,10 +60,11 @@ public class LockScreenNotificationReceiver extends AbstractLockScreenReceiver {
 
     private Context mCurContext; // OPEN: move it to parameters of onLocked(), etc.
 
+    // TODO:  Development-use use only - use Log.i instead of Log.v for debugging lock screen notification not showing up in ASUS tablet
     public LockScreenNotificationReceiver() {
-        Log.v(TAG, "<init>");
+        Log.i(TAG, "<init>");
     }
-
+    
     @Override
     protected @NonNull String tag() { return TAG; }
 
@@ -77,13 +78,13 @@ public class LockScreenNotificationReceiver extends AbstractLockScreenReceiver {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onLocked() {
-        Log.v(TAG, "LockScreenNotificationReceiver.onLocked()");
+        Log.i(TAG, "LockScreenNotificationReceiver.onLocked()");
         showLockScreenNotification();
     }
 
     @Override
     protected void onUnlocked() {
-        Log.v(TAG, "LockScreenNotificationReceiver.onUnLocked()");
+        Log.i(TAG, "LockScreenNotificationReceiver.onUnLocked()");
         cancelLockScreenNotification();
     }
 
