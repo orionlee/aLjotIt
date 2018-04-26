@@ -23,6 +23,10 @@ public class LjotItModel {
 
     private static final String PREF_CONTENT = "content";
     private static final String PREF_CONTENT_CURSOR_IDX = "contentCursorIdx";
+
+    // preference file name for app states
+    private static final String P_STATES = P_CONTENT + "_states";
+
     private static final String PREF_STATE_SEND_POSTPONED = "SendPostponed";
     private static final String PREF_STATE_QS_TILE_ADDED = "qsTileAdded";
 
@@ -99,11 +103,11 @@ public class LjotItModel {
     }
 
     public boolean isSendPostponed() {
-        return getBooleanPref(P_CONTENT, PREF_STATE_SEND_POSTPONED, false);
+        return getBooleanPref(P_STATES, PREF_STATE_SEND_POSTPONED, false);
     }
 
     public void setSendPostponed(boolean isPostponed) {
-        setPref(P_CONTENT, PREF_STATE_SEND_POSTPONED, isPostponed);
+        setPref(P_STATES, PREF_STATE_SEND_POSTPONED, isPostponed);
     }
 
     /**
@@ -115,11 +119,11 @@ public class LjotItModel {
     }
 
     public boolean isQSTileAdded() {
-        return getBooleanPref(P_CONTENT, PREF_STATE_QS_TILE_ADDED, false);
+        return getBooleanPref(P_STATES, PREF_STATE_QS_TILE_ADDED, false);
     }
 
     public void setQSTileAdded(boolean added) {
-        setPref(P_CONTENT, PREF_STATE_QS_TILE_ADDED, added);
+        setPref(P_STATES, PREF_STATE_QS_TILE_ADDED, added);
     }
 
     // Access Settings
