@@ -93,6 +93,15 @@ public class IntroActivity extends AppIntro {
     @Override
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
+
+        // TODO: image dimension test, not meant for production
+        if (newFragment == null) { return; }
+        View imageView = newFragment.getView().findViewById(com.github.paolorotolo.appintro.R.id.image);
+        if (imageView != null) {
+            Log.v(TAG, "image dimension - raw: " +  imageView.getWidth() + "/"  + imageView.getHeight() +
+                     " ; measured: " + imageView.getMeasuredWidth() + "/" + imageView.getMeasuredHeight());
+        }
+
     }
 
     public void onNotShowAgainCheckboxClicked(View view) {
