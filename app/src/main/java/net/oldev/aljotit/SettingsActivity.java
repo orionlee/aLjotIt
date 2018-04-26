@@ -1,5 +1,6 @@
 package net.oldev.aljotit;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
@@ -179,6 +180,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
 
+        @SuppressLint("InlinedApi")
         private static boolean launchGPlayStoreToRate(@NonNull Context context) {
             // Adapted from: https://stackoverflow.com/a/10816846
 
@@ -212,7 +214,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // Without the delay, the dialog created in doPromptUsersToAddQSTileIfApplicable()
             // will be shown while the soft keyboard is still showing, distracting users.
             // the delay gives android system some time to hide the soft keyboard
-            new Handler().postDelayed(() -> doPromptUsersToAddQSTileIfApplicable(), 1000);
+            new Handler().postDelayed(this::doPromptUsersToAddQSTileIfApplicable, 1000);
         }
 
         private void doPromptUsersToAddQSTileIfApplicable() {

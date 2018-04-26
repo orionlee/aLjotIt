@@ -114,6 +114,7 @@ public class LjotItModel {
      *
      * @return true if Quick Settings Tile is supported by this device. It is NOT a setting.
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isQSTileSupported() {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N);
     }
@@ -271,6 +272,7 @@ public class LjotItModel {
         editor.apply();
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void removePref(@NonNull String prefName,
                             @NonNull String key) {
         SharedPreferences preferences = getPreferences(prefName);

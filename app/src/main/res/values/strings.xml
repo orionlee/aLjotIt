@@ -72,7 +72,7 @@
     <string name="prompt_add_qstile_title">Add to Quick Settings</string>
     <string name="prompt_add_qstile_msg">Consider to add LjotIt to Quick Settings, the recommended way to access LjotIt on lock screen.</string>
     <string name="label_open_quick_settings">Open Quick Settings</string>
-    <string name="text_ok">Ok</string>
+    <string name="text_ok">OK</string>
     <string name="text_do_not_show_again">Do not show again</string>
 
     <!-- Strings related to App Introduction -->
