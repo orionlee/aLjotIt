@@ -271,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(packageName) && !TextUtils.isEmpty(className)) {
             intent.setClassName(packageName, className);
+            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND); // mimic the intent created from Intent.createChooser()
         }  else { // Send-to activity not specified. Let user decides.
             // Customized chooser label
             String labelText = getString(R.string.label_send_to);

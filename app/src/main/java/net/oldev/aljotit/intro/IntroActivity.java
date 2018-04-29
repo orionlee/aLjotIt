@@ -77,6 +77,7 @@ public class IntroActivity extends AppIntro {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
+        //noinspection ConstantConditions
         currentFragment.getActivity().finish();
 
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -135,7 +136,7 @@ public class IntroActivity extends AppIntro {
 
         @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
             return inflater.inflate(mLayoutResId, container, false);
         }
@@ -221,8 +222,9 @@ public class IntroActivity extends AppIntro {
         private final Html.ImageGetter mImageGetter = new LSCImageGetter();
 
         @Override
-        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
+            //noinspection ConstantConditions
             LjotItModel model = LjotItApp.getApp(getActivity()).getModel();
 
             // Show information about 1) lock screen notifications, 2) quick settings
@@ -245,13 +247,10 @@ public class IntroActivity extends AppIntro {
 
                 // bind action to open quick settings panel button
                 View openQSPanelBtn = view.findViewById(R.id.intro_ls_conf_qs_btn);
-                openQSPanelBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean success = QSPanelUtil.expandQuickSettingsPanel(getActivity());
-                        Log.v(TAG, "Open Quick Settings Panel result: " + success);
-                        // OPEN: Consider show an message to users if opening it fails
-                    }
+                openQSPanelBtn.setOnClickListener(v -> {
+                    boolean success = QSPanelUtil.expandQuickSettingsPanel(getActivity());
+                    Log.v(TAG, "Open Quick Settings Panel result: " + success);
+                    // OPEN: Consider show an message to users if opening it fails
                 });
 
             }
@@ -263,9 +262,7 @@ public class IntroActivity extends AppIntro {
                         R.string.intro_ls_conf_lss_desc, null);
 
                 View openLSSPanelBtn = view.findViewById(R.id.intro_ls_conf_lss_btn);
-                openLSSPanelBtn.setOnClickListener(v -> {
-                    tryToOpenLockScreenSettings(getActivity());
-                });
+                openLSSPanelBtn.setOnClickListener(v -> tryToOpenLockScreenSettings(getActivity()));
             }
 
         }

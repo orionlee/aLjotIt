@@ -53,6 +53,7 @@ public class LockScreenSettingsUtil {
         safeStartActivity(context, fallbackIntent, "No other fallback.");
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static @NonNull Intent newIntentByClassName(@NonNull String packageName, @NonNull String className) {
         Intent intent = new Intent();
         intent.setClassName(packageName, className);

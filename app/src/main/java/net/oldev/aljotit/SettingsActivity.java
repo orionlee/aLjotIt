@@ -1,5 +1,6 @@
 package net.oldev.aljotit;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,6 +20,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 
@@ -30,6 +32,8 @@ import static net.oldev.aljotit.AppCompatPreferenceUtil.bindPreferenceSummaryToV
 // Simplified from Android Studio-generated template, which supports
 // a more complex two-pane(screen) UI.
 public class SettingsActivity extends AppCompatPreferenceActivity {
+
+    private static final String TAG = "LJI-Settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +183,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
 
+        @SuppressLint("InlinedApi")
         private static boolean launchGPlayStoreToRate(@NonNull Context context) {
             // Adapted from: https://stackoverflow.com/a/10816846
 
@@ -212,14 +217,31 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // Without the delay, the dialog created in doPromptUsersToAddQSTileIfApplicable()
             // will be shown while the soft keyboard is still showing, distracting users.
             // the delay gives android system some time to hide the soft keyboard
-            new Handler().postDelayed(() -> doPromptUsersToAddQSTileIfApplicable(), 1000);
+            new Handler().postDelayed(this::doPromptUsersToAddQSTileIfApplicable, 1000);
         }
 
         private void doPromptUsersToAddQSTileIfApplicable() {
+            // Due to the delay in invoking this method
+            // By the time it is invoked, there is a small chance that the user has already
+            // left SettingsActivity, resulting in NullPointerException in invoking getModel()
+            //
+            // This might happen intermittently with automatic crawling test, e.g., RoboTest
+            // to run the app, but in theory (however unlikely) it could also happen to regular users.
+            //
+            // The workaround is to get a hold of an instance of model.
+            // If it fails (i.e., user has already exited SettingsActivity), return silently.
+            LjotItModel model;
+            try {
+                model = getModel();
+            } catch (Throwable t) {
+                Log.w(TAG, "doPromptUsersToAddQSTileIfApplicable() - failure in getting a model, most likely because the user has exited Settings Activity", t);
+                return;
+            }
 
-            if (!getModel().isQSTileSupported() ||
-                    getModel().isQSTileAdded() ||
-                    !getModel().isShowAddQSTilePrompt()) {
+
+            if (!model.isQSTileSupported() ||
+                    model.isQSTileAdded() ||
+                    !model.isShowAddQSTilePrompt()) {
                 return;
             }
             // Else case QSTile is supported and it is not added, and the prompt is to be shown
@@ -234,7 +256,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                             (d, w) -> {
                                 CheckBox cb = ((Dialog)d).findViewById(R.id.chkbox_not_show_add_qstile_prompt);
                                 boolean showAddQSTilePrompt = !cb.isChecked();
-                                getModel().setShowAddQSTilePrompt(showAddQSTilePrompt);
+                                model.setShowAddQSTilePrompt(showAddQSTilePrompt);
                             })
                     .show();
         }

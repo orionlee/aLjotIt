@@ -1,5 +1,6 @@
 package net.oldev.aljotit;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -16,8 +17,8 @@ public class QSPanelUtil {
         // Adapted from
         // https://stackoverflow.com/a/15582509
         try {
-            Object sbservice = context.getSystemService("statusbar");
-            Class<?> statusbarManager = Class.forName("android.app.StatusBarManager");
+            @SuppressLint("WrongConstant") Object sbservice = context.getSystemService("statusbar");
+            @SuppressLint("PrivateApi") Class<?> statusbarManager = Class.forName("android.app.StatusBarManager");
             Method showsb;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 showsb = statusbarManager.getMethod("expandSettingsPanel");
