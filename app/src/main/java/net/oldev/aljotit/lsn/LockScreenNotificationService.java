@@ -2,6 +2,7 @@ package net.oldev.aljotit.lsn;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 
@@ -20,6 +21,7 @@ public class LockScreenNotificationService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+        logIWithFile(TAG, "onBind()");
         return null;
     }
 
@@ -45,7 +47,13 @@ public class LockScreenNotificationService extends Service {
 
     }
 
-    // NO-OP for onStartCommand, hence no override
+    // NO-OP for onStartCommand
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        logIWithFile(TAG, "onStartCommand()");
+        return super.onStartCommand(intent, flags, startId);
+    }
 
     @Override
     public void onDestroy() {
@@ -58,6 +66,30 @@ public class LockScreenNotificationService extends Service {
 
         LockScreenNotificationReceiver.unregisterFromLockScreenChanges(getApplicationContext(),
                                                                        mLockScreenNotificationReceiver);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        logIWithFile(TAG, "onConfigurationChanged()");
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onLowMemory() {
+        logIWithFile(TAG, "onLowMemory()");
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        logIWithFile(TAG, "onTrimMemory() , level=" + level);
+        super.onTrimMemory(level);
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        logIWithFile(TAG, "onTaskRemoved()");
+        super.onTaskRemoved(rootIntent);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
