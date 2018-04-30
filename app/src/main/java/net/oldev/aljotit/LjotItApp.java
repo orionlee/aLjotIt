@@ -3,6 +3,7 @@ package net.oldev.aljotit;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import net.oldev.aljotit.lsn.LockScreenNotificationService;
+
+import java.io.IOException;
 
 public class LjotItApp extends Application {
 
@@ -31,11 +34,11 @@ public class LjotItApp extends Application {
     public static LjotItApp getApp(@NonNull Service service) {
         return ((LjotItApp)service.getApplication());
     }
-    
+
     @Override
     public void onCreate() {
         // TODO: Development use only - change Log.v to Log.i for debug on real devices
-        Log.i(TAG, "onCreate()");
+        logIWithFile(TAG, "onCreate()");
         super.onCreate();
         mModel = new LjotItModel(getApplicationContext());
         registerActivityLifecycleCallbacks(mMainLockScreenReceiverManager);
@@ -77,7 +80,7 @@ public class LjotItApp extends Application {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            Log.i(TAG, "onActivityCreated()");
+            logIWithFile(TAG, "onActivityCreated()");
             if (!mLockScreenReceiverRegistered) {
                 AbstractLockScreenReceiver.registerToLockScreenChanges(LjotItApp.this, mLockScreenReceiver);
                 mLockScreenReceiverRegistered = true;
@@ -116,7 +119,7 @@ public class LjotItApp extends Application {
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            Log.i(TAG, "onActivityDestroyed()");
+            logIWithFile(TAG, "onActivityDestroyed()");
             // Unregister mLockScreenReceiver if MainActivity is gone
             //
             // Note: mLockScreenReceiver CANNOT be unregistered earlier, e.g., onStop().
@@ -151,7 +154,33 @@ public class LjotItApp extends Application {
     public LjotItModel getModel() {
         return mModel;
     }
-    
+
+    /**
+     * Wrapper around <code>Log.i()</code>, plus logging it to
+     * an external file in case logcat ignores the output
+     */
+    private  void logIWithFile(@NonNull String tag, @NonNull String msg) {
+        logIWithFile(this, tag, msg);
+    }
+
+    public static void logIWithFile(@NonNull Context context,
+                             @NonNull String tag, @NonNull String msg) {
+
+        Log.i(tag, msg); // Standard logcat log
+
+        // Log it to an external log file as well, as the log does not
+        // reliably show up in logcat in some devices (reason unknown)
+        //
+        // Note: It requires write to external storage permission.
+        // End users need to grant it on AppInfo screen manually, or the app will crash
+        try ( LogToFile logToFile = new LogToFile(context)) {
+            logToFile.i(tag, msg);
+        } catch (IOException e) {
+            Log.e(LogToFile.TAG, "Error in closing Log File", e);
+        }
+    }
+
+
     /**
      * Control MainActivity's UI behavior by listening to
      * whether the screen is locked / unlocked.
@@ -168,7 +197,7 @@ public class LjotItApp extends Application {
 
         @Override
         protected void onLocked() {
-            Log.i(TAG, "MainLockScreenReceiver.onLocked()");
+            logIWithFile(TAG, "MainLockScreenReceiver.onLocked()");
             // hide the app when the screen is locked, so that it will not stay
             // on lock screen uninvited.
             if (getLatestActivity() != null) {
@@ -178,7 +207,7 @@ public class LjotItApp extends Application {
 
         @Override
         protected void onUnlocked() {
-            Log.i(TAG, "MainLockScreenReceiver.onUnlocked()");
+            logIWithFile(TAG, "MainLockScreenReceiver.onUnlocked()");
             if (mModel.isSendPostponed()) {
                 // Start MainActivity takes some noticeable delay
                 // Show a toast to let user know what to expect.

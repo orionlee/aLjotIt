@@ -14,11 +14,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import net.oldev.aljotit.AbstractLockScreenReceiver;
+import net.oldev.aljotit.LjotItApp;
 import net.oldev.aljotit.LjotItModel;
 import net.oldev.aljotit.R;
 
@@ -62,7 +62,7 @@ public class LockScreenNotificationReceiver extends AbstractLockScreenReceiver {
 
     // TODO:  Development-use use only - use Log.i instead of Log.v for debugging lock screen notification not showing up in ASUS tablet
     public LockScreenNotificationReceiver() {
-        Log.i(TAG, "<init>");
+        logIWithFile(TAG, "<init>");
     }
     
     @Override
@@ -78,13 +78,13 @@ public class LockScreenNotificationReceiver extends AbstractLockScreenReceiver {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onLocked() {
-        Log.i(TAG, "LockScreenNotificationReceiver.onLocked()");
+        logIWithFile(TAG, "LockScreenNotificationReceiver.onLocked()");
         showLockScreenNotification();
     }
 
     @Override
     protected void onUnlocked() {
-        Log.i(TAG, "LockScreenNotificationReceiver.onUnLocked()");
+        logIWithFile(TAG, "LockScreenNotificationReceiver.onUnLocked()");
         cancelLockScreenNotification();
     }
 
@@ -243,6 +243,11 @@ public class LockScreenNotificationReceiver extends AbstractLockScreenReceiver {
         NotificationManager notifyMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notifyMgr.notify(LOCK_SCREEN_NOTIFICATION_ID, builder.build()); // builder.build() require jelly_bean
 
+    }
+
+
+    private void logIWithFile(@NonNull String tag, @NonNull String msg) {
+        LjotItApp.logIWithFile(mCurContext, tag, msg);
     }
 
 }

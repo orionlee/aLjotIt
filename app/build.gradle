@@ -9,7 +9,7 @@ android {
         def vMajor = 0
         def vMinor = 6
         def vPatch = 2
-        def vNameSuffix = '' // an optional, descriptive suffix on versionName used sparingly
+        def vNameSuffix = '-lsnDebug' // an optional, descriptive suffix on versionName used sparingly
         versionCode vMajor * 10000 + vMinor * 100 + vPatch
         versionName "${vMajor}.${vMinor}.${vPatch}${vNameSuffix}"
 

@@ -23,7 +23,8 @@ public abstract class AbstractLockScreenReceiver extends BroadcastReceiver {
     private boolean mScreenLocked = false;
 
     // TODO: Development-use use only - Log.i instead of Log.i for debugging lock screen notification not showing up in ASUS tablet
-    
+    private Context mCtxOnReceive; // used by logIWithFile
+
     /**
      * @return the TAG used for logging purposes
      */
@@ -31,17 +32,18 @@ public abstract class AbstractLockScreenReceiver extends BroadcastReceiver {
     
     @Override
     public void onReceive(Context context, Intent intent) {
+        mCtxOnReceive = context;
         if (intent != null && intent.getAction() != null)
         {
             //noinspection SimplifiableIfStatement
             if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
             {
                 // Screen is on but not unlocked (if any locking mechanism present)
-                Log.i(tag(), "[SCREEN_ON]");
+                logIWithFile(tag(), "[SCREEN_ON]");
                 if (mLastIntent != null && mLastIntent.getAction() != null &&
                         mLastIntent.getAction().equals(Intent.ACTION_USER_PRESENT) &&
                         mLastIntentTimestamp > System.currentTimeMillis() - 2000) {
-                    Log.i(tag(), "  SCREEN_ON ignored: USER_PRESENT was just sent, indicating it is ON due to using fingerprint (or other non-visual one such as voice) unlocking ");
+                    logIWithFile(tag(), "  SCREEN_ON ignored: USER_PRESENT was just sent, indicating it is ON due to using fingerprint (or other non-visual one such as voice) unlocking ");
                     return;
                 } else {
                     // normal case
@@ -51,7 +53,7 @@ public abstract class AbstractLockScreenReceiver extends BroadcastReceiver {
             else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
             {
                 // Screen is locked, (technically, becomes non-interactive, screen might still be on)
-                Log.i(tag(), "[SCREEN_OFF]");
+                logIWithFile(tag(), "[SCREEN_OFF]");
                 if (!mScreenLocked) {
                     mScreenLocked = true;
                     onLocked();
@@ -74,13 +76,13 @@ public abstract class AbstractLockScreenReceiver extends BroadcastReceiver {
                     //
                     // The logic here prevents onLocked() being invoked again, thus preventing lockscreen notification being
                     // shown again.
-                    Log.i(tag(), "  SCREEN_OFF ignored: the screen has already been locked. The user just turns off the screen after seeing the lock screen (without any unlock).");
+                    logIWithFile(tag(), "  SCREEN_OFF ignored: the screen has already been locked. The user just turns off the screen after seeing the lock screen (without any unlock).");
                 }
             }
             else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
             {
                 // Screen is unlocked
-                Log.i(tag(), "[USER_PRESENT]");
+                logIWithFile(tag(), "[USER_PRESENT]");
                 mScreenLocked = false;
                 onUnlocked();
             } else {
@@ -125,6 +127,10 @@ public abstract class AbstractLockScreenReceiver extends BroadcastReceiver {
                                                        @NonNull AbstractLockScreenReceiver receiver) {
         Log.i(receiver.tag(), "unregisterFromLockScreenChanges()");
         ctx.unregisterReceiver(receiver);
+    }
+
+    private void logIWithFile(@NonNull String tag, @NonNull String msg) {
+        LjotItApp.logIWithFile(mCtxOnReceive, tag, msg);
     }
 
 }

@@ -3,7 +3,7 @@ package net.oldev.aljotit.lsn;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
+import android.support.annotation.NonNull;
 
 import net.oldev.aljotit.LjotItApp;
 
@@ -15,7 +15,7 @@ public class LockScreenNotificationService extends Service {
 
     // TODO:  Development-use use only - change Log.v to Log.i for debug on real devices
     public LockScreenNotificationService() {
-        Log.i(TAG, "<init>");
+        logIWithFile(TAG, "<init>");
     }
 
     @Override
@@ -25,7 +25,7 @@ public class LockScreenNotificationService extends Service {
 
     @Override
     public void onCreate() {
-        Log.i(TAG, "onCreate()");
+        logIWithFile(TAG, "onCreate()");
         super.onCreate();
 
         // Skip all the work if the Android version does not support lock screen notifications
@@ -49,7 +49,7 @@ public class LockScreenNotificationService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.i(TAG, "onDestroy()");
+        logIWithFile(TAG, "onDestroy()");
         super.onDestroy();
 
         if (!isSupportedByOS()) {
@@ -63,6 +63,10 @@ public class LockScreenNotificationService extends Service {
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isSupportedByOS() {
         return LjotItApp.getApp(this).getModel().isLockScreenNotificationSupported();
+    }
+
+    private void logIWithFile(@NonNull String tag, @NonNull String msg) {
+        LjotItApp.logIWithFile(this, tag, msg);
     }
     
 }
