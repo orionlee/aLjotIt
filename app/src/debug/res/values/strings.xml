@@ -3,4 +3,5 @@
     <!--override default name for ease of identification -->
     <string name="app_name">LjotIt Dev</string>
     <string name="tile_name">LjotIt Dev</string>
+    <string name="share_receiver_name">Add to LjotIt Dev</string>    
 </resources>
