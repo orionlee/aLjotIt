@@ -2,6 +2,7 @@ package net.oldev.aljotit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -31,6 +32,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import net.oldev.aljotit.intro.IntroActivity;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -193,12 +196,31 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         String content = mScratchPad.getText().toString();
         mModel.setContentWithCursorIdx(content, mScratchPad.getSelectionStart());
+
+        boolean toExcludeFromRecents = TextUtils.isEmpty(content);
+        setExcludeFromRecents(toExcludeFromRecents);
     }
 
     @Override
     protected void onDestroy() {
         Log.v(TAG, "onDestroy()");
         super.onDestroy();
+    }
+
+    private void setExcludeFromRecents(boolean toExcludeFromRecents) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
+            return;
+        }
+
+        Log.v(TAG, "  setExcludeFromRecents()  toExcludeFromRecents: " + toExcludeFromRecents);
+        ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        if(am != null) {
+            List<ActivityManager.AppTask> tasks = null;
+                tasks = am.getAppTasks();
+            if (tasks != null && tasks.size() > 0) {
+                tasks.get(0).setExcludeFromRecents(toExcludeFromRecents);
+            }
+        }
     }
 
     //

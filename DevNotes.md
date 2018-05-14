@@ -64,15 +64,12 @@ It just pushes further the stack.
   - [x] Try to aide users to configure lock screen shortcuts 
 - [x] Further remind users to configure quick settings tile, if not added.
   
-- [ ] Play store listing polish
-  - [ ] Update feature graphics and screenshots
-  - [ ] Add tablet screenshots (7" and 10")
-  - [ ] Update descriptions
+- [x] Play store listing polish
+  - [x] Update feature graphics and screenshots
+  - [x] Add tablet screenshots (7" and 10")
+  - [x] Update descriptions
 
 - [x] links to rate on play store
-
-- [ ] (BUG) on my tablet, lock screen notification does not work after MainActivity is destroyed (user flow: user removes the app from recent app list).
-  - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
 
 ## Beta Maybe
 - [ ] App Introduction further tweak
@@ -94,6 +91,10 @@ It just pushes further the stack.
 
 - [ ] Specify app backup, maybe in `<application fullBackupContent="..."`
 
+- [ ] (BUG) on my tablet, lock screen notification does not work after MainActivity is destroyed (user flow: user removes the app from recent app list).
+  - It seems as if after MainActivity unregisters its receiver (MainLockScreenReceiver), LockScreenNotificationReceiver ceases working, even though logcat does not indicate LsnR has been unregiseterd.
+
+- [x] Reduce distraction: exclude the app from recent apps list if there is no content.
 
 ## Post Beta - Unscheduled 
 - [ ] Lock Screen Notification refinement
